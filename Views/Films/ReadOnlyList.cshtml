@@ -1,0 +1,97 @@
+﻿@model IEnumerable<MBDBapp.Film>
+
+@{
+    ViewBag.Title = "All films";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>All Films</h2>
+
+<hr />
+
+<table id="filmsTable" class="table table-bordered table-hover table-striped">
+    <thead>
+        <tr>
+            <th>Movie</th>
+            <th>Year</th>
+            <th>Director</th>
+            <th>Actors</th>
+            <th>Synopsis</th>
+            <th>Runtime (min)</th>
+            <th>Oscar Nominations</th>
+            <th>Oscar Wins</th>
+        </tr>
+    </thead>
+</table>
+
+@section scripts 
+{
+    <script>
+        $(document).ready(() => {
+
+            let table = $("#filmsTable").DataTable(
+                {
+                    ajax: {
+                        url: '/api/films',
+                        dataSrc: ''
+                    },
+                    columnDefs: [
+                        {"width" : "100px", targets: 3}
+                    ],
+                    columns: [
+                        {
+                            data: "filmName",
+                            render: (data, type, film) => {
+                                return "<a href = '/films/details/" + film.filmID + "' target='_blank'>" + data + "</a>";
+                            }
+                        },
+                        {
+                            data: "filmReleaseDate",
+                            render: (data, type, film) => {
+                                return data.slice(0, 4);
+                            }
+                        },
+                        {
+                            data: "director.directorName"
+                        },
+                        {
+                            data: "castMembers",
+                            render: (data, type, film) => {
+                                let actors = "";
+
+                                for (let i = 0; i< data.length && i < 3; i++) {
+
+                                    actors += data[i].actor.actorName;
+                                    actors += "<br/>"
+                                }
+
+                                // list up to 3 known actors actors
+                                
+                            return actors;
+                        }
+                    },
+
+                    {
+                        data: "filmSynopsis"
+                    },
+                    {
+                        data: "filmRunTimeMinutes"
+                    },
+                    {
+                        data: "filmOscarNominations"
+                     },
+                    {
+                        data: "filmOscarWins"
+                    }
+                ]
+                }
+            );
+
+        })
+
+
+    </script>    
+    
+    
+    
+}

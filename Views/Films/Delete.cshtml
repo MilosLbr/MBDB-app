@@ -1,0 +1,128 @@
+﻿@model MBDBapp.Film
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this Film?</h3>
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.FilmName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FilmName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FilmReleaseDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FilmReleaseDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FilmSynopsis)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FilmSynopsis)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FilmRunTimeMinutes)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FilmRunTimeMinutes)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FilmBudgetDollars)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FilmBudgetDollars)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FilmBoxOfficeDollars)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FilmBoxOfficeDollars)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FilmOscarNominations)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FilmOscarNominations)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FilmOscarWins)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FilmOscarWins)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.tblCertificate.Certificate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.tblCertificate.Certificate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.tblCountry.CountryName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.tblCountry.CountryName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.tblDirector.DirectorName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.tblDirector.DirectorName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.tblLanguage.Language)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.tblLanguage.Language)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.tblStudio.StudioName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.tblStudio.StudioName)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

@@ -1,0 +1,104 @@
+﻿@model MBDBapp.Models.Dto.FilmDto
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2 class="text-center">@Model.FilmName (@Model.FilmReleaseDate.Year)</h2>
+
+
+<hr />
+
+<div>
+    <div id="mainInfo" class="mainInfo row  justify-content-around">
+        <div class="col-md-5">
+            <img class="img-responsive" src="" alt="Alternate Text" />
+        </div>
+        
+        <div class="col-md-6 flex-column justify-content-bw">
+            <h4 class="text-center" id="genres" style="font-weight :bolder "></h4>
+            <p>
+                @Model.FilmSynopsis
+            </p>
+
+            <p>
+                <strong>Runtime: &nbsp;</strong>@Model.FilmRunTimeMinutes min
+            </p>
+
+            <div id="ratings" class="raiting row">
+                <strong class="col-md-4">IMDB: </strong>
+                <strong class="col-md-4">Rotten Tomatoes: </strong>
+                <strong class="col-md-4">Metacritic: </strong>
+            </div>
+
+            <p>
+                <strong>Director:</strong> @Model.Director.DirectorName
+            </p>
+
+
+
+            <p>
+                @if (Model.CastMembers.Count != 0)
+                {
+                    var actors = Model.CastMembers.Select(c => c.Actor.ActorName);
+
+                    var allActors = "";
+                    foreach (var actor in actors)
+                    {
+                        allActors += actor + ", ";
+                    }
+
+                    allActors = string.Join("", allActors.Take(allActors.Length - 2));
+
+                    <strong>Actors:</strong><span>&nbsp;@allActors</span>
+
+                }
+
+            </p>
+
+
+            <ul>
+                <li><strong>Budget:&nbsp;</strong>@Model.FilmBudgetDollars$</li>
+                <li><strong>Box office:&nbsp;</strong>@Model.FilmBoxOfficeDollars$</li>
+                <li><strong>Oscar Nominations:&nbsp;</strong>@Model.FilmOscarNominations</li>
+                <li><strong>Oscar Wins:&nbsp;</strong>@Model.FilmOscarWins</li>
+
+            </ul>
+        </div>
+
+    </div>
+</div>
+<p>
+    @Html.ActionLink("Back to List", "Index")
+</p>
+
+@section scripts
+{
+    
+    <script>
+        $(document).ready(() => {
+            const baseUrl = "https://www.omdbapi.com/?apikey=e0fb59d&t=";
+
+            let movieName = '@Html.Raw(Model.FilmName)';
+
+            $.ajax({
+                url: baseUrl + movieName,
+            }).then(data => {
+                console.log(data);
+                $("#genres").html(data.Genre)
+
+                $("#mainInfo img").attr('src', data.Poster);
+
+                $("#ratings").children().each((ind, elem) => {
+                    console.log(elem, ' going to set ', data.Ratings[ind])
+                    elem.innerText += " " + data.Ratings[ind].Value;
+                });
+
+            })
+
+        })
+
+    </script>
+    
+}

@@ -1,0 +1,85 @@
+﻿@model IEnumerable<MBDBapp.Film>
+
+@{
+    ViewBag.Title = "All films";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>All Films</h2>
+
+<p>
+    @Html.ActionLink("Insert New Film", "Create")
+</p>
+<table class="table" id="filmsTable">
+    <tr>
+        <th>
+            Film Name
+        </th>
+        <th>
+            Release Year
+        </th>
+        <th>
+            Synopsis
+        </th>
+        <th>
+            Runtime (min)
+        </th>
+
+        <th>
+            Oscar Nominations
+        </th>
+        <th>
+            Oscar Wins
+        </th>
+
+        <th>
+            Director
+        </th>
+
+        <th>Actions</th>
+    </tr>
+
+    @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+
+                    @Html.ActionLink(item.FilmName, "Details", new { id = item.FilmID }, new { target ="_blank"})
+                </td>
+                <td>
+                    @{
+                        int dateShortValue = DateTime.Parse( item.FilmReleaseDate.ToString())
+                           .Year;
+                    }
+                    @Html.DisplayFor(modelItem => dateShortValue)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FilmSynopsis)
+                </td>
+                <td>
+
+                    @Html.DisplayFor(modelItem => item.FilmRunTimeMinutes)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.FilmOscarNominations)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FilmOscarWins)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.tblDirector.DirectorName)
+                </td>
+
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id=item.FilmID }) |
+                    @Html.ActionLink("Details", "Details", new { id=item.FilmID }) |
+                    @Html.ActionLink("Delete", "Delete", new { id=item.FilmID })
+                </td>
+            </tr>
+        }
+
+</table>
+
+
