@@ -180,7 +180,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Actor.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
+      <DependentUpon>MoviesDbModel.tt</DependentUpon>
     </Compile>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
@@ -189,8 +189,20 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="AspNetRole.cs">
+      <DependentUpon>MoviesDbModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AspNetUser.cs">
+      <DependentUpon>MoviesDbModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AspNetUserClaim.cs">
+      <DependentUpon>MoviesDbModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AspNetUserLogin.cs">
+      <DependentUpon>MoviesDbModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Cast.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
+      <DependentUpon>MoviesDbModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\Api\FilmsController.cs" />
@@ -198,34 +210,22 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Country.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
+      <DependentUpon>MoviesDbModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="C__MigrationHistory.cs">
+      <DependentUpon>MoviesDbModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Director.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
+      <DependentUpon>MoviesDbModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Film.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
+      <DependentUpon>MoviesDbModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Genre.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
+      <DependentUpon>MoviesDbModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
-    </Compile>
-    <Compile Include="Model1.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Model1.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Model1.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Model1.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Model1.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Model1.edmx</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Dto\ActorDto.cs" />
@@ -236,20 +236,37 @@
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\ModelMetadata.cs" />
     <Compile Include="Models\RoleNames.cs" />
+    <Compile Include="MoviesDbModel.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MoviesDbModel.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="MoviesDbModel.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MoviesDbModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="MoviesDbModel.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MoviesDbModel.edmx</DependentUpon>
+    </Compile>
     <Compile Include="PartialClasses.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="Studio.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
+      <DependentUpon>MoviesDbModel.tt</DependentUpon>
     </Compile>
     <Compile Include="tblCertificate.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
+      <DependentUpon>MoviesDbModel.tt</DependentUpon>
     </Compile>
     <Compile Include="tblLanguage.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
+      <DependentUpon>MoviesDbModel.tt</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Content Include=".gitattributes" />
+    <Content Include=".gitignore" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
@@ -415,28 +432,28 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
-    <Content Include="Model1.Context.tt">
+    <Content Include="MoviesDbModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>Model1.edmx</DependentUpon>
-      <LastGenOutput>Model1.Context.cs</LastGenOutput>
+      <DependentUpon>MoviesDbModel.edmx</DependentUpon>
+      <LastGenOutput>MoviesDbModel.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="Model1.tt">
+    <Content Include="MoviesDbModel.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>Model1.edmx</DependentUpon>
-      <LastGenOutput>Model1.cs</LastGenOutput>
+      <DependentUpon>MoviesDbModel.edmx</DependentUpon>
+      <LastGenOutput>MoviesDbModel.cs</LastGenOutput>
     </Content>
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
-    <EntityDeploy Include="Model1.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>Model1.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <Content Include="Model1.edmx.diagram">
-      <DependentUpon>Model1.edmx</DependentUpon>
-    </Content>
     <Content Include="Content\DataTables\css\semanticui.scss" />
     <Content Include="Content\DataTables\css\mixins.scss" />
     <Content Include="Content\DataTables\css\common.scss" />
+    <EntityDeploy Include="MoviesDbModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>MoviesDbModel.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="MoviesDbModel.edmx.diagram">
+      <DependentUpon>MoviesDbModel.edmx</DependentUpon>
+    </Content>
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\DataTables\autoFill.bootstrap.js" />
     <Content Include="Scripts\DataTables\autoFill.bootstrap.min.js" />

@@ -22,18 +22,18 @@ namespace MBDBapp
     
         public int FilmID { get; set; }
         public string FilmName { get; set; }
-        public System.DateTime FilmReleaseDate { get; set; }
-        public int FilmDirectorID { get; set; }
-        public int FilmLanguageID { get; set; }
-        public int FilmCountryID { get; set; }
+        public Nullable<System.DateTime> FilmReleaseDate { get; set; }
+        public Nullable<int> FilmDirectorID { get; set; }
+        public Nullable<int> FilmLanguageID { get; set; }
+        public Nullable<int> FilmCountryID { get; set; }
         public Nullable<int> FilmStudioID { get; set; }
         public string FilmSynopsis { get; set; }
-        public int FilmRunTimeMinutes { get; set; }
+        public Nullable<int> FilmRunTimeMinutes { get; set; }
         public Nullable<long> FilmCertificateID { get; set; }
         public Nullable<int> FilmBudgetDollars { get; set; }
         public Nullable<int> FilmBoxOfficeDollars { get; set; }
-        public int FilmOscarNominations { get; set; }
-        public int FilmOscarWins { get; set; }
+        public Nullable<int> FilmOscarNominations { get; set; }
+        public Nullable<int> FilmOscarWins { get; set; }
     
         public virtual tblCertificate tblCertificate { get; set; }
         public virtual Country tblCountry { get; set; }

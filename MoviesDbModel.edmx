@@ -5,6 +5,67 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="MoviesModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="__MigrationHistory">
+          <Key>
+            <PropertyRef Name="MigrationId" />
+            <PropertyRef Name="ContextKey" />
+          </Key>
+          <Property Name="MigrationId" Type="nvarchar" MaxLength="150" Nullable="false" />
+          <Property Name="ContextKey" Type="nvarchar" MaxLength="300" Nullable="false" />
+          <Property Name="Model" Type="varbinary(max)" Nullable="false" />
+          <Property Name="ProductVersion" Type="nvarchar" MaxLength="32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AspNetRoles">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="256" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AspNetUserClaims">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="ClaimType" Type="nvarchar(max)" />
+          <Property Name="ClaimValue" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="AspNetUserLogins">
+          <Key>
+            <PropertyRef Name="LoginProvider" />
+            <PropertyRef Name="ProviderKey" />
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="LoginProvider" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="ProviderKey" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AspNetUserRoles">
+          <Key>
+            <PropertyRef Name="UserId" />
+            <PropertyRef Name="RoleId" />
+          </Key>
+          <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="RoleId" Type="nvarchar" MaxLength="128" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AspNetUsers">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="Email" Type="nvarchar" MaxLength="256" />
+          <Property Name="EmailConfirmed" Type="bit" Nullable="false" />
+          <Property Name="PasswordHash" Type="nvarchar(max)" />
+          <Property Name="SecurityStamp" Type="nvarchar(max)" />
+          <Property Name="PhoneNumber" Type="nvarchar(max)" />
+          <Property Name="PhoneNumberConfirmed" Type="bit" Nullable="false" />
+          <Property Name="TwoFactorEnabled" Type="bit" Nullable="false" />
+          <Property Name="LockoutEndDateUtc" Type="datetime" />
+          <Property Name="LockoutEnabled" Type="bit" Nullable="false" />
+          <Property Name="AccessFailedCount" Type="int" Nullable="false" />
+          <Property Name="UserName" Type="nvarchar" MaxLength="256" Nullable="false" />
+        </EntityType>
         <EntityType Name="tblActor">
           <Key>
             <PropertyRef Name="ActorID" />
@@ -50,20 +111,20 @@
           <Key>
             <PropertyRef Name="FilmID" />
           </Key>
-          <Property Name="FilmID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="FilmName" Type="nvarchar" MaxLength="255" Nullable="false" />
-          <Property Name="FilmReleaseDate" Type="datetime" Nullable="false" />
-          <Property Name="FilmDirectorID" Type="int" Nullable="false" />
-          <Property Name="FilmLanguageID" Type="int" Nullable="false" />
-          <Property Name="FilmCountryID" Type="int" Nullable="false" />
+          <Property Name="FilmID" Type="int" Nullable="false" />
+          <Property Name="FilmName" Type="nvarchar" MaxLength="255" />
+          <Property Name="FilmReleaseDate" Type="datetime" />
+          <Property Name="FilmDirectorID" Type="int" />
+          <Property Name="FilmLanguageID" Type="int" />
+          <Property Name="FilmCountryID" Type="int" />
           <Property Name="FilmStudioID" Type="int" />
-          <Property Name="FilmSynopsis" Type="nvarchar(max)" Nullable="false" />
-          <Property Name="FilmRunTimeMinutes" Type="int" Nullable="false" />
+          <Property Name="FilmSynopsis" Type="nvarchar(max)" />
+          <Property Name="FilmRunTimeMinutes" Type="int" />
           <Property Name="FilmCertificateID" Type="bigint" />
           <Property Name="FilmBudgetDollars" Type="int" />
           <Property Name="FilmBoxOfficeDollars" Type="int" />
-          <Property Name="FilmOscarNominations" Type="int" Nullable="false" />
-          <Property Name="FilmOscarWins" Type="int" Nullable="false" />
+          <Property Name="FilmOscarNominations" Type="int" />
+          <Property Name="FilmOscarWins" Type="int" />
         </EntityType>
         <EntityType Name="tblGenre">
           <Key>
@@ -86,6 +147,62 @@
           <Property Name="StudioID" Type="int" Nullable="false" />
           <Property Name="StudioName" Type="nvarchar" MaxLength="255" />
         </EntityType>
+        <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AspNetUserClaims" Type="Self.AspNetUserClaims" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserClaims">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AspNetUserLogins" Type="Self.AspNetUserLogins" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserLogins">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AspNetUserRoles_dbo_AspNetRoles_RoleId">
+          <End Role="AspNetRoles" Type="Self.AspNetRoles" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AspNetUserRoles" Type="Self.AspNetUserRoles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetRoles">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserRoles">
+              <PropertyRef Name="RoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AspNetUserRoles" Type="Self.AspNetUserRoles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserRoles">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_tblCast_tblActor">
           <End Role="tblActor" Type="Self.tblActor" Multiplicity="0..1">
             <OnDelete Action="Cascade" />
@@ -101,7 +218,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_tblCast_tblFilm">
-          <End Role="tblFilm" Type="Self.tblFilm" Multiplicity="0..1" />
+          <End Role="tblFilm" Type="Self.tblFilm" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="tblCast" Type="Self.tblCast" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="tblFilm">
@@ -125,7 +244,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_tblFilm_tblCountry">
-          <End Role="tblCountry" Type="Self.tblCountry" Multiplicity="1" />
+          <End Role="tblCountry" Type="Self.tblCountry" Multiplicity="0..1" />
           <End Role="tblFilm" Type="Self.tblFilm" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="tblCountry">
@@ -137,7 +256,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_tblFilm_tblDirector">
-          <End Role="tblDirector" Type="Self.tblDirector" Multiplicity="1" />
+          <End Role="tblDirector" Type="Self.tblDirector" Multiplicity="0..1" />
           <End Role="tblFilm" Type="Self.tblFilm" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="tblDirector">
@@ -149,7 +268,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_tblFilm_tblLanguage">
-          <End Role="tblLanguage" Type="Self.tblLanguage" Multiplicity="1" />
+          <End Role="tblLanguage" Type="Self.tblLanguage" Multiplicity="0..1" />
           <End Role="tblFilm" Type="Self.tblFilm" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="tblLanguage">
@@ -173,6 +292,12 @@
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="MoviesModelStoreContainer">
+          <EntitySet Name="__MigrationHistory" EntityType="Self.__MigrationHistory" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNetRoles" EntityType="Self.AspNetRoles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNetUserClaims" EntityType="Self.AspNetUserClaims" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNetUserLogins" EntityType="Self.AspNetUserLogins" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNetUserRoles" EntityType="Self.AspNetUserRoles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUsers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblActor" EntityType="Self.tblActor" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblCast" EntityType="Self.tblCast" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblCertificate" EntityType="Self.tblCertificate" Schema="dbo" store:Type="Tables" />
@@ -182,6 +307,22 @@
           <EntitySet Name="tblGenre" EntityType="Self.tblGenre" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblLanguage" EntityType="Self.tblLanguage" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblStudio" EntityType="Self.tblStudio" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserClaims" EntitySet="AspNetUserClaims" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserLogins" EntitySet="AspNetUserLogins" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AspNetUserRoles_dbo_AspNetRoles_RoleId" Association="Self.FK_dbo_AspNetUserRoles_dbo_AspNetRoles_RoleId">
+            <End Role="AspNetRoles" EntitySet="AspNetRoles" />
+            <End Role="AspNetUserRoles" EntitySet="AspNetUserRoles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserRoles" EntitySet="AspNetUserRoles" />
+          </AssociationSet>
           <AssociationSet Name="FK_tblCast_tblActor" Association="Self.FK_tblCast_tblActor">
             <End Role="tblActor" EntitySet="tblActor" />
             <End Role="tblCast" EntitySet="tblCast" />
@@ -215,6 +356,65 @@
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="MoviesModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="C__MigrationHistory">
+          <Key>
+            <PropertyRef Name="MigrationId" />
+            <PropertyRef Name="ContextKey" />
+          </Key>
+          <Property Name="MigrationId" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ContextKey" Type="String" MaxLength="300" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Model" Type="Binary" MaxLength="Max" FixedLength="false" Nullable="false" />
+          <Property Name="ProductVersion" Type="String" MaxLength="32" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AspNetRole">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="AspNetUsers" Relationship="Self.AspNetUserRoles" FromRole="AspNetRoles" ToRole="AspNetUsers" />
+        </EntityType>
+        <EntityType Name="AspNetUserClaim">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ClaimType" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ClaimValue" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AspNetUser" Relationship="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" FromRole="AspNetUserClaims" ToRole="AspNetUsers" />
+        </EntityType>
+        <EntityType Name="AspNetUserLogin">
+          <Key>
+            <PropertyRef Name="LoginProvider" />
+            <PropertyRef Name="ProviderKey" />
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="LoginProvider" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ProviderKey" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="UserId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="AspNetUser" Relationship="Self.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUserLogins" ToRole="AspNetUsers" />
+        </EntityType>
+        <EntityType Name="AspNetUser">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="EmailConfirmed" Type="Boolean" Nullable="false" />
+          <Property Name="PasswordHash" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="SecurityStamp" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PhoneNumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PhoneNumberConfirmed" Type="Boolean" Nullable="false" />
+          <Property Name="TwoFactorEnabled" Type="Boolean" Nullable="false" />
+          <Property Name="LockoutEndDateUtc" Type="DateTime" Precision="3" />
+          <Property Name="LockoutEnabled" Type="Boolean" Nullable="false" />
+          <Property Name="AccessFailedCount" Type="Int32" Nullable="false" />
+          <Property Name="UserName" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="AspNetUserClaims" Relationship="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" FromRole="AspNetUsers" ToRole="AspNetUserClaims" />
+          <NavigationProperty Name="AspNetUserLogins" Relationship="Self.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUsers" ToRole="AspNetUserLogins" />
+          <NavigationProperty Name="AspNetRoles" Relationship="Self.AspNetUserRoles" FromRole="AspNetUsers" ToRole="AspNetRoles" />
+        </EntityType>
         <EntityType Name="Actor">
           <Key>
             <PropertyRef Name="ActorID" />
@@ -267,23 +467,23 @@
             <PropertyRef Name="FilmID" />
           </Key>
           <Property Name="FilmID" Type="Int32" Nullable="false" />
-          <Property Name="FilmName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="FilmReleaseDate" Type="DateTime" Precision="3" Nullable="false" />
-          <Property Name="FilmDirectorID" Type="Int32" Nullable="false" />
-          <Property Name="FilmLanguageID" Type="Int32" Nullable="false" />
-          <Property Name="FilmCountryID" Type="Int32" Nullable="false" />
+          <Property Name="FilmName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="FilmReleaseDate" Type="DateTime" Precision="3" />
+          <Property Name="FilmDirectorID" Type="Int32" />
+          <Property Name="FilmLanguageID" Type="Int32" />
+          <Property Name="FilmCountryID" Type="Int32" />
           <Property Name="FilmStudioID" Type="Int32" />
-          <Property Name="FilmSynopsis" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="FilmRunTimeMinutes" Type="Int32" Nullable="false" />
+          <Property Name="FilmSynopsis" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="FilmRunTimeMinutes" Type="Int32" />
           <Property Name="FilmCertificateID" Type="Int64" />
           <Property Name="FilmBudgetDollars" Type="Int32" />
           <Property Name="FilmBoxOfficeDollars" Type="Int32" />
-          <Property Name="FilmOscarNominations" Type="Int32" Nullable="false" />
-          <Property Name="FilmOscarWins" Type="Int32" Nullable="false" />
+          <Property Name="FilmOscarNominations" Type="Int32" />
+          <Property Name="FilmOscarWins" Type="Int32" />
           <NavigationProperty Name="tblCertificate" Relationship="Self.FK_tblFilm_tblCertificate" FromRole="tblFilm" ToRole="tblCertificate" />
-          <NavigationProperty Name="tblCountry" Relationship="MoviesModel.FK_tblFilm_tblCountry" FromRole="tblFilm" ToRole="tblCountry" />
-          <NavigationProperty Name="tblDirector" Relationship="MoviesModel.FK_tblFilm_tblDirector" FromRole="tblFilm" ToRole="tblDirector" />
-          <NavigationProperty Name="tblLanguage" Relationship="MoviesModel.FK_tblFilm_tblLanguage" FromRole="tblFilm" ToRole="tblLanguage" />
+          <NavigationProperty Name="tblCountry" Relationship="Self.FK_tblFilm_tblCountry" FromRole="tblFilm" ToRole="tblCountry" />
+          <NavigationProperty Name="tblDirector" Relationship="Self.FK_tblFilm_tblDirector" FromRole="tblFilm" ToRole="tblDirector" />
+          <NavigationProperty Name="tblLanguage" Relationship="Self.FK_tblFilm_tblLanguage" FromRole="tblFilm" ToRole="tblLanguage" />
           <NavigationProperty Name="tblStudio" Relationship="Self.FK_tblFilm_tblStudio1" FromRole="tblFilm" ToRole="tblStudio" />
           <NavigationProperty Name="tblCasts" Relationship="MoviesModel.FK_tblCast_tblFilm" FromRole="Film" ToRole="Cast" />
         </EntityType>
@@ -310,6 +510,34 @@
           <Property Name="StudioName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="tblFilms" Relationship="Self.FK_tblFilm_tblStudio1" FromRole="tblStudio" ToRole="tblFilm" />
         </EntityType>
+        <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
+          <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AspNetUserClaims" Type="Self.AspNetUserClaim" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserClaims">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+          <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AspNetUserLogins" Type="Self.AspNetUserLogin" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserLogins">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_tblFilm_tblCertificate">
           <End Role="tblCertificate" Type="Self.tblCertificate" Multiplicity="0..1" />
           <End Role="tblFilm" Type="MoviesModel.Film" Multiplicity="*" />
@@ -323,7 +551,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_tblFilm_tblCountry">
-          <End Role="tblCountry" Type="MoviesModel.Country" Multiplicity="1" />
+          <End Role="tblCountry" Type="MoviesModel.Country" Multiplicity="0..1" />
           <End Role="tblFilm" Type="MoviesModel.Film" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="tblCountry">
@@ -335,7 +563,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_tblFilm_tblDirector">
-          <End Role="tblDirector" Type="MoviesModel.Director" Multiplicity="1" />
+          <End Role="tblDirector" Type="MoviesModel.Director" Multiplicity="0..1" />
           <End Role="tblFilm" Type="MoviesModel.Film" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="tblDirector">
@@ -347,7 +575,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_tblFilm_tblLanguage">
-          <End Role="tblLanguage" Type="Self.tblLanguage" Multiplicity="1" />
+          <End Role="tblLanguage" Type="Self.tblLanguage" Multiplicity="0..1" />
           <End Role="tblFilm" Type="MoviesModel.Film" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="tblLanguage">
@@ -370,7 +598,16 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="AspNetUserRoles">
+          <End Role="AspNetRoles" Type="Self.AspNetRole" Multiplicity="*" />
+          <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="*" />
+        </Association>
         <EntityContainer Name="MoviesContext" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="C__MigrationHistory" EntityType="Self.C__MigrationHistory" />
+          <EntitySet Name="AspNetRoles" EntityType="Self.AspNetRole" />
+          <EntitySet Name="AspNetUserClaims" EntityType="Self.AspNetUserClaim" />
+          <EntitySet Name="AspNetUserLogins" EntityType="Self.AspNetUserLogin" />
+          <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUser" />
           <EntitySet Name="Actors" EntityType="MoviesModel.Actor" />
           <EntitySet Name="Casts" EntityType="MoviesModel.Cast" />
           <EntitySet Name="tblCertificates" EntityType="Self.tblCertificate" />
@@ -380,6 +617,14 @@
           <EntitySet Name="Genres" EntityType="MoviesModel.Genre" />
           <EntitySet Name="tblLanguages" EntityType="Self.tblLanguage" />
           <EntitySet Name="Studios" EntityType="MoviesModel.Studio" />
+          <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserClaims" EntitySet="AspNetUserClaims" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserLogins" EntitySet="AspNetUserLogins" />
+          </AssociationSet>
           <AssociationSet Name="FK_tblFilm_tblCertificate" Association="Self.FK_tblFilm_tblCertificate">
             <End Role="tblCertificate" EntitySet="tblCertificates" />
             <End Role="tblFilm" EntitySet="Films" />
@@ -399,6 +644,10 @@
           <AssociationSet Name="FK_tblFilm_tblStudio1" Association="Self.FK_tblFilm_tblStudio1">
             <End Role="tblStudio" EntitySet="Studios" />
             <End Role="tblFilm" EntitySet="Films" />
+          </AssociationSet>
+          <AssociationSet Name="AspNetUserRoles" Association="Self.AspNetUserRoles">
+            <End Role="AspNetRoles" EntitySet="AspNetRoles" />
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
           </AssociationSet>
           <AssociationSet Name="FK_tblCast_tblActor" Association="MoviesModel.FK_tblCast_tblActor">
             <End Role="Actor" EntitySet="Actors" />
@@ -424,7 +673,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_tblCast_tblFilm">
-          <End Type="MoviesModel.Film" Role="Film" Multiplicity="0..1" />
+          <End Type="MoviesModel.Film" Role="Film" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Type="MoviesModel.Cast" Role="Cast" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Film">
@@ -441,6 +692,61 @@
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="MoviesModelStoreContainer" CdmEntityContainer="MoviesContext">
+          <EntitySetMapping Name="C__MigrationHistory">
+            <EntityTypeMapping TypeName="MoviesModel.C__MigrationHistory">
+              <MappingFragment StoreEntitySet="__MigrationHistory">
+                <ScalarProperty Name="MigrationId" ColumnName="MigrationId" />
+                <ScalarProperty Name="ContextKey" ColumnName="ContextKey" />
+                <ScalarProperty Name="Model" ColumnName="Model" />
+                <ScalarProperty Name="ProductVersion" ColumnName="ProductVersion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AspNetRoles">
+            <EntityTypeMapping TypeName="MoviesModel.AspNetRole">
+              <MappingFragment StoreEntitySet="AspNetRoles">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AspNetUserClaims">
+            <EntityTypeMapping TypeName="MoviesModel.AspNetUserClaim">
+              <MappingFragment StoreEntitySet="AspNetUserClaims">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="ClaimType" ColumnName="ClaimType" />
+                <ScalarProperty Name="ClaimValue" ColumnName="ClaimValue" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AspNetUserLogins">
+            <EntityTypeMapping TypeName="MoviesModel.AspNetUserLogin">
+              <MappingFragment StoreEntitySet="AspNetUserLogins">
+                <ScalarProperty Name="LoginProvider" ColumnName="LoginProvider" />
+                <ScalarProperty Name="ProviderKey" ColumnName="ProviderKey" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AspNetUsers">
+            <EntityTypeMapping TypeName="MoviesModel.AspNetUser">
+              <MappingFragment StoreEntitySet="AspNetUsers">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="EmailConfirmed" ColumnName="EmailConfirmed" />
+                <ScalarProperty Name="PasswordHash" ColumnName="PasswordHash" />
+                <ScalarProperty Name="SecurityStamp" ColumnName="SecurityStamp" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="PhoneNumberConfirmed" ColumnName="PhoneNumberConfirmed" />
+                <ScalarProperty Name="TwoFactorEnabled" ColumnName="TwoFactorEnabled" />
+                <ScalarProperty Name="LockoutEndDateUtc" ColumnName="LockoutEndDateUtc" />
+                <ScalarProperty Name="LockoutEnabled" ColumnName="LockoutEnabled" />
+                <ScalarProperty Name="AccessFailedCount" ColumnName="AccessFailedCount" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Actors">
             <EntityTypeMapping TypeName="MoviesModel.Actor">
               <MappingFragment StoreEntitySet="tblActor">
@@ -531,6 +837,14 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <AssociationSetMapping Name="AspNetUserRoles" TypeName="MoviesModel.AspNetUserRoles" StoreEntitySet="AspNetUserRoles">
+            <EndProperty Name="AspNetRoles">
+              <ScalarProperty Name="Id" ColumnName="RoleId" />
+            </EndProperty>
+            <EndProperty Name="AspNetUsers">
+              <ScalarProperty Name="Id" ColumnName="UserId" />
+            </EndProperty>
+          </AssociationSetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
