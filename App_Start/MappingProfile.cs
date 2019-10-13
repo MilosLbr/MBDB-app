@@ -15,7 +15,9 @@ namespace MBDBapp.App_Start
             // Film
             Mapper.CreateMap<Film, FilmDto>().IgnoreAllNonExisting()
                 .ForMember(dto => dto.Director, f => f.MapFrom(prop => prop.tblDirector))
-                .ForMember(dto => dto.CastMembers, f => f.MapFrom(prop => prop.tblCasts));
+                .ForMember(dto => dto.CastMembers, f => f.MapFrom(prop => prop.tblCasts))
+                .ForMember(dto => dto.Studio, f => f.MapFrom(prop => prop.tblStudio));
+
             Mapper.CreateMap<FilmDto, Film>()
                 .ForMember(f => f.FilmID, opt => opt.Ignore());
 
@@ -31,6 +33,10 @@ namespace MBDBapp.App_Start
             // Actor
             Mapper.CreateMap<Actor, ActorDto>();
             Mapper.CreateMap<ActorDto, Actor>();
+
+            // Stduio
+            Mapper.CreateMap<Studio, StudioDto>();
+            Mapper.CreateMap<StudioDto, Studio>();
         }
 
         

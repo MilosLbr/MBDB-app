@@ -111,14 +111,14 @@
           <Key>
             <PropertyRef Name="FilmID" />
           </Key>
-          <Property Name="FilmID" Type="int" Nullable="false" />
-          <Property Name="FilmName" Type="nvarchar" MaxLength="255" />
+          <Property Name="FilmID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FilmName" Type="nvarchar" MaxLength="255" Nullable="false" />
           <Property Name="FilmReleaseDate" Type="datetime" />
-          <Property Name="FilmDirectorID" Type="int" />
-          <Property Name="FilmLanguageID" Type="int" />
-          <Property Name="FilmCountryID" Type="int" />
+          <Property Name="FilmDirectorID" Type="int" Nullable="false" />
+          <Property Name="FilmLanguageID" Type="int" Nullable="false" />
+          <Property Name="FilmCountryID" Type="int" Nullable="false" />
           <Property Name="FilmStudioID" Type="int" />
-          <Property Name="FilmSynopsis" Type="nvarchar(max)" />
+          <Property Name="FilmSynopsis" Type="nvarchar(max)" Nullable="false" />
           <Property Name="FilmRunTimeMinutes" Type="int" />
           <Property Name="FilmCertificateID" Type="bigint" />
           <Property Name="FilmBudgetDollars" Type="int" />
@@ -244,7 +244,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_tblFilm_tblCountry">
-          <End Role="tblCountry" Type="Self.tblCountry" Multiplicity="0..1" />
+          <End Role="tblCountry" Type="Self.tblCountry" Multiplicity="1" />
           <End Role="tblFilm" Type="Self.tblFilm" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="tblCountry">
@@ -256,7 +256,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_tblFilm_tblDirector">
-          <End Role="tblDirector" Type="Self.tblDirector" Multiplicity="0..1" />
+          <End Role="tblDirector" Type="Self.tblDirector" Multiplicity="1" />
           <End Role="tblFilm" Type="Self.tblFilm" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="tblDirector">
@@ -268,7 +268,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_tblFilm_tblLanguage">
-          <End Role="tblLanguage" Type="Self.tblLanguage" Multiplicity="0..1" />
+          <End Role="tblLanguage" Type="Self.tblLanguage" Multiplicity="1" />
           <End Role="tblFilm" Type="Self.tblFilm" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="tblLanguage">
@@ -467,13 +467,13 @@
             <PropertyRef Name="FilmID" />
           </Key>
           <Property Name="FilmID" Type="Int32" Nullable="false" />
-          <Property Name="FilmName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="FilmName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="FilmReleaseDate" Type="DateTime" Precision="3" />
-          <Property Name="FilmDirectorID" Type="Int32" />
-          <Property Name="FilmLanguageID" Type="Int32" />
-          <Property Name="FilmCountryID" Type="Int32" />
+          <Property Name="FilmDirectorID" Type="Int32" Nullable="false" />
+          <Property Name="FilmLanguageID" Type="Int32" Nullable="false" />
+          <Property Name="FilmCountryID" Type="Int32" Nullable="false" />
           <Property Name="FilmStudioID" Type="Int32" />
-          <Property Name="FilmSynopsis" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="FilmSynopsis" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="FilmRunTimeMinutes" Type="Int32" />
           <Property Name="FilmCertificateID" Type="Int64" />
           <Property Name="FilmBudgetDollars" Type="Int32" />
@@ -551,7 +551,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_tblFilm_tblCountry">
-          <End Role="tblCountry" Type="MoviesModel.Country" Multiplicity="0..1" />
+          <End Role="tblCountry" Type="MoviesModel.Country" Multiplicity="1" />
           <End Role="tblFilm" Type="MoviesModel.Film" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="tblCountry">
@@ -563,7 +563,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_tblFilm_tblDirector">
-          <End Role="tblDirector" Type="MoviesModel.Director" Multiplicity="0..1" />
+          <End Role="tblDirector" Type="MoviesModel.Director" Multiplicity="1" />
           <End Role="tblFilm" Type="MoviesModel.Film" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="tblDirector">
@@ -575,7 +575,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_tblFilm_tblLanguage">
-          <End Role="tblLanguage" Type="Self.tblLanguage" Multiplicity="0..1" />
+          <End Role="tblLanguage" Type="Self.tblLanguage" Multiplicity="1" />
           <End Role="tblFilm" Type="MoviesModel.Film" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="tblLanguage">

@@ -13,5 +13,7 @@ namespace MBDBapp.Models.Dto
         public DirectorDto Director { get; set; }
 
         public ICollection <CastDto> CastMembers { get; set; }
+
+        public StudioDto Studio { get; set; }
     }
 }

@@ -13,7 +13,7 @@
     @Html.AntiForgeryToken()
     
     <div class="form-horizontal">
-        <h4>tblFilm</h4>
+        <h4>Film</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @Html.HiddenFor(model => model.FilmID)
@@ -35,7 +35,7 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.FilmDirectorID, "FilmDirectorID", htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.FilmDirectorID, "Director", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.DropDownList("FilmDirectorID", null, htmlAttributes: new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.FilmDirectorID, "", new { @class = "text-danger" })
@@ -43,15 +43,15 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.FilmLanguageID, "FilmLanguageID", htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.FilmLanguageID, "Language", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownList("FilmLanguageID", null, htmlAttributes: new { @class = "form-control" })
+                @Html.DropDownList("FilmLanguageID", null,htmlAttributes: new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.FilmLanguageID, "", new { @class = "text-danger" })
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.FilmCountryID, "FilmCountryID", htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.FilmCountryID, "Country", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.DropDownList("FilmCountryID", null, htmlAttributes: new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.FilmCountryID, "", new { @class = "text-danger" })
@@ -59,7 +59,7 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.FilmStudioID, "FilmStudioID", htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.FilmStudioID, "Studio", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.DropDownList("FilmStudioID", null, htmlAttributes: new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.FilmStudioID, "", new { @class = "text-danger" })
@@ -83,7 +83,7 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.FilmCertificateID, "FilmCertificateID", htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.FilmCertificateID, "Certificate", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.DropDownList("FilmCertificateID", null, htmlAttributes: new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.FilmCertificateID, "", new { @class = "text-danger" })

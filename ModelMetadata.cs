@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using System.ComponentModel.DataAnnotations;
 
-namespace MBDBapp.Models
+namespace MBDBapp
 {
     public class FilmMetaData
     {
@@ -12,42 +12,48 @@ namespace MBDBapp.Models
 
         [Required]
         [StringLength(200)]
-        [Display(Name ="Film name")]
-        public string FilmName { get; set; }
+        [Display(Name = "Film name")]
+        public string FilmName;
         [Required]
         [Display(Name = "Synopsis")]
-        public string FilmSynopsis { get; set; }
+        public string FilmSynopsis;
 
         [Range(1, 1000)]
         [Display(Name = "Runtime (min)")]
-        public int FilmRunTimeMinutes { get; set; }
+        public int FilmRunTimeMinutes;
 
         [Display(Name = "Release date")]
-        public System.DateTime FilmReleaseDate { get; set; }
+        public System.DateTime FilmReleaseDate;
+
+        [Required]
         [Display(Name = "Director")]
+        public int FilmDirectorID;
+
+
         [Required]
-        public int FilmDirectorID { get; set; }
         [Display(Name = "Language")]
+        public int FilmLanguageID;
+
         [Required]
-        public int FilmLanguageID { get; set; }
         [Display(Name = "Country")]
+        public int FilmCountryID;
+
         [Required]
-        public int FilmCountryID { get; set; }
         [Display(Name = "Studio")]
-        [Required]
-        public Nullable<int> FilmStudioID { get; set; }
+        public Nullable<int> FilmStudioID;
+
         [Display(Name = "Certificate")]
-        public Nullable<long> FilmCertificateID { get; set; }
+        public Nullable<long> FilmCertificateID;
         [Display(Name = "Budget ($)")]
-        public Nullable<int> FilmBudgetDollars { get; set; }
+        public Nullable<int> FilmBudgetDollars;
         [Display(Name = "BoxOffice ($)")]
-        public Nullable<int> FilmBoxOfficeDollars { get; set; }
+        public Nullable<int> FilmBoxOfficeDollars;
         [Display(Name = "Oscar Nominations")]
         [Range(0, 100)]
-        public Nullable<int> FilmOscarNominations { get; set; }
+        public Nullable<int> FilmOscarNominations;
         [Display(Name = "Oscar Wins")]
         [Range(0, 100)]
-        public Nullable<int> FilmOscarWins { get; set; }
+        public Nullable<int> FilmOscarWins;
          
     }
 }

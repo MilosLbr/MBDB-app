@@ -1,19 +1,19 @@
 ﻿@model MBDBapp.Models.Dto.FilmDto
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "Details - " + Model.FilmName;
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <h2 class="text-center">@Model.FilmName (@Model.FilmReleaseDate.Year)</h2>
 
-
+<h6 class="text-center">by @Model.Studio.StudioName</h6>
 <hr />
 
 <div>
-    <div id="mainInfo" class="mainInfo row  justify-content-around">
+    <div id="mainInfo" class="mainInfo row  justify-content-around " style="margin-bottom : 20px">
         <div class="col-md-5">
-            <img class="img-responsive" src="" alt="Alternate Text" />
+            <img class="img-responsive" src="" alt="Poster" />
         </div>
         
         <div class="col-md-6 flex-column justify-content-bw">
@@ -59,10 +59,10 @@
 
 
             <ul>
-                <li><strong>Budget:&nbsp;</strong>@Model.FilmBudgetDollars$</li>
-                <li><strong>Box office:&nbsp;</strong>@Model.FilmBoxOfficeDollars$</li>
-                <li><strong>Oscar Nominations:&nbsp;</strong>@Model.FilmOscarNominations</li>
-                <li><strong>Oscar Wins:&nbsp;</strong>@Model.FilmOscarWins</li>
+                <li><strong>Budget: </strong>@String.Format("{0:n0}",Model.FilmBudgetDollars) $</li>
+                <li><strong>Box office: </strong>@String.Format("{0:n0}", Model.FilmBoxOfficeDollars) $, Gains: @String.Format("{0:n0}", Model.FilmBoxOfficeDollars - Model.FilmBudgetDollars) $</li>
+                <li><strong>Oscar Nominations: </strong>@Model.FilmOscarNominations</li>
+                <li><strong>Oscar Wins: </strong>@Model.FilmOscarWins</li>
 
             </ul>
         </div>

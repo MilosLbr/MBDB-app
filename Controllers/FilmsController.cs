@@ -9,6 +9,7 @@ using System.Web.Mvc;
 using MBDBapp;
 using MBDBapp.Models.Dto;
 using AutoMapper;
+using MBDBapp.Models;
 
 namespace MBDBapp.Controllers
 {
@@ -19,11 +20,10 @@ namespace MBDBapp.Controllers
         // GET: Films
         public ActionResult Index()
         {
-            //var films = db.Films.Include(t => t.tblDirector).OrderByDescending(f => f.FilmOscarNominations);
-            //return View("List" ,films.ToList());
+            var films = db.Films.Include(t => t.tblDirector).OrderByDescending(f => f.FilmOscarNominations).ToList();
 
             if (User.IsInRole(MBDBapp.Models.RoleNames.CanManageDatabase))
-                return View("List");
+                return View("List", films);
 
             return View("ReadOnlyList");
         }
@@ -48,7 +48,7 @@ namespace MBDBapp.Controllers
         }
 
         // GET: Films/Create
-        [Authorize]
+        [Authorize(Roles = RoleNames.CanManageDatabase)]
         public ActionResult Create()
         {
             ViewBag.FilmCertificateID = new SelectList(db.tblCertificates, "CertificateID", "Certificate");
@@ -64,7 +64,7 @@ namespace MBDBapp.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize]
+        [Authorize(Roles = RoleNames.CanManageDatabase)]
         public ActionResult Create([Bind(Include = "FilmID, FilmName,FilmReleaseDate,FilmDirectorID,FilmLanguageID,FilmCountryID,FilmStudioID,FilmSynopsis,FilmRunTimeMinutes,FilmCertificateID,FilmBudgetDollars,FilmBoxOfficeDollars,FilmOscarNominations,FilmOscarWins")] Film tblFilm)
         {
             if (ModelState.IsValid)
@@ -83,7 +83,7 @@ namespace MBDBapp.Controllers
         }
 
         // GET: Films/Edit/5
-        [Authorize]
+        [Authorize(Roles = RoleNames.CanManageDatabase)]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -108,7 +108,7 @@ namespace MBDBapp.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize]
+        [Authorize(Roles = RoleNames.CanManageDatabase)]
         public ActionResult Edit([Bind(Include = "FilmID,FilmName,FilmReleaseDate,FilmDirectorID,FilmLanguageID,FilmCountryID,FilmStudioID,FilmSynopsis,FilmRunTimeMinutes,FilmCertificateID,FilmBudgetDollars,FilmBoxOfficeDollars,FilmOscarNominations,FilmOscarWins")] Film tblFilm)
         {
             if (ModelState.IsValid)
@@ -126,7 +126,7 @@ namespace MBDBapp.Controllers
         }
 
         // GET: Films/Delete/5
-        [Authorize]
+        [Authorize(Roles = RoleNames.CanManageDatabase)]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -144,7 +144,7 @@ namespace MBDBapp.Controllers
         // POST: Films/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        [Authorize]
+        [Authorize(Roles = RoleNames.CanManageDatabase)]
         public ActionResult DeleteConfirmed(int id)
         {
             Film tblFilm = db.Films.Find(id);

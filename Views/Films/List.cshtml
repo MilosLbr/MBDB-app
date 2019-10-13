@@ -10,76 +10,81 @@
 <p>
     @Html.ActionLink("Insert New Film", "Create")
 </p>
-<table class="table" id="filmsTable">
-    <tr>
-        <th>
-            Film Name
-        </th>
-        <th>
-            Release Year
-        </th>
-        <th>
-            Synopsis
-        </th>
-        <th>
-            Runtime (min)
-        </th>
 
-        <th>
-            Oscar Nominations
-        </th>
-        <th>
-            Oscar Wins
-        </th>
 
-        <th>
-            Director
-        </th>
-
-        <th>Actions</th>
-    </tr>
-
-    @foreach (var item in Model)
-        {
-            <tr>
-                <td>
-
-                    @Html.ActionLink(item.FilmName, "Details", new { id = item.FilmID }, new { target ="_blank"})
-                </td>
-                <td>
-                    @{
-                        int dateShortValue = DateTime.Parse( item.FilmReleaseDate.ToString())
-                           .Year;
-                    }
-                    @Html.DisplayFor(modelItem => dateShortValue)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.FilmSynopsis)
-                </td>
-                <td>
-
-                    @Html.DisplayFor(modelItem => item.FilmRunTimeMinutes)
-                </td>
-
-                <td>
-                    @Html.DisplayFor(modelItem => item.FilmOscarNominations)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.FilmOscarWins)
-                </td>
-
-                <td>
-                    @Html.DisplayFor(modelItem => item.tblDirector.DirectorName)
-                </td>
-
-                <td>
-                    @Html.ActionLink("Edit", "Edit", new { id=item.FilmID }) |
-                    @Html.ActionLink("Details", "Details", new { id=item.FilmID }) |
-                    @Html.ActionLink("Delete", "Delete", new { id=item.FilmID })
-                </td>
-            </tr>
-        }
-
+<table id="filmsTable" class="table table-bordered table-hover table-striped">
+    <thead>
+        <tr>
+            <th>Film</th>
+            <th>Year</th>
+            <th>Director</th>
+            <th>Synopsis</th>
+            <th>Runtime (min)</th>
+            <th>Oscar Nominations</th>
+            <th>Oscar Wins</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
 </table>
+
+@section scripts
+{
+    <script>
+        $(document).ready(() => {
+
+            let table = $("#filmsTable").DataTable(
+                {
+                    ajax: {
+                        url: '/api/films',
+                        dataSrc: ''
+                    },
+                    columns: [
+                    {
+                        data: "filmName",
+                        render: (data, type, film) => {
+                            return "<a href = '/films/edit/" + film.filmID + "'>" + data + "</a>";
+                        }
+                    },
+                    {
+                        data: "filmReleaseDate",
+                        render: (data, type, film) => {
+                            return data.slice(0, 4);
+                        }
+                    },
+                    {
+                        data: "director.directorName"
+                    },
+
+                    {
+                        data: "filmSynopsis"
+                    },
+                    {
+                        data: "filmRunTimeMinutes"
+                    },
+                    {
+                        data: "filmOscarNominations"
+                    },
+                    {
+                        data: "filmOscarWins"
+                    },
+                    {
+                        data: "filmID",
+                        render: (data, type, film) => {
+                            return "<a href='/films/delete/" +data +"' class = 'btn-link js-delete' data-attribute-id=" + data + ">Delete</a>";
+                        }
+                    }
+                ]
+                }
+            );
+
+        })
+
+
+    </script>
+
+
+
+}
+
 
 

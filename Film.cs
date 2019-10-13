@@ -23,9 +23,9 @@ namespace MBDBapp
         public int FilmID { get; set; }
         public string FilmName { get; set; }
         public Nullable<System.DateTime> FilmReleaseDate { get; set; }
-        public Nullable<int> FilmDirectorID { get; set; }
-        public Nullable<int> FilmLanguageID { get; set; }
-        public Nullable<int> FilmCountryID { get; set; }
+        public int FilmDirectorID { get; set; }
+        public int FilmLanguageID { get; set; }
+        public int FilmCountryID { get; set; }
         public Nullable<int> FilmStudioID { get; set; }
         public string FilmSynopsis { get; set; }
         public Nullable<int> FilmRunTimeMinutes { get; set; }

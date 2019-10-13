@@ -232,9 +232,10 @@
     <Compile Include="Models\Dto\CastDto.cs" />
     <Compile Include="Models\Dto\DirectorDto.cs" />
     <Compile Include="Models\Dto\FilmDto.cs" />
+    <Compile Include="Models\Dto\StudioDto.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
-    <Compile Include="Models\ModelMetadata.cs" />
+    <Compile Include="ModelMetadata.cs" />
     <Compile Include="Models\RoleNames.cs" />
     <Compile Include="MoviesDbModel.Context.cs">
       <AutoGen>True</AutoGen>
