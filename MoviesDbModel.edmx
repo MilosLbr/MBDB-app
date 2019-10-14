@@ -66,6 +66,16 @@
           <Property Name="AccessFailedCount" Type="int" Nullable="false" />
           <Property Name="UserName" Type="nvarchar" MaxLength="256" Nullable="false" />
         </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
         <EntityType Name="tblActor">
           <Key>
             <PropertyRef Name="ActorID" />
@@ -125,6 +135,7 @@
           <Property Name="FilmBoxOfficeDollars" Type="int" />
           <Property Name="FilmOscarNominations" Type="int" />
           <Property Name="FilmOscarWins" Type="int" />
+          <Property Name="UserWatchListID" Type="nvarchar" MaxLength="128" />
         </EntityType>
         <EntityType Name="tblGenre">
           <Key>
@@ -146,6 +157,14 @@
           </Key>
           <Property Name="StudioID" Type="int" Nullable="false" />
           <Property Name="StudioName" Type="nvarchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="WatchList">
+          <Key>
+            <PropertyRef Name="UserID" />
+            <PropertyRef Name="FilmID" />
+          </Key>
+          <Property Name="UserID" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="FilmID" Type="int" Nullable="false" />
         </EntityType>
         <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
           <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
@@ -291,6 +310,32 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_WatchList_AspNetUsers">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="WatchList" Type="Self.WatchList" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="WatchList">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_WatchList_tblFilm">
+          <End Role="tblFilm" Type="Self.tblFilm" Multiplicity="1" />
+          <End Role="WatchList" Type="Self.WatchList" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblFilm">
+              <PropertyRef Name="FilmID" />
+            </Principal>
+            <Dependent Role="WatchList">
+              <PropertyRef Name="FilmID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="MoviesModelStoreContainer">
           <EntitySet Name="__MigrationHistory" EntityType="Self.__MigrationHistory" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AspNetRoles" EntityType="Self.AspNetRoles" Schema="dbo" store:Type="Tables" />
@@ -298,6 +343,7 @@
           <EntitySet Name="AspNetUserLogins" EntityType="Self.AspNetUserLogins" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AspNetUserRoles" EntityType="Self.AspNetUserRoles" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUsers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblActor" EntityType="Self.tblActor" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblCast" EntityType="Self.tblCast" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblCertificate" EntityType="Self.tblCertificate" Schema="dbo" store:Type="Tables" />
@@ -307,6 +353,7 @@
           <EntitySet Name="tblGenre" EntityType="Self.tblGenre" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblLanguage" EntityType="Self.tblLanguage" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblStudio" EntityType="Self.tblStudio" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="WatchList" EntityType="Self.WatchList" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="AspNetUserClaims" EntitySet="AspNetUserClaims" />
@@ -350,6 +397,14 @@
           <AssociationSet Name="FK_tblFilm_tblStudio1" Association="Self.FK_tblFilm_tblStudio1">
             <End Role="tblStudio" EntitySet="tblStudio" />
             <End Role="tblFilm" EntitySet="tblFilm" />
+          </AssociationSet>
+          <AssociationSet Name="FK_WatchList_AspNetUsers" Association="Self.FK_WatchList_AspNetUsers">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="WatchList" EntitySet="WatchList" />
+          </AssociationSet>
+          <AssociationSet Name="FK_WatchList_tblFilm" Association="Self.FK_WatchList_tblFilm">
+            <End Role="tblFilm" EntitySet="tblFilm" />
+            <End Role="WatchList" EntitySet="WatchList" />
           </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
@@ -414,6 +469,7 @@
           <NavigationProperty Name="AspNetUserClaims" Relationship="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" FromRole="AspNetUsers" ToRole="AspNetUserClaims" />
           <NavigationProperty Name="AspNetUserLogins" Relationship="Self.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUsers" ToRole="AspNetUserLogins" />
           <NavigationProperty Name="AspNetRoles" Relationship="Self.AspNetUserRoles" FromRole="AspNetUsers" ToRole="AspNetRoles" />
+          <NavigationProperty Name="tblFilms" Relationship="MoviesModel.WatchList" FromRole="AspNetUser" ToRole="Film" />
         </EntityType>
         <EntityType Name="Actor">
           <Key>
@@ -486,6 +542,8 @@
           <NavigationProperty Name="tblLanguage" Relationship="Self.FK_tblFilm_tblLanguage" FromRole="tblFilm" ToRole="tblLanguage" />
           <NavigationProperty Name="tblStudio" Relationship="Self.FK_tblFilm_tblStudio1" FromRole="tblFilm" ToRole="tblStudio" />
           <NavigationProperty Name="tblCasts" Relationship="MoviesModel.FK_tblCast_tblFilm" FromRole="Film" ToRole="Cast" />
+          <Property Name="UserWatchListID" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AspNetUsers" Relationship="MoviesModel.WatchList" FromRole="Film" ToRole="AspNetUser" />
         </EntityType>
         <EntityType Name="Genre">
           <Key>
@@ -657,6 +715,11 @@
             <End Role="Film" EntitySet="Films" />
             <End Role="Cast" EntitySet="Casts" />
           </AssociationSet>
+          <EntitySet Name="sysdiagrams" EntityType="MoviesModel.sysdiagram" />
+          <AssociationSet Name="WatchList" Association="MoviesModel.WatchList">
+            <End Role="AspNetUser" EntitySet="AspNetUsers" />
+            <End Role="Film" EntitySet="Films" />
+          </AssociationSet>
         </EntityContainer>
         <Association Name="FK_tblCast_tblActor">
           <End Type="MoviesModel.Actor" Role="Actor" Multiplicity="0..1">
@@ -685,6 +748,20 @@
               <PropertyRef Name="CastFilmID" />
             </Dependent>
           </ReferentialConstraint>
+        </Association>
+        <EntityType Name="sysdiagram">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <Association Name="WatchList">
+          <End Type="MoviesModel.AspNetUser" Role="AspNetUser" Multiplicity="*" />
+          <End Type="MoviesModel.Film" Role="Film" Multiplicity="*" />
         </Association>
       </Schema>
     </edmx:ConceptualModels>
@@ -796,6 +873,7 @@
           <EntitySetMapping Name="Films">
             <EntityTypeMapping TypeName="MoviesModel.Film">
               <MappingFragment StoreEntitySet="tblFilm">
+                <ScalarProperty Name="UserWatchListID" ColumnName="UserWatchListID" />
                 <ScalarProperty Name="FilmID" ColumnName="FilmID" />
                 <ScalarProperty Name="FilmName" ColumnName="FilmName" />
                 <ScalarProperty Name="FilmReleaseDate" ColumnName="FilmReleaseDate" />
@@ -843,6 +921,25 @@
             </EndProperty>
             <EndProperty Name="AspNetUsers">
               <ScalarProperty Name="Id" ColumnName="UserId" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="MoviesModel.sysdiagram">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="definition" ColumnName="definition" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="WatchList" TypeName="MoviesModel.WatchList" StoreEntitySet="WatchList">
+            <EndProperty Name="Film">
+              <ScalarProperty Name="FilmID" ColumnName="FilmID" />
+            </EndProperty>
+            <EndProperty Name="AspNetUser">
+              <ScalarProperty Name="Id" ColumnName="UserID" />
             </EndProperty>
           </AssociationSetMapping>
         </EntityContainerMapping>

@@ -206,9 +206,11 @@
     </Compile>
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\Api\FilmsController.cs" />
+    <Compile Include="Controllers\Api\WatchListController.cs" />
     <Compile Include="Controllers\FilmsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\WatchListController.cs" />
     <Compile Include="Country.cs">
       <DependentUpon>MoviesDbModel.tt</DependentUpon>
     </Compile>
@@ -233,6 +235,8 @@
     <Compile Include="Models\Dto\DirectorDto.cs" />
     <Compile Include="Models\Dto\FilmDto.cs" />
     <Compile Include="Models\Dto\StudioDto.cs" />
+    <Compile Include="Models\Dto\UserDto.cs" />
+    <Compile Include="Models\Dto\WatchListDto.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="ModelMetadata.cs" />
@@ -256,6 +260,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="Studio.cs">
+      <DependentUpon>MoviesDbModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sysdiagram.cs">
       <DependentUpon>MoviesDbModel.tt</DependentUpon>
     </Compile>
     <Compile Include="tblCertificate.cs">
@@ -582,6 +589,7 @@
     <Content Include="Views\Films\Edit.cshtml" />
     <Content Include="Views\Films\ReadOnlyList.cshtml" />
     <Content Include="Views\Films\List.cshtml" />
+    <Content Include="Views\WatchList\WatchList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

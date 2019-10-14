@@ -29,6 +29,8 @@
         <AssociationConnector Association="MoviesModel.AspNetUserRoles" ManuallyRouted="false" />
         <AssociationConnector Association="MoviesModel.FK_tblCast_tblActor" />
         <AssociationConnector Association="MoviesModel.FK_tblCast_tblFilm" />
+        <EntityTypeShape EntityType="MoviesModel.sysdiagram" Width="1.5" PointX="3.375" PointY="9.75" />
+        <AssociationConnector Association="MoviesModel.WatchList" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

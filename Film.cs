@@ -18,6 +18,7 @@ namespace MBDBapp
         public Film()
         {
             this.tblCasts = new HashSet<Cast>();
+            this.AspNetUsers = new HashSet<AspNetUser>();
         }
     
         public int FilmID { get; set; }
@@ -34,6 +35,7 @@ namespace MBDBapp
         public Nullable<int> FilmBoxOfficeDollars { get; set; }
         public Nullable<int> FilmOscarNominations { get; set; }
         public Nullable<int> FilmOscarWins { get; set; }
+        public string UserWatchListID { get; set; }
     
         public virtual tblCertificate tblCertificate { get; set; }
         public virtual Country tblCountry { get; set; }
@@ -42,5 +44,7 @@ namespace MBDBapp
         public virtual Studio tblStudio { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Cast> tblCasts { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<AspNetUser> AspNetUsers { get; set; }
     }
 }

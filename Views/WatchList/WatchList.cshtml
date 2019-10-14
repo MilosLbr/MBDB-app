@@ -1,0 +1,63 @@
+﻿@{
+    ViewBag.Title = "WatchList";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>My WatchList</h2>
+
+<table id="myWatchList">
+    <thead>
+        <tr>
+            <th>Film name</th>
+            <th>Film Synopsis</th>
+            <th>Delete</th>
+        </tr>
+        
+    </thead>
+    
+</table>
+
+@section scripts{
+    <script>
+        $(document).ready(() => {
+
+            let table = $("#myWatchList").DataTable({
+                ajax: {
+                    url: "/api/watchlist",
+                    dataSrc: "films"
+                },
+                columns: [
+                    {
+                        data: "filmName"
+                    },
+                    {
+                        data: "filmSynopsis"
+                    },
+                    {
+                        data: "filmID",
+                        render: (data, type, film) => {
+                            return "<button class='btn-link js-delete' data-filmID=" + data + ">Delete</button>";
+                        }
+                    }
+                ]
+            });
+
+
+            $("#myWatchList").on('click', '.js-delete', function () {
+                var button = $(this);
+                console.log(button)
+                $.ajax({
+                    url: '/api/watchlist/' + button.attr('data-filmid'),
+                    method: "DELETE",
+                    success: () => {
+                        console.log("returned", table.row(button.parents('tr')))
+                        table.row(button.parents("tr")).remove().draw();
+                    }
+                })
+            })
+
+        });
+
+    </script>
+    
+}
