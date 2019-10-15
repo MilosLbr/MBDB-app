@@ -20,6 +20,7 @@
             <th>Runtime (min)</th>
             <th>Oscar Nominations</th>
             <th>Oscar Wins</th>
+            <th>Add to WatchList</th>
         </tr>
     </thead>
 </table>
@@ -36,7 +37,9 @@
                         dataSrc: ''
                     },
                     columnDefs: [
-                        {"width" : "100px", targets: 3}
+                        { "width": "100px", targets: 3 },
+                        { "className" : "text-center vAlignMiddle", targets: 8},
+                        { "verticalAlign" : "middle", targets: 8},
                     ],
                     columns: [
                         {
@@ -79,13 +82,31 @@
                     },
                     {
                         data: "filmOscarNominations"
-                     },
+                    },
                     {
                         data: "filmOscarWins"
+                    },
+                    {
+                        data: "filmID",
+                        render: (data, type, film) => {
+                            return '<button class="btn btn-primary addToWatchListBtn" data-filmid=' + data +'>+</button>';
+                        }
                     }
                 ]
                 }
             );
+
+
+            table.on("click", ".addToWatchListBtn", function () {
+                const movieId = this.dataset.filmid
+                $.ajax({
+                    url: "/api/watchlist/" + movieId,
+                    method: "POST",
+                    success: () => {
+                        console.log('added to watchlist')
+                    }
+                })
+            });
 
         })
 

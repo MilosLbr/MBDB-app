@@ -236,7 +236,6 @@
     <Compile Include="Models\Dto\FilmDto.cs" />
     <Compile Include="Models\Dto\StudioDto.cs" />
     <Compile Include="Models\Dto\UserDto.cs" />
-    <Compile Include="Models\Dto\WatchListDto.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="ModelMetadata.cs" />

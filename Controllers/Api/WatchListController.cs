@@ -13,6 +13,7 @@ using AutoMapper;
 
 namespace MBDBapp.Controllers.Api
 {
+    [Authorize]
     public class WatchListController : ApiController
     {
 
@@ -23,39 +24,44 @@ namespace MBDBapp.Controllers.Api
             _context = new MoviesContext();
         }
 
-        // get
+        // Get
         public IHttpActionResult Get()
         {
-            var claimsIdentity = User.Identity as ClaimsIdentity;
 
-            if (claimsIdentity != null)
-            {
-                // the principal identity is a claims identity.
-                // now we need to find the NameIdentifier claim
-                var userIdClaim = claimsIdentity.Claims
-                    .FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier);
+            var userIdValue = User.Identity.GetUserId();
 
-                if (userIdClaim != null)
-                {
-                    var userIdValue = userIdClaim.Value;
+            var userFromDb = _context.AspNetUsers.Single(u => u.Id.Equals(userIdValue));
 
-                    var userFromDb = _context.AspNetUsers.Single(u => u.Id.Equals(userIdValue));
-                    var usersFilms = userFromDb.tblFilms.ToList();
+            var usersFilms = userFromDb.tblFilms.ToList();
 
-                    var watchList = Mapper.Map<AspNetUser, UserDto>(userFromDb);
+            var watchList = Mapper.Map<AspNetUser, UserDto>(userFromDb);
 
 
-                    return Ok(watchList);
-                }
-            }
+            return Ok(watchList);
+                
+        }
 
+        // Add film Id to watchlist of curent user
+        [HttpPost]
+        public IHttpActionResult InsertFilmToWatchList(int Id)
+        {
+            var userId = User.Identity.GetUserId();
 
+            var filmToAdd = _context.Films.Single(f => f.FilmID.Equals(Id));
+
+            var currentUser = _context.AspNetUsers.Include(u => u.tblFilms).Single(u => u.Id.Equals(userId));
+
+            if (currentUser.tblFilms.Contains(filmToAdd))
+                return BadRequest("Film already added");
+
+            currentUser.tblFilms.Add(filmToAdd);
+
+            _context.SaveChanges();
 
             return Ok();
         }
 
-
-        // Delete id 
+        // Delete by film id 
         [HttpDelete]
         public IHttpActionResult Delete(int Id)
         {

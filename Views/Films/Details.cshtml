@@ -11,7 +11,7 @@
 <hr />
 
 <div>
-    <div id="mainInfo" class="mainInfo row  justify-content-around " style="margin-bottom : 20px">
+    <div id="mainInfo" class="mainInfo row  justify-content-around " style="margin-bottom : 30px">
         <div class="col-md-5">
             <img class="img-responsive" src="" alt="Poster" />
         </div>
@@ -69,33 +69,47 @@
 
     </div>
 </div>
-<p>
-    @Html.ActionLink("Back to List", "Index")
-</p>
+
+<div class="text-center">
+    <button id="addToWatchListBtn" class="btn btn-primary">+ Add to WatchList</button>
+</div>
 
 @section scripts
 {
     
     <script>
         $(document).ready(() => {
-            const baseUrl = "https://www.omdbapi.com/?apikey=e0fb59d&t=";
+            const omdbapi = "https://www.omdbapi.com/?apikey=e0fb59d&t=";
+            const watchListUrl = "/api/watchlist/"
 
-            let movieName = '@Html.Raw(Model.FilmName)';
+            const movieName = '@Html.Raw(Model.FilmName)';
+
+            const movieId = @Model.FilmID;
+
+            const addToWatchListBtn = $("#addToWatchListBtn");
+            addToWatchListBtn.on("click", function () {
+                $.ajax({
+                    url: watchListUrl + movieId,
+                    method: "POST",
+                    success: () => {
+                        console.log('added to watchlist')
+                    }
+                })
+            });
 
             $.ajax({
-                url: baseUrl + movieName,
+                url: omdbapi + movieName,
             }).then(data => {
-                console.log(data);
+                
                 $("#genres").html(data.Genre)
 
                 $("#mainInfo img").attr('src', data.Poster);
 
                 $("#ratings").children().each((ind, elem) => {
-                    console.log(elem, ' going to set ', data.Ratings[ind])
                     elem.innerText += " " + data.Ratings[ind].Value;
                 });
 
-            })
+            });
 
         })
 
