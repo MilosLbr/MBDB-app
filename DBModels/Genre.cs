@@ -7,16 +7,14 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace MBDBapp
+namespace MBDBapp.DBModels
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class C__MigrationHistory
+    public partial class Genre
     {
-        public string MigrationId { get; set; }
-        public string ContextKey { get; set; }
-        public byte[] Model { get; set; }
-        public string ProductVersion { get; set; }
+        public long GenreId { get; set; }
+        public string GenreName { get; set; }
     }
 }

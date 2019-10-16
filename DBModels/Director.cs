@@ -7,21 +7,23 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace MBDBapp
+namespace MBDBapp.DBModels
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class tblCertificate
+    public partial class Director
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public tblCertificate()
+        public Director()
         {
             this.tblFilms = new HashSet<Film>();
         }
     
-        public long CertificateID { get; set; }
-        public string Certificate { get; set; }
+        public int DirectorID { get; set; }
+        public string DirectorName { get; set; }
+        public Nullable<System.DateTime> DirectorDOB { get; set; }
+        public string DirectorGender { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Film> tblFilms { get; set; }

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using System.ComponentModel.DataAnnotations;
 
-namespace MBDBapp
+namespace MBDBapp.DBModels
 {
     [MetadataType(typeof(FilmMetaData))]
     public partial class Film

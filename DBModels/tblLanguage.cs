@@ -7,23 +7,21 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace MBDBapp
+namespace MBDBapp.DBModels
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class Director
+    public partial class tblLanguage
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Director()
+        public tblLanguage()
         {
             this.tblFilms = new HashSet<Film>();
         }
     
-        public int DirectorID { get; set; }
-        public string DirectorName { get; set; }
-        public Nullable<System.DateTime> DirectorDOB { get; set; }
-        public string DirectorGender { get; set; }
+        public int LanguageID { get; set; }
+        public string Language { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Film> tblFilms { get; set; }

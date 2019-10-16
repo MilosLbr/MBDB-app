@@ -6,8 +6,7 @@ using System.Net.Http;
 using System.Web.Http;
 using System.Data.Entity;
 using AutoMapper;
-using MBDBapp;
-using MBDBapp.Models;
+using MBDBapp.DBModels;
 using MBDBapp.Models.Dto;
 using System.Web.Http.Results;
 

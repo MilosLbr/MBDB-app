@@ -7,21 +7,21 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace MBDBapp
+namespace MBDBapp.DBModels
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class Studio
+    public partial class Country
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Studio()
+        public Country()
         {
             this.tblFilms = new HashSet<Film>();
         }
     
-        public int StudioID { get; set; }
-        public string StudioName { get; set; }
+        public int CountryID { get; set; }
+        public string CountryName { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Film> tblFilms { get; set; }

@@ -7,19 +7,16 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace MBDBapp
+namespace MBDBapp.DBModels
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class Cast
+    public partial class C__MigrationHistory
     {
-        public int CastID { get; set; }
-        public Nullable<int> CastFilmID { get; set; }
-        public Nullable<int> CastActorID { get; set; }
-        public string CastCharacterName { get; set; }
-    
-        public virtual Actor tblActor { get; set; }
-        public virtual Film tblFilm { get; set; }
+        public string MigrationId { get; set; }
+        public string ContextKey { get; set; }
+        public byte[] Model { get; set; }
+        public string ProductVersion { get; set; }
     }
 }

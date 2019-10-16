@@ -6,7 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
-using MBDBapp;
+using MBDBapp.DBModels;
 using MBDBapp.Models.Dto;
 using AutoMapper;
 using MBDBapp.Models;

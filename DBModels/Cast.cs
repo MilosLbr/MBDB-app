@@ -7,17 +7,19 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace MBDBapp
+namespace MBDBapp.DBModels
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class sysdiagram
+    public partial class Cast
     {
-        public string name { get; set; }
-        public int principal_id { get; set; }
-        public int diagram_id { get; set; }
-        public Nullable<int> version { get; set; }
-        public byte[] definition { get; set; }
+        public int CastID { get; set; }
+        public Nullable<int> CastFilmID { get; set; }
+        public Nullable<int> CastActorID { get; set; }
+        public string CastCharacterName { get; set; }
+    
+        public virtual Actor tblActor { get; set; }
+        public virtual Film tblFilm { get; set; }
     }
 }

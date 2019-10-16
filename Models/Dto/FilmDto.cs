@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using MBDBapp.Models;
+using MBDBapp.DBModels;
 
 namespace MBDBapp.Models.Dto
 {

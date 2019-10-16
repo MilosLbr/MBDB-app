@@ -6,7 +6,7 @@ using System.Net;
 using System.Net.Http;
 using System.Security.Claims;
 using System.Web.Http;
-using MBDBapp.Models;
+using MBDBapp.DBModels;
 using MBDBapp.Models.Dto;
 using Microsoft.AspNet.Identity;
 using AutoMapper;
