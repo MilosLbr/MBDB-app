@@ -1,31 +1,60 @@
-﻿@{
-    ViewBag.Title = "Home Page";
+﻿@model List<Film>
+
+@{
+    ViewBag.Title = "MBDB - movie database";
 }
 
 <div class="jumbotron">
-    <h1>ASP.NET</h1>
-    <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
-    <p><a href="https://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
+    <h1>MBDB - movie database</h1>
+    <p class="lead">
+        MBDB app lets you browse for the most popular movies, add them to your personal watchilst, leave and read comments and more...
+    </p>
+    <p>
+        Curious about movie budget, ratings or number of Oscar nominations?
+    </p>
+    <p>
+        <a href="/films" class="btn btn-primary btn-lg">See full list &raquo;</a>
+    </p>
 </div>
 
 <div class="row">
-    <div class="col-md-4">
-        <h2>Getting started</h2>
+    <div class="col-md-4 text-center">
+        <h2 >@Model[0].FilmName (@Model[0].FilmReleaseDate.Value.Year)</h2>
+        <div  style="margin-bottom : 10px">
+            <img style="max-height : 350px" src="~/Content/Images/departed2006.jpg" alt="The Departed 2006" />
+        </div>
         <p>
-            ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
-            enables a clean separation of concerns and gives you full control over markup
-            for enjoyable, agile development.
+            @Model[0].FilmSynopsis
         </p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
+        <p>
+            <strong>Oscar wins: </strong>@Model[0].FilmOscarWins
+        </p>
+        <p><a class="btn btn-default" href="/films/details/@Model[0].FilmID">See more &raquo;</a></p>
     </div>
-    <div class="col-md-4">
-        <h2>Get more libraries</h2>
-        <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
+    <div class="col-md-4 text-center">
+        <h2>@Model[1].FilmName (@Model[1].FilmReleaseDate.Value.Year)</h2>
+        <div style="margin-bottom : 10px">
+            <img style="max-height : 350px" src="~/Content/Images/schindler1994.jpg" alt="Schindler's List 1994" />
+        </div>
+        <p>
+            @Model[1].FilmSynopsis
+        </p>
+        <p>
+            <strong>Oscar wins: </strong>@Model[1].FilmOscarWins
+        </p>
+        <p><a class="btn btn-default" href="/films/details/@Model[1].FilmID">See more &raquo;</a></p>
     </div>
-    <div class="col-md-4">
-        <h2>Web Hosting</h2>
-        <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
+    <div class="col-md-4 text-center">
+        <h2>@Model[2].FilmName (@Model[2].FilmReleaseDate.Value.Year)</h2>
+        <div style="margin-bottom : 10px">
+            <img style="max-height : 350px" src="~/Content/Images/gandhi1982.jpg" alt="Gandhi 1982" />
+        </div>
+        <p>
+            @Model[2].FilmSynopsis
+        </p>
+        <p>
+            <strong>Oscar wins: </strong>@Model[2].FilmOscarWins
+        </p>
+        <p><a class="btn btn-default" href="/films/details/@Model[2].FilmID">See more &raquo;</a></p>
     </div>
 </div>

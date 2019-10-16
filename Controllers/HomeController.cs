@@ -9,23 +9,31 @@ namespace MBDBapp.Controllers
     [AllowAnonymous]
     public class HomeController : Controller
     {
+        private MoviesContext _context;
+
+        public HomeController()
+        {
+            _context = new MoviesContext();
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            _context.Dispose();
+        }
+
         public ActionResult Index()
         {
-            return View();
+            var selectedFilms = _context.Films.Where(f => f.FilmID == 194 || f.FilmID == 188 || f.FilmID == 78).ToList();
+                       
+            return View(selectedFilms);
         }
 
         public ActionResult About()
         {
-            ViewBag.Message = "Your application description page.";
 
             return View();
         }
 
-        public ActionResult Contact()
-        {
-            ViewBag.Message = "Your contact page.";
-
-            return View();
-        }
+        
     }
 }
