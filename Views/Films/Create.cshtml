@@ -8,14 +8,14 @@
 <h2>Insert New Film</h2>
 
 
-@using (Html.BeginForm()) 
+@using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        
+
 
         <div class="form-group">
             @Html.LabelFor(model => model.FilmName, "Film Name", htmlAttributes: new { @class = "control-label col-md-2" })
@@ -28,7 +28,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.FilmReleaseDate, "Release Date", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.FilmReleaseDate, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.FilmReleaseDate, new { htmlAttributes = new { @class = "form-control", id = "releaseDate" } })
                 @Html.ValidationMessageFor(model => model.FilmReleaseDate, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -38,14 +38,14 @@
             <div class="col-md-10">
                 @Html.DropDownList("FilmDirectorID", null, "Select Director", htmlAttributes: new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.FilmDirectorID, "", new { @class = "text-danger" })
-                
+
             </div>
         </div>
 
         <div class="form-group">
             @Html.LabelFor(model => model.FilmLanguageID, "Language", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownList("FilmLanguageID", null, "Select Language",htmlAttributes: new { @class = "form-control" })
+                @Html.DropDownList("FilmLanguageID", null, "Select Language", htmlAttributes: new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.FilmLanguageID, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -53,7 +53,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.FilmCountryID, "Country", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownList("FilmCountryID", null, "Select Country",htmlAttributes: new { @class = "form-control" })
+                @Html.DropDownList("FilmCountryID", null, "Select Country", htmlAttributes: new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.FilmCountryID, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -67,7 +67,7 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.FilmSynopsis, "Synopsys",htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.FilmSynopsis, "Synopsys", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.FilmSynopsis, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.FilmSynopsis, "", new { @class = "text-danger" })
@@ -107,7 +107,7 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.FilmOscarNominations, "Oscar Nominations",htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.FilmOscarNominations, "Oscar Nominations", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.FilmOscarNominations, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.FilmOscarNominations, "", new { @class = "text-danger" })
@@ -115,7 +115,7 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.FilmOscarWins, "Oscar Wins",htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.FilmOscarWins, "Oscar Wins", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.FilmOscarWins, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.FilmOscarWins, "", new { @class = "text-danger" })
@@ -136,4 +136,18 @@
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/Scripts/moment.js")
+
+    <script>
+        $(function () {
+            let releaseDateElem = $("#releaseDate")
+
+            $.validator.methods.date = function (value, releaseDateElem) {
+                console.log(releaseDateElem, value)
+                console.log(moment(value, "DD-MM-YYYY").isValid())
+            return this.optional(releaseDateElem) || moment(value, "DD-MM-YYYY").isValid();
+            }
+        });
+
+    </script>
 }

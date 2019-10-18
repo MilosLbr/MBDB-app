@@ -52,7 +52,7 @@ namespace MBDBapp.Controllers.Api
             var currentUser = _context.AspNetUsers.Include(u => u.tblFilms).Single(u => u.Id.Equals(userId));
 
             if (currentUser.tblFilms.Contains(filmToAdd))
-                return BadRequest("Film already added");
+                return BadRequest("Film is already added to WatchList!");
 
             currentUser.tblFilms.Add(filmToAdd);
 

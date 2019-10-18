@@ -53,7 +53,7 @@ namespace MBDBapp.Controllers
         {
             ViewBag.FilmCertificateID = new SelectList(db.tblCertificates, "CertificateID", "Certificate");
             ViewBag.FilmCountryID = new SelectList(db.Countries, "CountryID", "CountryName");
-            ViewBag.FilmDirectorID = new SelectList(db.Directors, "DirectorID", "DirectorName");
+            ViewBag.FilmDirectorID = new SelectList(db.Directors, "DirectorID", "DirectorName") ;
             ViewBag.FilmLanguageID = new SelectList(db.tblLanguages, "LanguageID", "Language");
             ViewBag.FilmStudioID = new SelectList(db.Studios, "StudioID", "StudioName");
             return View();

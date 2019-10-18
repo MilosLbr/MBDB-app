@@ -91,10 +91,17 @@
                 $.ajax({
                     url: watchListUrl + movieId,
                     method: "POST",
-                    success: () => {
-                        console.log('added to watchlist')
-                    }
                 })
+                    .done(function() {
+                        toastr.success("Added " + movieName + " to WatchList!");
+                    })
+                    .fail(data => {
+                        if (data.responseJSON.message == "Film is already added to WatchList!") {
+                            toastr.error("Film is already added to WatchList!")
+                        } else {
+                            toastr.error("Error adding movie to WatchList")
+                        }
+                    })
             });
 
             $.ajax({

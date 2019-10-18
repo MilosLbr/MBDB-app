@@ -35,7 +35,6 @@ namespace MBDBapp.DBModels
         public Nullable<int> FilmBoxOfficeDollars { get; set; }
         public Nullable<int> FilmOscarNominations { get; set; }
         public Nullable<int> FilmOscarWins { get; set; }
-        public string UserWatchListID { get; set; }
     
         public virtual tblCertificate tblCertificate { get; set; }
         public virtual Country tblCountry { get; set; }

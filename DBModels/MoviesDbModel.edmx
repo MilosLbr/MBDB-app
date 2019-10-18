@@ -135,7 +135,6 @@
           <Property Name="FilmBoxOfficeDollars" Type="int" />
           <Property Name="FilmOscarNominations" Type="int" />
           <Property Name="FilmOscarWins" Type="int" />
-          <Property Name="UserWatchListID" Type="nvarchar" MaxLength="128" />
         </EntityType>
         <EntityType Name="tblGenre">
           <Key>
@@ -542,7 +541,6 @@
           <NavigationProperty Name="tblLanguage" Relationship="Self.FK_tblFilm_tblLanguage" FromRole="tblFilm" ToRole="tblLanguage" />
           <NavigationProperty Name="tblStudio" Relationship="Self.FK_tblFilm_tblStudio1" FromRole="tblFilm" ToRole="tblStudio" />
           <NavigationProperty Name="tblCasts" Relationship="MoviesModel.FK_tblCast_tblFilm" FromRole="Film" ToRole="Cast" />
-          <Property Name="UserWatchListID" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="AspNetUsers" Relationship="MoviesModel.WatchList" FromRole="Film" ToRole="AspNetUser" />
         </EntityType>
         <EntityType Name="Genre">
@@ -873,7 +871,6 @@
           <EntitySetMapping Name="Films">
             <EntityTypeMapping TypeName="MoviesModel.Film">
               <MappingFragment StoreEntitySet="tblFilm">
-                <ScalarProperty Name="UserWatchListID" ColumnName="UserWatchListID" />
                 <ScalarProperty Name="FilmID" ColumnName="FilmID" />
                 <ScalarProperty Name="FilmName" ColumnName="FilmName" />
                 <ScalarProperty Name="FilmReleaseDate" ColumnName="FilmReleaseDate" />

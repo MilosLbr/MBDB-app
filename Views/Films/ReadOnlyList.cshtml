@@ -29,7 +29,7 @@
 {
     <script>
         $(document).ready(() => {
-
+            
             let table = $("#filmsTable").DataTable(
                 {
                     ajax: {
@@ -89,7 +89,7 @@
                     {
                         data: "filmID",
                         render: (data, type, film) => {
-                            return '<button class="btn btn-primary addToWatchListBtn" data-filmid=' + data +'>+</button>';
+                            return '<button class="btn btn-primary addToWatchListBtn" data-filmid="' + data + '" data-filmname="' + film.filmName +'">+</button>';
                         }
                     }
                 ]
@@ -98,12 +98,23 @@
 
 
             table.on("click", ".addToWatchListBtn", function () {
-                const movieId = this.dataset.filmid
+                const movieId = this.dataset.filmid;
+                const movieName = this.dataset.filmname;
+                
+
                 $.ajax({
                     url: "/api/watchlist/" + movieId,
                     method: "POST",
-                    success: () => {
-                        console.log('added to watchlist')
+                })
+                .done(function() {
+                        toastr.success("Added " + movieName + " to WatchList!");
+                 })
+                .fail(data => {
+                    if (data.responseJSON.message == "Film is already added to WatchList!") {
+
+                        toastr.error("Film is already added to WatchList!")
+                    } else {
+                        toastr.error("Error adding movie to WatchList")
                     }
                 })
             });

@@ -19,9 +19,9 @@
 
 <div class="row">
     <div class="col-md-4 text-center">
-        <h2 >@Model[0].FilmName (@Model[0].FilmReleaseDate.Value.Year)</h2>
-        <div  style="margin-bottom : 10px">
-            <img style="max-height : 350px" src="~/Content/Images/departed2006.jpg" alt="The Departed 2006" />
+        <h2 class="movieTitle" data-filmName="@Model[0].FilmName">@Model[0].FilmName (@Model[0].FilmReleaseDate.Value.Year)</h2>
+        <div class="posterContainer"  style="margin-bottom : 10px">
+            
         </div>
         <p>
             @Model[0].FilmSynopsis
@@ -32,9 +32,9 @@
         <p><a class="btn btn-default" href="/films/details/@Model[0].FilmID">See more &raquo;</a></p>
     </div>
     <div class="col-md-4 text-center">
-        <h2>@Model[1].FilmName (@Model[1].FilmReleaseDate.Value.Year)</h2>
-        <div style="margin-bottom : 10px">
-            <img style="max-height : 350px" src="~/Content/Images/schindler1994.jpg" alt="Schindler's List 1994" />
+        <h2 class="movieTitle" data-filmName="@Model[1].FilmName">@Model[1].FilmName (@Model[1].FilmReleaseDate.Value.Year)</h2>
+        <div class="posterContainer" style="margin-bottom : 10px">
+            
         </div>
         <p>
             @Model[1].FilmSynopsis
@@ -45,9 +45,9 @@
         <p><a class="btn btn-default" href="/films/details/@Model[1].FilmID">See more &raquo;</a></p>
     </div>
     <div class="col-md-4 text-center">
-        <h2>@Model[2].FilmName (@Model[2].FilmReleaseDate.Value.Year)</h2>
-        <div style="margin-bottom : 10px">
-            <img style="max-height : 350px" src="~/Content/Images/gandhi1982.jpg" alt="Gandhi 1982" />
+        <h2 class="movieTitle" data-filmName="@Model[2].FilmName">@Model[2].FilmName (@Model[2].FilmReleaseDate.Value.Year)</h2>
+        <div class="posterContainer" style="margin-bottom : 10px">
+           
         </div>
         <p>
             @Model[2].FilmSynopsis
@@ -58,3 +58,30 @@
         <p><a class="btn btn-default" href="/films/details/@Model[2].FilmID">See more &raquo;</a></p>
     </div>
 </div>
+
+@section scripts
+{   
+    <script>
+        $(document).ready(function () {
+            const omdbapi = "https://www.omdbapi.com/?apikey=e0fb59d&t=";
+
+            let headerElements = $('h2.movieTitle');
+
+            headerElements.each((idx, elem) => {
+                const movieName = $(elem).data("filmname");
+                const posterContainer = $($(elem).siblings('.posterContainer')[0])
+
+                $.ajax({
+                    url: omdbapi + movieName
+                }).done(data => {
+                    const posterUrl = data.Poster;
+
+                    posterContainer.prepend("<img alt='Poster' src = " + posterUrl + " /style='max-height : 350px'>");
+                })
+            })
+
+
+        });
+
+    </script>
+}
