@@ -26,15 +26,13 @@ namespace MBDBapp.Controllers
         {
             var random = new Random();
 
-            var allFilmIDs = _context.Films.Select( f => new { filmId = f.FilmID }).ToList();
+            int allFilms = _context.Films.Count();
+
+            int randomSkip = random.Next(allFilms - 3);
 
             // Display three random films on the home page
 
-            var first = allFilmIDs[random.Next(allFilmIDs.Count)];
-            var second = allFilmIDs[random.Next(allFilmIDs.Count)];
-            var third = allFilmIDs[random.Next(allFilmIDs.Count)];
-
-            var selectedFilms = _context.Films.Where(f => f.FilmID == first.filmId || f.FilmID == second.filmId || f.FilmID == third.filmId).ToList();
+            var selectedFilms = _context.Films.OrderBy(f => f.FilmName).Skip(randomSkip).Take(3).ToList();
                        
             return View(selectedFilms);
         }

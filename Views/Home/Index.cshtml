@@ -17,8 +17,8 @@
     </p>
 </div>
 
-<div class="row">
-    <div class="col-md-4 text-center">
+<div class="row fl-align-start">
+    <div class="col-md-4 text-center flex-column justify-content-bw">
         <h2 class="movieTitle" data-filmName="@Model[0].FilmName">@Model[0].FilmName (@Model[0].FilmReleaseDate.Value.Year)</h2>
         <div class="posterContainer"  style="margin-bottom : 10px">
             
@@ -31,7 +31,7 @@
         </p>
         <p><a class="btn btn-default" href="/films/details/@Model[0].FilmID">See more &raquo;</a></p>
     </div>
-    <div class="col-md-4 text-center">
+    <div class="col-md-4 text-center flex-column justify-content-bw">
         <h2 class="movieTitle" data-filmName="@Model[1].FilmName">@Model[1].FilmName (@Model[1].FilmReleaseDate.Value.Year)</h2>
         <div class="posterContainer" style="margin-bottom : 10px">
             
@@ -44,7 +44,7 @@
         </p>
         <p><a class="btn btn-default" href="/films/details/@Model[1].FilmID">See more &raquo;</a></p>
     </div>
-    <div class="col-md-4 text-center">
+    <div class="col-md-4 text-center flex-column justify-content-bw">
         <h2 class="movieTitle" data-filmName="@Model[2].FilmName">@Model[2].FilmName (@Model[2].FilmReleaseDate.Value.Year)</h2>
         <div class="posterContainer" style="margin-bottom : 10px">
            

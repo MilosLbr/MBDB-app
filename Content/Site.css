@@ -39,6 +39,10 @@ textarea {
     align-items: center;
 }
 
+.fl-align-start{
+    align-items: start;
+}
+
 .justify-content-bw{
     justify-content: space-between;
 }
