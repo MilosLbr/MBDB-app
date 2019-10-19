@@ -42,6 +42,10 @@ namespace MBDBapp.App_Start
             Mapper.CreateMap<AspNetUser, UserDto>().ForMember(dto => dto.Films, u => u.MapFrom(prop => prop.tblFilms));
             Mapper.CreateMap<UserDto, AspNetUser>();
 
+            // Comment
+            Mapper.CreateMap<Comment, CommentDto>();
+            Mapper.CreateMap<CommentDto, Comment>();
+
         }
 
         

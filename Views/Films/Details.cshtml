@@ -74,19 +74,35 @@
     <button id="addToWatchListBtn" class="btn btn-primary">+ Add to WatchList</button>
 </div>
 
+<hr />
+
+<h3>Comments: <span id="numberOfComments"></span></h3>
+<div id="commentsContainer" >
+   
+</div>
+
+<div id="newComment" class="form-group">
+    <label for="commentContent" >Post new comment: </label>
+    <textarea style="font-size: 1.1em; margin-bottom: 10px"  rows="2" id="commentContent" class="form-control"></textarea>
+    <button id="postComment" class="btn btn-success">Post</button>
+</div>
+
+
 @section scripts
 {
     
     <script>
         $(document).ready(() => {
+            const watchListUrl = "/api/watchlist/";
             const omdbapi = "https://www.omdbapi.com/?apikey=e0fb59d&t=";
-            const watchListUrl = "/api/watchlist/"
+            const commentsUrl = "/api/comments/"
 
             const movieName = "@Html.Raw(Model.FilmName)";
-
             const movieId = @Model.FilmID;
 
+            // Add to watchlist function
             const addToWatchListBtn = $("#addToWatchListBtn");
+
             addToWatchListBtn.on("click", function () {
                 $.ajax({
                     url: watchListUrl + movieId,
@@ -104,6 +120,8 @@
                     })
             });
 
+
+            // Add images, poster and genre from omdb api
             $.ajax({
                 url: omdbapi + movieName,
             }).then(data => {
@@ -118,6 +136,76 @@
 
             });
 
+            // Load comments
+            let commentsContainer = $("#commentsContainer");
+            loadComments();
+
+            function loadComments(){
+                $.ajax({
+                    url: commentsUrl + movieId
+                }).then(data => {
+                    let numberOfComments = data.length;
+                    $("#numberOfComments").html(numberOfComments);
+
+                    $(data).each((ind, elem) => {
+
+                        let comment = $("<div>", { "class": "comment" });
+                        let date = formatDate(new Date(elem.dateAdded));
+
+                        let commentAuthor = $("<span>", { "class": "commentAuthor" }).text(elem.userName);
+                        let dateAdded = $("<span>", { "class": "dateAdded" }).text(date);
+                        let authorAndDate = $("<div>", { "class": "flex-column authorAndDate" });
+                        authorAndDate.append(commentAuthor, dateAdded);
+
+                        let commentContent = $("<p>", { "class": "commentContent" }).text(elem.commentContent);
+                        comment.append(authorAndDate, commentContent);
+
+                        commentsContainer.append(comment);
+                    })
+                });
+            }
+
+            // Post new comment
+            let postBtn = $("#postComment");
+            postBtn.on("click", function () {
+                let textArea = $("#commentContent");
+
+                let commentData = {
+                    commentFilmID: movieId,
+                    commentContent: textArea.val()
+                };
+
+                $.ajax({
+                    url: commentsUrl,
+                    method: "POST",
+                    data: commentData
+                })
+                    .done(() => {
+                        toastr.success("Succesfuly posted!");
+                        textArea.val("");
+                        $("#commentsContainer").html("");
+                        loadComments();
+                    })
+                    .fail((msg) => {
+                        toastr.error(msg.responseJSON.message);
+                    });
+            });
+
+            // Format date
+            function formatDate(date) {
+                  var monthNames = [
+                    "January", "February", "March",
+                    "April", "May", "June", "July",
+                    "August", "September", "October",
+                    "November", "December"
+                  ];
+
+                  var day = date.getDate();
+                  var monthIndex = date.getMonth();
+                  var year = date.getFullYear();
+
+                  return day + '.' + monthNames[monthIndex] + ' ' + year;
+            };
         })
 
     </script>

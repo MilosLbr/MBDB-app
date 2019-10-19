@@ -19,6 +19,7 @@ namespace MBDBapp.DBModels
         {
             this.tblCasts = new HashSet<Cast>();
             this.AspNetUsers = new HashSet<AspNetUser>();
+            this.Comments = new HashSet<Comment>();
         }
     
         public int FilmID { get; set; }
@@ -45,5 +46,7 @@ namespace MBDBapp.DBModels
         public virtual ICollection<Cast> tblCasts { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<AspNetUser> AspNetUsers { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Comment> Comments { get; set; }
     }
 }

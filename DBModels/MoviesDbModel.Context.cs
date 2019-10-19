@@ -40,5 +40,6 @@ namespace MBDBapp.DBModels
         public virtual DbSet<tblLanguage> tblLanguages { get; set; }
         public virtual DbSet<Studio> Studios { get; set; }
         public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
+        public virtual DbSet<Comment> Comments { get; set; }
     }
 }

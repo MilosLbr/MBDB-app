@@ -18,8 +18,7 @@
 
 /* Set width on the form input elements since they're 100% wide by default */
 input,
-select,
-textarea {
+select {
     max-width: 280px;
 }
 
@@ -61,4 +60,31 @@ textarea {
 
 .table > tbody > tr > td {
     vertical-align: middle;
+}
+
+#commentsContainer{
+    padding-left: 10px;
+    padding-right: 10px;
+    margin-bottom: 20px;
+}
+.comment{
+    width: 98%;
+    margin-left: 10px;
+    padding: 5px;
+    border-bottom: 0.5px solid #cccc;
+}
+.authorAndDate{
+    margin-bottom: 5px;
+}
+.commentAuthor {
+    font-weight: bold;
+    margin-right: 15px;
+}
+.dateAdded{
+    font-size: 0.75em;
+    color: #555;
+}
+.commentContent{
+    font-size: 1.15em;
+    padding: 5px 5px 5px 0px;
 }

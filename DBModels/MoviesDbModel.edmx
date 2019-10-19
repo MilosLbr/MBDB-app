@@ -66,6 +66,16 @@
           <Property Name="AccessFailedCount" Type="int" Nullable="false" />
           <Property Name="UserName" Type="nvarchar" MaxLength="256" Nullable="false" />
         </EntityType>
+        <EntityType Name="Comments">
+          <Key>
+            <PropertyRef Name="CommentID" />
+          </Key>
+          <Property Name="CommentID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CommentContent" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="CommentFilmID" Type="int" Nullable="false" />
+          <Property Name="CommentUserID" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="DateAdded" Type="date" Nullable="false" />
+        </EntityType>
         <EntityType Name="sysdiagrams">
           <Key>
             <PropertyRef Name="diagram_id" />
@@ -165,6 +175,34 @@
           <Property Name="UserID" Type="nvarchar" MaxLength="128" Nullable="false" />
           <Property Name="FilmID" Type="int" Nullable="false" />
         </EntityType>
+        <Association Name="FK_Comments_AspNetUsers">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Comments" Type="Self.Comments" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Comments">
+              <PropertyRef Name="CommentUserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Comments_tblFilm">
+          <End Role="tblFilm" Type="Self.tblFilm" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Comments" Type="Self.Comments" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblFilm">
+              <PropertyRef Name="FilmID" />
+            </Principal>
+            <Dependent Role="Comments">
+              <PropertyRef Name="CommentFilmID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
           <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
             <OnDelete Action="Cascade" />
@@ -342,6 +380,7 @@
           <EntitySet Name="AspNetUserLogins" EntityType="Self.AspNetUserLogins" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AspNetUserRoles" EntityType="Self.AspNetUserRoles" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUsers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Comments" EntityType="Self.Comments" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblActor" EntityType="Self.tblActor" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblCast" EntityType="Self.tblCast" Schema="dbo" store:Type="Tables" />
@@ -353,6 +392,14 @@
           <EntitySet Name="tblLanguage" EntityType="Self.tblLanguage" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblStudio" EntityType="Self.tblStudio" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="WatchList" EntityType="Self.WatchList" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Comments_AspNetUsers" Association="Self.FK_Comments_AspNetUsers">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="Comments" EntitySet="Comments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Comments_tblFilm" Association="Self.FK_Comments_tblFilm">
+            <End Role="tblFilm" EntitySet="tblFilm" />
+            <End Role="Comments" EntitySet="Comments" />
+          </AssociationSet>
           <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="AspNetUserClaims" EntitySet="AspNetUserClaims" />
@@ -469,6 +516,7 @@
           <NavigationProperty Name="AspNetUserLogins" Relationship="Self.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUsers" ToRole="AspNetUserLogins" />
           <NavigationProperty Name="AspNetRoles" Relationship="Self.AspNetUserRoles" FromRole="AspNetUsers" ToRole="AspNetRoles" />
           <NavigationProperty Name="tblFilms" Relationship="MoviesModel.WatchList" FromRole="AspNetUser" ToRole="Film" />
+          <NavigationProperty Name="Comments" Relationship="MoviesModel.FK_Comments_AspNetUsers" FromRole="AspNetUser" ToRole="Comment" />
         </EntityType>
         <EntityType Name="Actor">
           <Key>
@@ -542,6 +590,7 @@
           <NavigationProperty Name="tblStudio" Relationship="Self.FK_tblFilm_tblStudio1" FromRole="tblFilm" ToRole="tblStudio" />
           <NavigationProperty Name="tblCasts" Relationship="MoviesModel.FK_tblCast_tblFilm" FromRole="Film" ToRole="Cast" />
           <NavigationProperty Name="AspNetUsers" Relationship="MoviesModel.WatchList" FromRole="Film" ToRole="AspNetUser" />
+          <NavigationProperty Name="Comments" Relationship="MoviesModel.FK_Comments_tblFilm" FromRole="Film" ToRole="Comment" />
         </EntityType>
         <EntityType Name="Genre">
           <Key>
@@ -718,6 +767,15 @@
             <End Role="AspNetUser" EntitySet="AspNetUsers" />
             <End Role="Film" EntitySet="Films" />
           </AssociationSet>
+          <EntitySet Name="Comments" EntityType="MoviesModel.Comment" />
+          <AssociationSet Name="FK_Comments_AspNetUsers" Association="MoviesModel.FK_Comments_AspNetUsers">
+            <End Role="AspNetUser" EntitySet="AspNetUsers" />
+            <End Role="Comment" EntitySet="Comments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Comments_tblFilm" Association="MoviesModel.FK_Comments_tblFilm">
+            <End Role="Film" EntitySet="Films" />
+            <End Role="Comment" EntitySet="Comments" />
+          </AssociationSet>
         </EntityContainer>
         <Association Name="FK_tblCast_tblActor">
           <End Type="MoviesModel.Actor" Role="Actor" Multiplicity="0..1">
@@ -760,6 +818,46 @@
         <Association Name="WatchList">
           <End Type="MoviesModel.AspNetUser" Role="AspNetUser" Multiplicity="*" />
           <End Type="MoviesModel.Film" Role="Film" Multiplicity="*" />
+        </Association>
+        <EntityType Name="Comment">
+          <Key>
+            <PropertyRef Name="CommentID" />
+          </Key>
+          <Property Name="CommentID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CommentContent" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="CommentFilmID" Type="Int32" Nullable="false" />
+          <Property Name="CommentUserID" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="DateAdded" Type="DateTime" Nullable="false" Precision="0" />
+          <NavigationProperty Name="AspNetUser" Relationship="MoviesModel.FK_Comments_AspNetUsers" FromRole="Comment" ToRole="AspNetUser" />
+          <NavigationProperty Name="tblFilm" Relationship="MoviesModel.FK_Comments_tblFilm" FromRole="Comment" ToRole="Film" />
+        </EntityType>
+        <Association Name="FK_Comments_AspNetUsers">
+          <End Type="MoviesModel.AspNetUser" Role="AspNetUser" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="MoviesModel.Comment" Role="Comment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUser">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Comment">
+              <PropertyRef Name="CommentUserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Comments_tblFilm">
+          <End Type="MoviesModel.Film" Role="Film" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="MoviesModel.Comment" Role="Comment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Film">
+              <PropertyRef Name="FilmID" />
+            </Principal>
+            <Dependent Role="Comment">
+              <PropertyRef Name="CommentFilmID" />
+            </Dependent>
+          </ReferentialConstraint>
         </Association>
       </Schema>
     </edmx:ConceptualModels>
@@ -939,6 +1037,17 @@
               <ScalarProperty Name="Id" ColumnName="UserID" />
             </EndProperty>
           </AssociationSetMapping>
+          <EntitySetMapping Name="Comments">
+            <EntityTypeMapping TypeName="MoviesModel.Comment">
+              <MappingFragment StoreEntitySet="Comments">
+                <ScalarProperty Name="DateAdded" ColumnName="DateAdded" />
+                <ScalarProperty Name="CommentUserID" ColumnName="CommentUserID" />
+                <ScalarProperty Name="CommentFilmID" ColumnName="CommentFilmID" />
+                <ScalarProperty Name="CommentContent" ColumnName="CommentContent" />
+                <ScalarProperty Name="CommentID" ColumnName="CommentID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
