@@ -41,19 +41,23 @@ namespace MBDBapp.Controllers.Api
             return Ok(Mapper.Map<Film, FilmDto>(filmFromDb));
         }
 
-        // POST: api/Films
-        public void Post([FromBody]string value)
+        // GET : api/films/like/id
+        [HttpGet]
+        [Route("api/films/like/{Id}")]
+        public IHttpActionResult LikeFilm(int Id)
         {
-        }
 
-        // PUT: api/Films/5
-        public void Put(int id, [FromBody]string value)
-        {
+            return Ok(Id);
         }
-
-        // DELETE: api/Films/5
-        public void Delete(int id)
+        
+        // GET : api/films/dislike/id
+        [HttpGet]
+        [Route("api/films/dislike/{Id}")]
+        public IHttpActionResult DislikeFilm(int Id)
         {
+            
+
+            return Ok(Id);
         }
     }
 }

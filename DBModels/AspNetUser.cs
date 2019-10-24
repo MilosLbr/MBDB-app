@@ -22,6 +22,7 @@ namespace MBDBapp.DBModels
             this.AspNetRoles = new HashSet<AspNetRole>();
             this.tblFilms = new HashSet<Film>();
             this.Comments = new HashSet<Comment>();
+            this.FilmLikesAndDislikes = new HashSet<FilmLikesAndDislikes>();
         }
     
         public string Id { get; set; }
@@ -47,5 +48,7 @@ namespace MBDBapp.DBModels
         public virtual ICollection<Film> tblFilms { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Comment> Comments { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<FilmLikesAndDislikes> FilmLikesAndDislikes { get; set; }
     }
 }

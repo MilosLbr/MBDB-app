@@ -39,6 +39,7 @@ namespace MBDBapp.Controllers.Api
                     user.UserName,
                     com.DateAdded
                 })
+                .OrderByDescending(c => c.DateAdded)
                 .ToList();
 
 

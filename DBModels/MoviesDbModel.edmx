@@ -76,6 +76,16 @@
           <Property Name="CommentUserID" Type="nvarchar" MaxLength="128" Nullable="false" />
           <Property Name="DateAdded" Type="date" Nullable="false" />
         </EntityType>
+        <EntityType Name="FilmLikesAndDislikes">
+          <Key>
+            <PropertyRef Name="FilmID" />
+            <PropertyRef Name="UserID" />
+          </Key>
+          <Property Name="FilmID" Type="int" Nullable="false" />
+          <Property Name="UserID" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="IsLiked" Type="tinyint" Nullable="false" />
+          <Property Name="IsDisliked" Type="tinyint" Nullable="false" />
+        </EntityType>
         <EntityType Name="sysdiagrams">
           <Key>
             <PropertyRef Name="diagram_id" />
@@ -145,6 +155,8 @@
           <Property Name="FilmBoxOfficeDollars" Type="int" />
           <Property Name="FilmOscarNominations" Type="int" />
           <Property Name="FilmOscarWins" Type="int" />
+          <Property Name="FilmLikes" Type="int" />
+          <Property Name="FilmDislikes" Type="int" />
         </EntityType>
         <EntityType Name="tblGenre">
           <Key>
@@ -256,6 +268,34 @@
             </Principal>
             <Dependent Role="AspNetUserRoles">
               <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FilmLikesAndDislikes_AspNetUsers">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="FilmLikesAndDislikes" Type="Self.FilmLikesAndDislikes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="FilmLikesAndDislikes">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FilmLikesAndDislikes_tblFilm">
+          <End Role="tblFilm" Type="Self.tblFilm" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="FilmLikesAndDislikes" Type="Self.FilmLikesAndDislikes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblFilm">
+              <PropertyRef Name="FilmID" />
+            </Principal>
+            <Dependent Role="FilmLikesAndDislikes">
+              <PropertyRef Name="FilmID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -381,6 +421,7 @@
           <EntitySet Name="AspNetUserRoles" EntityType="Self.AspNetUserRoles" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUsers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Comments" EntityType="Self.Comments" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="FilmLikesAndDislikes" EntityType="Self.FilmLikesAndDislikes" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblActor" EntityType="Self.tblActor" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblCast" EntityType="Self.tblCast" Schema="dbo" store:Type="Tables" />
@@ -415,6 +456,14 @@
           <AssociationSet Name="FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="AspNetUserRoles" EntitySet="AspNetUserRoles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FilmLikesAndDislikes_AspNetUsers" Association="Self.FK_FilmLikesAndDislikes_AspNetUsers">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="FilmLikesAndDislikes" EntitySet="FilmLikesAndDislikes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FilmLikesAndDislikes_tblFilm" Association="Self.FK_FilmLikesAndDislikes_tblFilm">
+            <End Role="tblFilm" EntitySet="tblFilm" />
+            <End Role="FilmLikesAndDislikes" EntitySet="FilmLikesAndDislikes" />
           </AssociationSet>
           <AssociationSet Name="FK_tblCast_tblActor" Association="Self.FK_tblCast_tblActor">
             <End Role="tblActor" EntitySet="tblActor" />
@@ -517,6 +566,7 @@
           <NavigationProperty Name="AspNetRoles" Relationship="Self.AspNetUserRoles" FromRole="AspNetUsers" ToRole="AspNetRoles" />
           <NavigationProperty Name="tblFilms" Relationship="MoviesModel.WatchList" FromRole="AspNetUser" ToRole="Film" />
           <NavigationProperty Name="Comments" Relationship="MoviesModel.FK_Comments_AspNetUsers" FromRole="AspNetUser" ToRole="Comment" />
+          <NavigationProperty Name="FilmLikesAndDislikes" Relationship="MoviesModel.FK_FilmLikesAndDislikes_AspNetUsers" FromRole="AspNetUser" ToRole="FilmLikesAndDislikes" />
         </EntityType>
         <EntityType Name="Actor">
           <Key>
@@ -591,6 +641,9 @@
           <NavigationProperty Name="tblCasts" Relationship="MoviesModel.FK_tblCast_tblFilm" FromRole="Film" ToRole="Cast" />
           <NavigationProperty Name="AspNetUsers" Relationship="MoviesModel.WatchList" FromRole="Film" ToRole="AspNetUser" />
           <NavigationProperty Name="Comments" Relationship="MoviesModel.FK_Comments_tblFilm" FromRole="Film" ToRole="Comment" />
+          <NavigationProperty Name="FilmLikesAndDislikes" Relationship="MoviesModel.FK_FilmLikesAndDislikes_tblFilm" FromRole="Film" ToRole="FilmLikesAndDislikes" />
+          <Property Name="FilmLikes" Type="Int32" />
+          <Property Name="FilmDislikes" Type="Int32" />
         </EntityType>
         <EntityType Name="Genre">
           <Key>
@@ -776,6 +829,15 @@
             <End Role="Film" EntitySet="Films" />
             <End Role="Comment" EntitySet="Comments" />
           </AssociationSet>
+          <EntitySet Name="FilmLikesAndDislikes1" EntityType="MoviesModel.FilmLikesAndDislikes" />
+          <AssociationSet Name="FK_FilmLikesAndDislikes_AspNetUsers" Association="MoviesModel.FK_FilmLikesAndDislikes_AspNetUsers">
+            <End Role="AspNetUser" EntitySet="AspNetUsers" />
+            <End Role="FilmLikesAndDislikes" EntitySet="FilmLikesAndDislikes1" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FilmLikesAndDislikes_tblFilm" Association="MoviesModel.FK_FilmLikesAndDislikes_tblFilm">
+            <End Role="Film" EntitySet="Films" />
+            <End Role="FilmLikesAndDislikes" EntitySet="FilmLikesAndDislikes1" />
+          </AssociationSet>
         </EntityContainer>
         <Association Name="FK_tblCast_tblActor">
           <End Type="MoviesModel.Actor" Role="Actor" Multiplicity="0..1">
@@ -856,6 +918,46 @@
             </Principal>
             <Dependent Role="Comment">
               <PropertyRef Name="CommentFilmID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="FilmLikesAndDislikes">
+          <Key>
+            <PropertyRef Name="FilmID" />
+            <PropertyRef Name="UserID" />
+          </Key>
+          <Property Name="FilmID" Type="Int32" Nullable="false" />
+          <Property Name="UserID" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="IsLiked" Type="Byte" Nullable="false" />
+          <Property Name="IsDisliked" Type="Byte" Nullable="false" />
+          <NavigationProperty Name="AspNetUser" Relationship="MoviesModel.FK_FilmLikesAndDislikes_AspNetUsers" FromRole="FilmLikesAndDislikes" ToRole="AspNetUser" />
+          <NavigationProperty Name="tblFilm" Relationship="MoviesModel.FK_FilmLikesAndDislikes_tblFilm" FromRole="FilmLikesAndDislikes" ToRole="Film" />
+        </EntityType>
+        <Association Name="FK_FilmLikesAndDislikes_AspNetUsers">
+          <End Type="MoviesModel.AspNetUser" Role="AspNetUser" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="MoviesModel.FilmLikesAndDislikes" Role="FilmLikesAndDislikes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUser">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="FilmLikesAndDislikes">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FilmLikesAndDislikes_tblFilm">
+          <End Type="MoviesModel.Film" Role="Film" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="MoviesModel.FilmLikesAndDislikes" Role="FilmLikesAndDislikes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Film">
+              <PropertyRef Name="FilmID" />
+            </Principal>
+            <Dependent Role="FilmLikesAndDislikes">
+              <PropertyRef Name="FilmID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -969,6 +1071,8 @@
           <EntitySetMapping Name="Films">
             <EntityTypeMapping TypeName="MoviesModel.Film">
               <MappingFragment StoreEntitySet="tblFilm">
+                <ScalarProperty Name="FilmDislikes" ColumnName="FilmDislikes" />
+                <ScalarProperty Name="FilmLikes" ColumnName="FilmLikes" />
                 <ScalarProperty Name="FilmID" ColumnName="FilmID" />
                 <ScalarProperty Name="FilmName" ColumnName="FilmName" />
                 <ScalarProperty Name="FilmReleaseDate" ColumnName="FilmReleaseDate" />
@@ -1045,6 +1149,16 @@
                 <ScalarProperty Name="CommentFilmID" ColumnName="CommentFilmID" />
                 <ScalarProperty Name="CommentContent" ColumnName="CommentContent" />
                 <ScalarProperty Name="CommentID" ColumnName="CommentID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FilmLikesAndDislikes1">
+            <EntityTypeMapping TypeName="MoviesModel.FilmLikesAndDislikes">
+              <MappingFragment StoreEntitySet="FilmLikesAndDislikes">
+                <ScalarProperty Name="IsDisliked" ColumnName="IsDisliked" />
+                <ScalarProperty Name="IsLiked" ColumnName="IsLiked" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="FilmID" ColumnName="FilmID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

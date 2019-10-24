@@ -22,6 +22,17 @@ namespace MBDBapp
             bundles.Add(new ScriptBundle("~/bundles/modernizr").Include(
                         "~/Scripts/modernizr-*"));
 
+            bundles.Add(new ScriptBundle("~/bundles/DetailsPage").Include(
+                    "~/Scripts/FilmDetails/functions/AddOmdbApiData.js",
+                    "~/Scripts/FilmDetails/functions/LoadComments.js",
+                    "~/Scripts/FilmDetails/functions/AddToWatchlist.js",
+                    "~/Scripts/FilmDetails/functions/PostComment.js",
+                    "~/Scripts/FilmDetails/functions/FormatDate.js",
+                    "~/Scripts/FilmDetails/functions/LikeAMovie.js",
+                    "~/Scripts/FilmDetails/functions/DislikeAMovie.js",
+                    "~/Scripts/FilmDetails/filmDetails.js"
+                ));
+
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
                       "~/Scripts/bootstrap.js"));
 
@@ -29,6 +40,7 @@ namespace MBDBapp
                       "~/Content/bootstrap.css",
                       "~/Content/datatables/css/datatables.bootstrap.css",
                       "~/Content/toastr.css",
+                      "~/Content/font-awesome.css",
                       "~/Content/site.css"));
         }
     }

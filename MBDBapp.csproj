@@ -227,6 +227,9 @@
     <Compile Include="DBModels\Film.cs">
       <DependentUpon>MoviesDbModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="DBModels\FilmLikesAndDislikes.cs">
+      <DependentUpon>MoviesDbModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="DBModels\Genre.cs">
       <DependentUpon>MoviesDbModel.tt</DependentUpon>
     </Compile>
@@ -440,12 +443,15 @@
     <Content Include="Content\DataTables\images\sort_desc.png" />
     <Content Include="Content\DataTables\images\sort_desc_disabled.png" />
     <Content Include="Content\DataTables\swf\flashExport.swf" />
+    <Content Include="Content\font-awesome.css" />
+    <Content Include="Content\font-awesome.min.css" />
     <Content Include="Content\Images\departed2006.jpg" />
     <Content Include="Content\Images\gandhi1982.jpg" />
     <Content Include="Content\Images\schindler1994.jpg" />
     <Content Include="Content\toastr.css" />
     <Content Include="Content\toastr.min.css" />
     <Content Include="favicon.ico" />
+    <Content Include="fonts\fontawesome-webfont.svg" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
@@ -473,6 +479,11 @@
     </Content>
     <Content Include="Content\toastr.scss" />
     <Content Include="Content\toastr.less" />
+    <Content Include="fonts\FontAwesome.otf" />
+    <Content Include="fonts\fontawesome-webfont.woff2" />
+    <Content Include="fonts\fontawesome-webfont.woff" />
+    <Content Include="fonts\fontawesome-webfont.ttf" />
+    <Content Include="fonts\fontawesome-webfont.eot" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\DataTables\autoFill.bootstrap.js" />
     <Content Include="Scripts\DataTables\autoFill.bootstrap.min.js" />
@@ -550,6 +561,14 @@
     <Content Include="Scripts\DataTables\responsive.jqueryui.min.js" />
     <Content Include="Scripts\DataTables\responsive.semanticui.js" />
     <Content Include="Scripts\DataTables\responsive.semanticui.min.js" />
+    <Content Include="Scripts\FilmDetails\filmDetails.js" />
+    <Content Include="Scripts\FilmDetails\functions\AddOmdbApiData.js" />
+    <Content Include="Scripts\FilmDetails\functions\AddToWatchlist.js" />
+    <Content Include="Scripts\FilmDetails\functions\DislikeAMovie.js" />
+    <Content Include="Scripts\FilmDetails\functions\FormatDate.js" />
+    <Content Include="Scripts\FilmDetails\functions\LikeAMovie.js" />
+    <Content Include="Scripts\FilmDetails\functions\LoadComments.js" />
+    <Content Include="Scripts\FilmDetails\functions\PostComment.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
     <Content Include="Scripts\jquery-3.3.1.slim.js" />

@@ -54,6 +54,9 @@ namespace MBDBapp.DBModels
         [Display(Name = "Oscar Wins")]
         [Range(0, 100)]
         public Nullable<int> FilmOscarWins;
-         
+
+        public Nullable<int> FilmLikes { get; set; }
+        public Nullable<int> FilmDislikes { get; set; }
+
     }
 }

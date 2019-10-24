@@ -20,6 +20,7 @@ namespace MBDBapp.DBModels
             this.tblCasts = new HashSet<Cast>();
             this.AspNetUsers = new HashSet<AspNetUser>();
             this.Comments = new HashSet<Comment>();
+            this.FilmLikesAndDislikes = new HashSet<FilmLikesAndDislikes>();
         }
     
         public int FilmID { get; set; }
@@ -36,6 +37,8 @@ namespace MBDBapp.DBModels
         public Nullable<int> FilmBoxOfficeDollars { get; set; }
         public Nullable<int> FilmOscarNominations { get; set; }
         public Nullable<int> FilmOscarWins { get; set; }
+        public Nullable<int> FilmLikes { get; set; }
+        public Nullable<int> FilmDislikes { get; set; }
     
         public virtual tblCertificate tblCertificate { get; set; }
         public virtual Country tblCountry { get; set; }
@@ -48,5 +51,7 @@ namespace MBDBapp.DBModels
         public virtual ICollection<AspNetUser> AspNetUsers { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Comment> Comments { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<FilmLikesAndDislikes> FilmLikesAndDislikes { get; set; }
     }
 }

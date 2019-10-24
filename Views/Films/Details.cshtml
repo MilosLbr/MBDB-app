@@ -15,7 +15,7 @@
         <div class="col-md-5">
             <img class="img-responsive" src="" alt="Poster" />
         </div>
-        
+
         <div class="col-md-6 flex-column justify-content-bw">
             <h4 class="text-center" id="genres" style="font-weight :bolder "></h4>
             <p>
@@ -59,7 +59,7 @@
 
 
             <ul>
-                <li><strong>Budget: </strong>@String.Format("{0:n0}",Model.FilmBudgetDollars) $</li>
+                <li><strong>Budget: </strong>@String.Format("{0:n0}", Model.FilmBudgetDollars) $</li>
                 <li><strong>Box office: </strong>@String.Format("{0:n0}", Model.FilmBoxOfficeDollars) $, Gains: @String.Format("{0:n0}", Model.FilmBoxOfficeDollars - Model.FilmBudgetDollars) $</li>
                 <li><strong>Oscar Nominations: </strong>@Model.FilmOscarNominations</li>
                 <li><strong>Oscar Wins: </strong>@Model.FilmOscarWins</li>
@@ -70,144 +70,41 @@
     </div>
 </div>
 
-<div class="text-center">
+<div style="margin-bottom: 20px;" class="text-center">
     <button id="addToWatchListBtn" class="btn btn-primary">+ Add to WatchList</button>
+</div>
+
+<div style="margin-bottom: 20px;" class="text-center row justify-content-around">
+    <div class="col-xs-3">
+        <button id="likeButton" class="btn btn-success"><i class="fa fa-thumbs-up fa-2x"></i></button>
+        <span id="numOfLikes">@Model.FilmLikes</span>
+    </div>
+    <div class="col-xs-3">
+        <button id="dislikeButton" class="btn btn-danger"><i class="fa fa-thumbs-down fa-2x"></i></button>
+        <span id="numOfDislikes">@Model.FilmDislikes</span>
+    </div>
+
 </div>
 
 <hr />
 
 <h3>Comments: <span id="numberOfComments"></span></h3>
-<div id="commentsContainer" >
-   
+<div id="commentsContainer">
+
 </div>
 
 <div id="newComment" class="form-group">
-    <label for="commentContent" >Post new comment: </label>
-    <textarea style="font-size: 1.1em; margin-bottom: 10px"  rows="2" id="commentContent" class="form-control"></textarea>
+    <label for="commentContent">Post new comment: </label>
+    <textarea style="font-size: 1.1em; margin-bottom: 10px" rows="2" id="commentContent" class="form-control"></textarea>
     <button id="postComment" class="btn btn-success">Post</button>
 </div>
 
-
-@section scripts
-{
+@section scripts{
+    @Scripts.Render("~/bundles/DetailsPage");
     
     <script>
-        $(document).ready(() => {
-            const watchListUrl = "/api/watchlist/";
-            const omdbapi = "https://www.omdbapi.com/?apikey=e0fb59d&t=";
-            const commentsUrl = "/api/comments/"
+        let FilmModel = @Html.Raw(Json.Encode(Model));
 
-            const movieName = "@Html.Raw(Model.FilmName)";
-            const movieId = @Model.FilmID;
-
-            // Add to watchlist function
-            const addToWatchListBtn = $("#addToWatchListBtn");
-
-            addToWatchListBtn.on("click", function () {
-                $.ajax({
-                    url: watchListUrl + movieId,
-                    method: "POST",
-                })
-                    .done(function() {
-                        toastr.success("Added " + movieName + " to WatchList!");
-                    })
-                    .fail(data => {
-                        if (data.responseJSON.message == "Film is already added to WatchList!") {
-                            toastr.error("Film is already added to WatchList!")
-                        } else {
-                            toastr.error("Error adding movie to WatchList")
-                        }
-                    })
-            });
-
-
-            // Add images, poster and genre from omdb api
-            $.ajax({
-                url: omdbapi + movieName,
-            }).then(data => {
-                
-                $("#genres").html(data.Genre)
-
-                $("#mainInfo img").attr('src', data.Poster);
-
-                $("#ratings").children().each((ind, elem) => {
-                    elem.innerText += " " + data.Ratings[ind].Value;
-                });
-
-            });
-
-            // Load comments
-            let commentsContainer = $("#commentsContainer");
-            loadComments();
-
-            function loadComments(){
-                $.ajax({
-                    url: commentsUrl + movieId
-                }).then(data => {
-                    let numberOfComments = data.length;
-                    $("#numberOfComments").html(numberOfComments);
-
-                    $(data).each((ind, elem) => {
-
-                        let comment = $("<div>", { "class": "comment" });
-                        let date = formatDate(new Date(elem.dateAdded));
-
-                        let commentAuthor = $("<span>", { "class": "commentAuthor" }).text(elem.userName);
-                        let dateAdded = $("<span>", { "class": "dateAdded" }).text(date);
-                        let authorAndDate = $("<div>", { "class": "flex-column authorAndDate" });
-                        authorAndDate.append(commentAuthor, dateAdded);
-
-                        let commentContent = $("<p>", { "class": "commentContent" }).text(elem.commentContent);
-                        comment.append(authorAndDate, commentContent);
-
-                        commentsContainer.append(comment);
-                    })
-                });
-            }
-
-            // Post new comment
-            let postBtn = $("#postComment");
-            postBtn.on("click", function () {
-                let textArea = $("#commentContent");
-
-                let commentData = {
-                    commentFilmID: movieId,
-                    commentContent: textArea.val()
-                };
-
-                $.ajax({
-                    url: commentsUrl,
-                    method: "POST",
-                    data: commentData
-                })
-                    .done(() => {
-                        toastr.success("Succesfuly posted!");
-                        textArea.val("");
-                        $("#commentsContainer").html("");
-                        loadComments();
-                    })
-                    .fail((msg) => {
-                        toastr.error(msg.responseJSON.message);
-                    });
-            });
-
-            // Format date
-            function formatDate(date) {
-                  var monthNames = [
-                    "January", "February", "March",
-                    "April", "May", "June", "July",
-                    "August", "September", "October",
-                    "November", "December"
-                  ];
-
-                  var day = date.getDate();
-                  var monthIndex = date.getMonth();
-                  var year = date.getFullYear();
-
-                  return day + '.' + monthNames[monthIndex] + ' ' + year;
-            };
-        })
-
+        initializeFilmDetails(FilmModel);
     </script>
-    
 }
