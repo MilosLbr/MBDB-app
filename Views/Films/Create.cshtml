@@ -143,9 +143,8 @@
             let releaseDateElem = $("#releaseDate")
 
             $.validator.methods.date = function (value, releaseDateElem) {
-                console.log(releaseDateElem, value)
-                console.log(moment(value, "DD-MM-YYYY").isValid())
-            return this.optional(releaseDateElem) || moment(value, "DD-MM-YYYY").isValid();
+                
+                return this.optional(releaseDateElem) || moment(value, "DD-MM-YYYY").isValid();
             }
         });
 

@@ -73,7 +73,7 @@
 
             $("#myWatchList").on('click', '.js-delete', function () {
                 var button = $(this);
-                console.log(button)
+                
                 $.ajax({
                     url: '/api/watchlist/' + button.attr('data-filmid'),
                     method: "DELETE",
