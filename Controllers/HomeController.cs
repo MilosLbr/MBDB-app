@@ -3,36 +3,32 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using MBDBapp.DBModels;
+using MBDB_datalib;
+using MBDB_repositories.Interfaces;
+using MBDB_repositories.Implementation;
 
 namespace MBDBapp.Controllers
 {
     [AllowAnonymous]
     public class HomeController : Controller
     {
-        private MoviesContext _context;
+        private readonly IUnitOfWork _unitOfWork;
+
+        public HomeController(IUnitOfWork unitOfWork)
+        {
+            _unitOfWork = unitOfWork;
+        }
 
         public HomeController()
         {
-            _context = new MoviesContext();
-        }
-
-        protected override void Dispose(bool disposing)
-        {
-            _context.Dispose();
+            _unitOfWork = new UnitOfWork(new MoviesContext());
         }
 
         public ActionResult Index()
         {
-            var random = new Random();
-
-            int allFilms = _context.Films.Count();
-
-            int randomSkip = random.Next(allFilms - 3);
-
             // Display three random films on the home page
 
-            var selectedFilms = _context.Films.OrderBy(f => f.FilmName).Skip(randomSkip).Take(3).ToList();
+            var selectedFilms = _unitOfWork.Films.GetThreeRandomFilms();
                        
             return View(selectedFilms);
         }

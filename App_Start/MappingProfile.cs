@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using AutoMapper;
-using MBDBapp.DBModels;
-using MBDBapp.Models.Dto;
+using MBDB_datalib;
+using MBDB_datalib.Dto;
 
 namespace MBDBapp.App_Start
 {

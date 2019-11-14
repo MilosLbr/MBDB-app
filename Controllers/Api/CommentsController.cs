@@ -5,8 +5,10 @@ using System.Net;
 using System.Net.Http;
 using System.Data.Entity;
 using System.Web.Http;
-using MBDBapp.DBModels;
-using MBDBapp.Models.Dto;
+using MBDB_datalib;
+using MBDB_datalib.Dto;
+using MBDB_repositories.Interfaces;
+using MBDB_repositories.Implementation;
 using Microsoft.AspNet.Identity;
 using AutoMapper;
 
@@ -15,11 +17,11 @@ namespace MBDBapp.Controllers.Api
     [Authorize]
     public class CommentsController : ApiController
     {
-        private MoviesContext _context;
+        private readonly IUnitOfWork _unitOfWork;
 
         public CommentsController()
         {
-            _context = new MoviesContext();
+            _unitOfWork = new UnitOfWork(new MoviesContext());
         }
 
         // Get comments for the given film id
@@ -27,22 +29,8 @@ namespace MBDBapp.Controllers.Api
         [Route("api/comments/{filmID=filmID}")]
         public IHttpActionResult GetComments(int filmID)
         {
-            var commentsFromDb = _context.Comments.Where(c => c.CommentFilmID.Equals(filmID))
-                .Join(_context.AspNetUsers,
-                c => c.CommentUserID,
-                u => u.Id,
-                (com, user) =>
-                new
-                {
-                    com.CommentID,
-                    com.CommentContent,
-                    user.UserName,
-                    com.DateAdded
-                })
-                .OrderByDescending(c => c.DateAdded)
-                .ToList();
-
-
+            var commentsFromDb = _unitOfWork.Comments.GetCommentsForGivenFilm(filmID);
+            
             return Ok(commentsFromDb);
         }
 
@@ -54,7 +42,7 @@ namespace MBDBapp.Controllers.Api
             var userIdValue = User.Identity.GetUserId();
 
             var filmID = commentData.CommentFilmID;
-            var filmFromDb = _context.Films.SingleOrDefault(f => f.FilmID.Equals(filmID));
+            var filmFromDb = _unitOfWork.Films.Get(filmID);
 
             if (filmFromDb == null)
                 return BadRequest("Bad movie ID!");
@@ -67,8 +55,8 @@ namespace MBDBapp.Controllers.Api
             
             var commentToAdd = Mapper.Map<CommentDto, Comment>(commentData);
 
-            _context.Comments.Add(commentToAdd);
-            _context.SaveChanges();
+            _unitOfWork.Comments.Add(commentToAdd);
+            _unitOfWork.Complete();
 
             commentData.CommentID = commentToAdd.CommentID;
 

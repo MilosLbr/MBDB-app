@@ -1,4 +1,4 @@
-﻿@model MBDBapp.DBModels.Film
+﻿@model MBDB_datalib.Film
 
 @{
     ViewBag.Title = "Create";
@@ -36,7 +36,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.FilmDirectorID, "Director", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownList("FilmDirectorID", null, "Select Director", htmlAttributes: new { @class = "form-control" })
+                @Html.DropDownList( "FilmDirectorID" , null, "Select Director", htmlAttributes: new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.FilmDirectorID, "", new { @class = "text-danger" })
 
             </div>

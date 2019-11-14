@@ -50,7 +50,7 @@
     </ItemGroup>
     <MakeDir Directories="$(WebProjectOutputDir)\bin\roslyn" />
     <Copy SourceFiles="@(RoslynFiles)" DestinationFolder="$(WebProjectOutputDir)\bin\roslyn" SkipUnchangedFiles="true" Retries="$(CopyRetryCount)" RetryDelayMilliseconds="$(CopyRetryDelayMilliseconds)" />
-</Target>
+  </Target>
   <ItemGroup>
     <Reference Include="AutoMapper, Version=4.1.1.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
       <HintPath>packages\AutoMapper.4.1.1\lib\net45\AutoMapper.dll</HintPath>
@@ -187,9 +187,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controllers\Api\CommentsController.cs" />
-    <Compile Include="DBModels\Actor.cs">
-      <DependentUpon>MoviesDbModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\IdentityConfig.cs" />
@@ -197,21 +194,6 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
-    <Compile Include="DBModels\AspNetRole.cs">
-      <DependentUpon>MoviesDbModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DBModels\AspNetUser.cs">
-      <DependentUpon>MoviesDbModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DBModels\AspNetUserClaim.cs">
-      <DependentUpon>MoviesDbModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DBModels\AspNetUserLogin.cs">
-      <DependentUpon>MoviesDbModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DBModels\Cast.cs">
-      <DependentUpon>MoviesDbModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\Api\FilmsController.cs" />
     <Compile Include="Controllers\Api\WatchListController.cs" />
@@ -219,72 +201,15 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\WatchListController.cs" />
-    <Compile Include="DBModels\Comment.cs">
-      <DependentUpon>MoviesDbModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DBModels\Country.cs">
-      <DependentUpon>MoviesDbModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DBModels\C__MigrationHistory.cs">
-      <DependentUpon>MoviesDbModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DBModels\Director.cs">
-      <DependentUpon>MoviesDbModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DBModels\Film.cs">
-      <DependentUpon>MoviesDbModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DBModels\FilmLikesAndDislikes.cs">
-      <DependentUpon>MoviesDbModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DBModels\Genre.cs">
-      <DependentUpon>MoviesDbModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
-    <Compile Include="Models\Dto\ActorDto.cs" />
-    <Compile Include="Models\Dto\CastDto.cs" />
-    <Compile Include="Models\Dto\CommentDto.cs" />
-    <Compile Include="Models\Dto\DirectorDto.cs" />
-    <Compile Include="Models\Dto\FilmDto.cs" />
-    <Compile Include="Models\Dto\StudioDto.cs" />
-    <Compile Include="Models\Dto\UserDto.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
-    <Compile Include="DBModels\ModelMetadata.cs" />
     <Compile Include="Models\RoleNames.cs" />
-    <Compile Include="DBModels\MoviesDbModel.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>MoviesDbModel.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DBModels\MoviesDbModel.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>MoviesDbModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DBModels\MoviesDbModel.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>MoviesDbModel.edmx</DependentUpon>
-    </Compile>
-    <Compile Include="DBModels\PartialClasses.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
-    <Compile Include="DBModels\Studio.cs">
-      <DependentUpon>MoviesDbModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DBModels\sysdiagram.cs">
-      <DependentUpon>MoviesDbModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DBModels\tblCertificate.cs">
-      <DependentUpon>MoviesDbModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DBModels\tblLanguage.cs">
-      <DependentUpon>MoviesDbModel.tt</DependentUpon>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Content Include=".gitattributes" />
@@ -462,28 +387,13 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
-    <Content Include="DBModels\MoviesDbModel.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>MoviesDbModel.edmx</DependentUpon>
-      <LastGenOutput>MoviesDbModel.Context.cs</LastGenOutput>
-    </Content>
-    <Content Include="DBModels\MoviesDbModel.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>MoviesDbModel.edmx</DependentUpon>
-      <LastGenOutput>MoviesDbModel.cs</LastGenOutput>
-    </Content>
+    <Content Include="Scripts\bootbox.js" />
+    <Content Include="Scripts\bootbox.min.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Content\DataTables\css\semanticui.scss" />
     <Content Include="Content\DataTables\css\mixins.scss" />
     <Content Include="Content\DataTables\css\common.scss" />
-    <EntityDeploy Include="DBModels\MoviesDbModel.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>MoviesDbModel.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <Content Include="DBModels\MoviesDbModel.edmx.diagram">
-      <DependentUpon>MoviesDbModel.edmx</DependentUpon>
-    </Content>
     <Content Include="Content\toastr.scss" />
     <Content Include="Content\toastr.less" />
     <Content Include="fonts\FontAwesome.otf" />
@@ -652,6 +562,16 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\MBDB-datalib\MBDB-datalib.csproj">
+      <Project>{8c0f9283-6aaa-451d-a67e-4012564a8bac}</Project>
+      <Name>MBDB-datalib</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MBDB-repositories\MBDB-repositories.csproj">
+      <Project>{cf96fa41-d6e3-4333-95e4-534d35e4918e}</Project>
+      <Name>MBDB-repositories</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

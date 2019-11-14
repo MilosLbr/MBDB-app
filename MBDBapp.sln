@@ -5,6 +5,10 @@ VisualStudioVersion = 16.0.29201.188
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MBDBapp", "MBDBapp.csproj", "{1151C8A7-334A-441A-AD8A-8B0971E342AD}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MBDB-datalib", "..\MBDB-datalib\MBDB-datalib.csproj", "{8C0F9283-6AAA-451D-A67E-4012564A8BAC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MBDB-repositories", "..\MBDB-repositories\MBDB-repositories.csproj", "{CF96FA41-D6E3-4333-95E4-534D35E4918E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +19,14 @@ Global
 		{1151C8A7-334A-441A-AD8A-8B0971E342AD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1151C8A7-334A-441A-AD8A-8B0971E342AD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1151C8A7-334A-441A-AD8A-8B0971E342AD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8C0F9283-6AAA-451D-A67E-4012564A8BAC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8C0F9283-6AAA-451D-A67E-4012564A8BAC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8C0F9283-6AAA-451D-A67E-4012564A8BAC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8C0F9283-6AAA-451D-A67E-4012564A8BAC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CF96FA41-D6E3-4333-95E4-534D35E4918E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CF96FA41-D6E3-4333-95E4-534D35E4918E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CF96FA41-D6E3-4333-95E4-534D35E4918E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CF96FA41-D6E3-4333-95E4-534D35E4918E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

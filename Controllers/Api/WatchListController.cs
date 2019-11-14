@@ -6,8 +6,10 @@ using System.Net;
 using System.Net.Http;
 using System.Security.Claims;
 using System.Web.Http;
-using MBDBapp.DBModels;
-using MBDBapp.Models.Dto;
+using MBDB_datalib;
+using MBDB_repositories.Interfaces;
+using MBDB_repositories.Implementation;
+using MBDB_datalib.Dto;
 using Microsoft.AspNet.Identity;
 using AutoMapper;
 
@@ -17,11 +19,11 @@ namespace MBDBapp.Controllers.Api
     public class WatchListController : ApiController
     {
 
-        private MoviesContext _context;
+        private readonly IUnitOfWork _unitOfWork;
 
         public WatchListController()
         {
-            _context = new MoviesContext();
+            _unitOfWork = new UnitOfWork(new MoviesContext());
         }
 
         // Get
@@ -30,7 +32,7 @@ namespace MBDBapp.Controllers.Api
 
             var userIdValue = User.Identity.GetUserId();
 
-            var userFromDb = _context.AspNetUsers.Single(u => u.Id.Equals(userIdValue));
+            var userFromDb = _unitOfWork.Users.SingleOrDefault(u => u.Id.Equals(userIdValue));
 
             var usersFilms = userFromDb.tblFilms.ToList();
 
@@ -47,16 +49,16 @@ namespace MBDBapp.Controllers.Api
         {
             var userId = User.Identity.GetUserId();
 
-            var filmToAdd = _context.Films.Single(f => f.FilmID.Equals(Id));
+            var filmToAdd = _unitOfWork.Films.Get(Id);
 
-            var currentUser = _context.AspNetUsers.Include(u => u.tblFilms).Single(u => u.Id.Equals(userId));
+            var currentUser = _unitOfWork.Users.SingleOrDefault(u => u.Id.Equals(userId));
 
             if (currentUser.tblFilms.Contains(filmToAdd))
                 return BadRequest("Film is already added to WatchList!");
 
             currentUser.tblFilms.Add(filmToAdd);
 
-            _context.SaveChanges();
+            _unitOfWork.Complete();
 
             return Ok();
         }
@@ -65,14 +67,14 @@ namespace MBDBapp.Controllers.Api
         [HttpDelete]
         public IHttpActionResult Delete(int Id)
         {
-            var usrID = User.Identity.GetUserId();
+            var userId = User.Identity.GetUserId();
 
-            var userFromDb = _context.AspNetUsers.Include(u => u.tblFilms).Single(u => u.Id.Equals(usrID));
-            var filmToRemove = userFromDb.tblFilms.Single(f => f.FilmID == Id);
+            var currentUser = _unitOfWork.Users.SingleOrDefault(u => u.Id.Equals(userId));
+            var filmToRemove = currentUser.tblFilms.Single(f => f.FilmID == Id);
 
-            userFromDb.tblFilms.Remove(filmToRemove);
+            currentUser.tblFilms.Remove(filmToRemove);
 
-            _context.SaveChanges();
+            _unitOfWork.Complete();
 
             return Ok();
         }

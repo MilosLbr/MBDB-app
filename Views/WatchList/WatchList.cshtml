@@ -73,16 +73,20 @@
 
             $("#myWatchList").on('click', '.js-delete', function () {
                 var button = $(this);
-                
-                $.ajax({
-                    url: '/api/watchlist/' + button.attr('data-filmid'),
-                    method: "DELETE",
-                    success: () => {
-                        console.log("returned", table.row(button.parents('tr')))
-                        table.row(button.parents("tr")).remove().draw();
+
+                bootbox.confirm("Are you sure you want to delete this film from your watchlist?", (result) => {
+                    if (result) {
+                        $.ajax({
+                            url: '/api/watchlist/' + button.attr('data-filmid'),
+                            method: "DELETE",
+                            success: () => {
+                                table.row(button.parents("tr")).remove().draw();
+                            }
+                        })
                     }
-                })
-            })
+                });
+                
+            });
 
         });
 
