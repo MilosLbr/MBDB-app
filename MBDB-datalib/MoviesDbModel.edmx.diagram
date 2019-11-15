@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="dfe9c43e40684b15a0b22c9879da6a2d" Name="Diagram1">
+        <EntityTypeShape EntityType="MoviesModel.C__MigrationHistory" Width="1.5" PointX="0.5" PointY="13.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="MoviesModel.AspNetRole" Width="1.5" PointX="12.25" PointY="2.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="MoviesModel.AspNetUserClaim" Width="1.5" PointX="10.25" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="MoviesModel.AspNetUserLogin" Width="1.5" PointX="10.25" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MoviesModel.AspNetUser" Width="1.5" PointX="8" PointY="1.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="MoviesModel.Actor" Width="1.5" PointX="4" PointY="9.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="MoviesModel.Cast" Width="1.5" PointX="4.5" PointY="7.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="MoviesModel.tblCertificate" Width="1.5" PointX="0.5" PointY="0.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="MoviesModel.Country" Width="1.5" PointX="0.5" PointY="2.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="MoviesModel.Director" Width="1.5" PointX="0.5" PointY="4.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="MoviesModel.Film" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="MoviesModel.Genre" Width="1.5" PointX="0.5" PointY="10.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="MoviesModel.tblLanguage" Width="1.5" PointX="0.5" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MoviesModel.Studio" Width="1.5" PointX="0.5" PointY="8.5" IsExpanded="true" />
+        <AssociationConnector Association="MoviesModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" ManuallyRouted="false" />
+        <AssociationConnector Association="MoviesModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" ManuallyRouted="false" />
+        <AssociationConnector Association="MoviesModel.FK_tblFilm_tblCertificate" ManuallyRouted="false" />
+        <AssociationConnector Association="MoviesModel.FK_tblFilm_tblCountry" ManuallyRouted="false" />
+        <AssociationConnector Association="MoviesModel.FK_tblFilm_tblDirector" ManuallyRouted="false" />
+        <AssociationConnector Association="MoviesModel.FK_tblFilm_tblLanguage" ManuallyRouted="false" />
+        <AssociationConnector Association="MoviesModel.FK_tblFilm_tblStudio1" ManuallyRouted="false" />
+        <AssociationConnector Association="MoviesModel.AspNetUserRoles" ManuallyRouted="false" />
+        <AssociationConnector Association="MoviesModel.FK_tblCast_tblActor" />
+        <AssociationConnector Association="MoviesModel.FK_tblCast_tblFilm" />
+        <EntityTypeShape EntityType="MoviesModel.sysdiagram" Width="1.5" PointX="2.5" PointY="13.625" />
+        <AssociationConnector Association="MoviesModel.WatchList" />
+        <EntityTypeShape EntityType="MoviesModel.Comment" Width="1.5" PointX="5.5" PointY="0.5" />
+        <AssociationConnector Association="MoviesModel.FK_Comments_AspNetUsers" />
+        <AssociationConnector Association="MoviesModel.FK_Comments_tblFilm" />
+        <EntityTypeShape EntityType="MoviesModel.FilmLikesAndDislikes" Width="1.5" PointX="5.375" PointY="4.5" />
+        <AssociationConnector Association="MoviesModel.FK_FilmLikesAndDislikes_AspNetUsers" />
+        <AssociationConnector Association="MoviesModel.FK_FilmLikesAndDislikes_tblFilm" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
