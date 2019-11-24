@@ -21,9 +21,9 @@ namespace MBDBapp.Controllers.Api
 
         private readonly IUnitOfWork _unitOfWork;
 
-        public FilmsController()
+        public FilmsController(IUnitOfWork unitOfWork)
         {
-            _unitOfWork = new UnitOfWork(new MoviesContext());
+            _unitOfWork = unitOfWork;
         }
 
         // GET: api/Films

@@ -19,10 +19,10 @@ namespace MBDBapp.Controllers
             _unitOfWork = unitOfWork;
         }
 
-        public HomeController()
-        {
-            _unitOfWork = new UnitOfWork(new MoviesContext());
-        }
+        //public HomeController()
+        //{
+        //    _unitOfWork = new UnitOfWork(new MoviesContext());
+        //}
 
         public ActionResult Index()
         {

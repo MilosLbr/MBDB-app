@@ -19,10 +19,10 @@ namespace MBDBapp.Controllers
     {
         private readonly IUnitOfWork _unitOfWork;
 
-        public FilmsController()
-        {
-            _unitOfWork = new UnitOfWork(new MoviesContext());
-        }
+        //public FilmsController()
+        //{
+        //    _unitOfWork = new UnitOfWork(new MoviesContext());
+        //}
         public FilmsController(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;

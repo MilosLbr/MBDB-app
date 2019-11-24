@@ -19,9 +19,9 @@ namespace MBDBapp.Controllers.Api
     {
         private readonly IUnitOfWork _unitOfWork;
 
-        public CommentsController()
+        public CommentsController(IUnitOfWork unitOfWork)
         {
-            _unitOfWork = new UnitOfWork(new MoviesContext());
+            _unitOfWork = unitOfWork;
         }
 
         // Get comments for the given film id
