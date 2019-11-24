@@ -11,5 +11,7 @@ namespace MBDB_repositories.Interfaces
     public interface ICommentRepository : IRepository<Comment>
     {
         IEnumerable<CommentJsonModel> GetCommentsForGivenFilm(int filmID);
+
+        Comment PostCommentToDb(CommentDto comment);
     }
 }

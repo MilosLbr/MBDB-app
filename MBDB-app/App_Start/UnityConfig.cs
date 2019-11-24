@@ -3,7 +3,6 @@ using System.Web.Http;
 using Unity;
 using Unity.Mvc5;
 using MBDBapp.Controllers;
-using MBDBapp.Controllers.Api;
 using MBDB_repositories.Interfaces;
 using MBDB_repositories.Implementation;
 using Unity.Lifetime;

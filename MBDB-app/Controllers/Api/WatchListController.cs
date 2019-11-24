@@ -29,34 +29,19 @@ namespace MBDBapp.Controllers.Api
         // Get
         public IHttpActionResult Get()
         {
-
-            var userIdValue = User.Identity.GetUserId();
-
-            var userFromDb = _unitOfWork.Users.SingleOrDefault(u => u.Id.Equals(userIdValue));
-
-            var usersFilms = userFromDb.tblFilms.ToList();
-
-            var watchList = Mapper.Map<AspNetUser, UserDto>(userFromDb);
-
+            var watchList = _unitOfWork.Users.GetUsersWatchlist();
 
             return Ok(watchList);
-                
         }
 
         // Add film Id to watchlist of curent user
         [HttpPost]
         public IHttpActionResult InsertFilmToWatchList(int Id)
         {
-            var userId = User.Identity.GetUserId();
+            bool isFilmAlreadyInWatchlist = _unitOfWork.Users.AddFilmToWatchList(Id);
 
-            var filmToAdd = _unitOfWork.Films.Get(Id);
-
-            var currentUser = _unitOfWork.Users.SingleOrDefault(u => u.Id.Equals(userId));
-
-            if (currentUser.tblFilms.Contains(filmToAdd))
+            if (isFilmAlreadyInWatchlist)
                 return BadRequest("Film is already added to WatchList!");
-
-            currentUser.tblFilms.Add(filmToAdd);
 
             _unitOfWork.Complete();
 

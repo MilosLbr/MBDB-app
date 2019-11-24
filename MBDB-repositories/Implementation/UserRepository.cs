@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Data.Entity;
 using System.Security.Principal;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,6 +10,7 @@ using MBDB_datalib;
 using MBDB_datalib.Dto;
 using MBDB_repositories.Interfaces;
 using Microsoft.AspNet.Identity;
+using AutoMapper;
 
 
 namespace MBDB_repositories.Implementation
@@ -21,12 +23,12 @@ namespace MBDB_repositories.Implementation
 
         public LikeDislikeDto LikeAFilm(int Id)
         {
-            var filmLikesAndDislikes = dbcontext.FilmLikesAndDislikes1;
+            var filmLikesAndDislikes = Dbcontext.FilmLikesAndDislikes1;
 
             var userId = HttpContext.Current.User.Identity.GetUserId();
-            var user = dbcontext.AspNetUsers.Single(u => u.Id.Equals(userId));
+            var user = Dbcontext.AspNetUsers.Single(u => u.Id.Equals(userId));
 
-            var filmFromDb = dbcontext.Films.Single(f => f.FilmID.Equals(Id));
+            var filmFromDb = Dbcontext.Films.Single(f => f.FilmID.Equals(Id));
 
             // in db values are stored as bytes : 1 == true, 0 == false
             var userLikedFilm = user.FilmLikesAndDislikes.SingleOrDefault(f => f.FilmID.Equals(Id) && f.UserID.Equals(userId));
@@ -46,7 +48,7 @@ namespace MBDB_repositories.Implementation
                 userLikedFilm.IsDisliked = 0;
                 userLikedFilm.IsLiked = 1;
 
-                dbcontext.SaveChanges();
+                Dbcontext.SaveChanges();
 
                 var likeDislikeDto = new LikeDislikeDto
                 {
@@ -69,7 +71,7 @@ namespace MBDB_repositories.Implementation
                     IsDisliked = 0
                 });
 
-                dbcontext.SaveChanges();
+                Dbcontext.SaveChanges();
 
                 var likeDislikeDto = new LikeDislikeDto
                 {
@@ -84,12 +86,12 @@ namespace MBDB_repositories.Implementation
 
         public LikeDislikeDto DislikeAFilm(int Id)
         {
-            var filmLikesAndDislikes = dbcontext.FilmLikesAndDislikes1;
+            var filmLikesAndDislikes = Dbcontext.FilmLikesAndDislikes1;
 
             var userId = HttpContext.Current.User.Identity.GetUserId();
-            var user = dbcontext.AspNetUsers.Single(u => u.Id.Equals(userId));
+            var user = Dbcontext.AspNetUsers.Single(u => u.Id.Equals(userId));
 
-            var filmFromDb = dbcontext.Films.Single(f => f.FilmID.Equals(Id));
+            var filmFromDb = Dbcontext.Films.Single(f => f.FilmID.Equals(Id));
 
             // in db values are stored as bytes : 1 == true, 0 == false
             var userLikedFilm = user.FilmLikesAndDislikes.SingleOrDefault(f => f.FilmID.Equals(Id) && f.UserID.Equals(userId));
@@ -109,7 +111,7 @@ namespace MBDB_repositories.Implementation
                 userLikedFilm.IsDisliked = 1;
                 userLikedFilm.IsLiked = 0;
 
-                dbcontext.SaveChanges();
+                Dbcontext.SaveChanges();
 
                 var likeDislikeDto = new LikeDislikeDto
                 {
@@ -132,7 +134,7 @@ namespace MBDB_repositories.Implementation
                     IsDisliked = 1
                 });
 
-                dbcontext.SaveChanges();
+                Dbcontext.SaveChanges();
 
                 var likeDislikeDto = new LikeDislikeDto
                 {
@@ -145,7 +147,32 @@ namespace MBDB_repositories.Implementation
             }
         }
 
-        public MoviesContext dbcontext
+        public UserDto GetUsersWatchlist()
+        {
+            var userId = HttpContext.Current.User.Identity.GetUserId();
+
+            var userFromDb = Dbcontext.AspNetUsers.Include(u => u.tblFilms).SingleOrDefault(u => u.Id.Equals(userId));
+
+            return Mapper.Map<AspNetUser, UserDto>(userFromDb);
+        }
+
+        public bool AddFilmToWatchList(int filmId)
+        {
+            var userId = HttpContext.Current.User.Identity.GetUserId();
+
+            var currentUser = Dbcontext.AspNetUsers.SingleOrDefault(u => u.Id.Equals(userId));
+            var filmToAdd = Dbcontext.Films.Find(filmId);
+
+            if (currentUser.tblFilms.Contains(filmToAdd))
+                return true;
+
+            currentUser.tblFilms.Add(filmToAdd);
+
+            return false;
+
+        }
+
+        public MoviesContext Dbcontext
         {
             get { return Context as MoviesContext; }
         }

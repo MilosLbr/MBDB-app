@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 using MBDB_repositories.Interfaces;
 using MBDB_datalib;
 using MBDB_datalib.Dto;
+using AutoMapper;
+using System.Web;
+using Microsoft.AspNet.Identity;
 
 namespace MBDB_repositories.Implementation
 {
@@ -33,6 +36,20 @@ namespace MBDB_repositories.Implementation
                 .ToList();
 
             return commentsFromDb;
+        }
+
+        public Comment PostCommentToDb(CommentDto commentData)
+        {
+            var userId = HttpContext.Current.User.Identity.GetUserId();
+
+            commentData.DateAdded = DateTime.Now;
+            commentData.CommentUserID = userId;
+
+            var commentToAdd = Mapper.Map<CommentDto, Comment>(commentData);
+            
+            Add(commentToAdd);
+
+            return commentToAdd;
         }
 
         public MoviesContext DbContext { get { return Context as MoviesContext; } }

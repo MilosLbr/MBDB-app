@@ -39,26 +39,16 @@ namespace MBDBapp.Controllers.Api
         [Route("api/comments/")]
         public IHttpActionResult PostComment([FromBody]CommentDto commentData)
         {
-            var userIdValue = User.Identity.GetUserId();
 
-            var filmID = commentData.CommentFilmID;
-            var filmFromDb = _unitOfWork.Films.Get(filmID);
-
-            if (filmFromDb == null)
-                return BadRequest("Bad movie ID!");
             if (string.IsNullOrEmpty(commentData.CommentContent)
                 || string.IsNullOrWhiteSpace(commentData.CommentContent))
                 return BadRequest("Can not insert empty comment!");
 
-            commentData.DateAdded = DateTime.Now;
-            commentData.CommentUserID = userIdValue;
-            
-            var commentToAdd = Mapper.Map<CommentDto, Comment>(commentData);
 
-            _unitOfWork.Comments.Add(commentToAdd);
+            var commentInserted =_unitOfWork.Comments.PostCommentToDb(commentData);
             _unitOfWork.Complete();
 
-            commentData.CommentID = commentToAdd.CommentID;
+            commentData.CommentID = commentInserted.CommentID;
 
             return Created(new Uri(Request.RequestUri + "/" + commentData.CommentID), commentData);
         }

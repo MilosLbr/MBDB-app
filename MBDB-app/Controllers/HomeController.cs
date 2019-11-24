@@ -19,11 +19,6 @@ namespace MBDBapp.Controllers
             _unitOfWork = unitOfWork;
         }
 
-        //public HomeController()
-        //{
-        //    _unitOfWork = new UnitOfWork(new MoviesContext());
-        //}
-
         public ActionResult Index()
         {
             // Display three random films on the home page

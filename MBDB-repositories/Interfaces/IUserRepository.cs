@@ -12,5 +12,7 @@ namespace MBDB_repositories.Interfaces
     {
         LikeDislikeDto LikeAFilm(int Id);
         LikeDislikeDto DislikeAFilm(int Id);
+        UserDto GetUsersWatchlist();
+        bool AddFilmToWatchList(int Id);
     }
 }
