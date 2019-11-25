@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MBDB-datalib", "..\MBDB-dat
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MBDB-repositories", "..\MBDB-repositories\MBDB-repositories.csproj", "{CF96FA41-D6E3-4333-95E4-534D35E4918E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MBDB-tests", "..\MBDB-tests\MBDB-tests.csproj", "{BBA8CC2D-A18F-48DC-8E6F-AA7538C637FF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{CF96FA41-D6E3-4333-95E4-534D35E4918E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CF96FA41-D6E3-4333-95E4-534D35E4918E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CF96FA41-D6E3-4333-95E4-534D35E4918E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BBA8CC2D-A18F-48DC-8E6F-AA7538C637FF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BBA8CC2D-A18F-48DC-8E6F-AA7538C637FF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BBA8CC2D-A18F-48DC-8E6F-AA7538C637FF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BBA8CC2D-A18F-48DC-8E6F-AA7538C637FF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
