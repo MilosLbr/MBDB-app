@@ -5,6 +5,7 @@ using System.Web;
 using AutoMapper;
 using MBDB_datalib;
 using MBDB_datalib.Dto;
+using MBDBapp.Models;
 
 namespace MBDBapp.App_Start
 {
@@ -21,6 +22,8 @@ namespace MBDBapp.App_Start
             Mapper.CreateMap<FilmDto, Film>()
                 .ForMember(f => f.FilmID, opt => opt.Ignore());
 
+            Mapper.CreateMap<CreateAndEditFilmViewModel, Film>();
+            Mapper.CreateMap<Film, CreateAndEditFilmViewModel>();
             // Director
             Mapper.CreateMap<Director, DirectorDto>();
             Mapper.CreateMap<DirectorDto, Director>();

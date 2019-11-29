@@ -1,4 +1,4 @@
-﻿@model MBDB_datalib.Film
+﻿@model MBDBapp.Models.CreateAndEditFilmViewModel
 
 @{
     ViewBag.Title = "Edit";
@@ -37,7 +37,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.FilmDirectorID, "Director", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownList("FilmDirectorID", null, htmlAttributes: new { @class = "form-control" })
+                @Html.DropDownListFor(m => m.FilmDirectorID, new SelectList(Model.Directors, "DirectorID", "DirectorName"), htmlAttributes: new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.FilmDirectorID, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -45,7 +45,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.FilmLanguageID, "Language", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownList("FilmLanguageID", null, htmlAttributes: new { @class = "form-control" })
+                @Html.DropDownListFor(m => m.FilmLanguageID, new SelectList(Model.Languages, "LanguageID", "Language"), htmlAttributes: new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.FilmLanguageID, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -53,7 +53,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.FilmCountryID, "Country", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownList("FilmCountryID", null, htmlAttributes: new { @class = "form-control" })
+                @Html.DropDownListFor(m => m.FilmCountryID, new SelectList(Model.Countries, "CountryID", "CountryName"), htmlAttributes: new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.FilmCountryID, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -61,7 +61,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.FilmStudioID, "Studio", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownList("FilmStudioID", null, htmlAttributes: new { @class = "form-control" })
+                @Html.DropDownListFor(m => m.FilmStudioID, new SelectList(Model.Studios, "StudioID", "StudioName"), htmlAttributes: new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.FilmStudioID, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -85,7 +85,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.FilmCertificateID, "Certificate", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownList("FilmCertificateID", null, htmlAttributes: new { @class = "form-control" })
+                @Html.DropDownListFor(m => m.FilmCertificateID, new SelectList(Model.Certificates, "CertificateID", "Certificate"), htmlAttributes: new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.FilmCertificateID, "", new { @class = "text-danger" })
             </div>
         </div>

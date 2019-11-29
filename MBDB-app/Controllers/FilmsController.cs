@@ -27,7 +27,6 @@ namespace MBDBapp.Controllers
         // GET: Films
         public ActionResult Index()
         {
-
             if (User.IsInRole(RoleNames.CanManageDatabase))
                 return View("List");
 
@@ -55,36 +54,38 @@ namespace MBDBapp.Controllers
         [Authorize(Roles = RoleNames.CanManageDatabase)]
         public ActionResult Create()
         {
-            ViewBag.FilmCertificateID = new SelectList(_unitOfWork.Certificates.GetAll(), "CertificateID", "Certificate");
-            ViewBag.FilmCountryID = new SelectList(_unitOfWork.Countries.GetAll(), "CountryID", "CountryName");
-            ViewBag.FilmDirectorID = new SelectList(_unitOfWork.Directors.GetAll(), "DirectorID", "DirectorName");
-            ViewBag.FilmLanguageID = new SelectList(_unitOfWork.Languages.GetAll(), "LanguageID", "Language");
-            ViewBag.FilmStudioID = new SelectList(_unitOfWork.Studios.GetAll(), "StudioID", "StudioName");
-            return View();
+            
+            var viewModel = new CreateAndEditFilmViewModel
+            {
+                Certificates = _unitOfWork.Certificates.GetAll(),
+                Countries = _unitOfWork.Countries.GetAll(),
+                Directors = _unitOfWork.Directors.GetAll(),
+                Languages = _unitOfWork.Languages.GetAll(),
+                Studios = _unitOfWork.Studios.GetAll()
+
+            };
+
+            return View(viewModel);
         }
 
         // POST: Films/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = RoleNames.CanManageDatabase)]
-        public ActionResult Create([Bind(Include = "FilmID, FilmName,FilmReleaseDate,FilmDirectorID,FilmLanguageID,FilmCountryID,FilmStudioID,FilmSynopsis,FilmRunTimeMinutes,FilmCertificateID,FilmBudgetDollars,FilmBoxOfficeDollars,FilmOscarNominations,FilmOscarWins")] Film tblFilm)
+        public ActionResult Create(CreateAndEditFilmViewModel filmVM)
         {
             if (ModelState.IsValid)
             {
-                _unitOfWork.Films.Add(tblFilm);
+                var filmToAdd = Mapper.Map<CreateAndEditFilmViewModel, Film>(filmVM);
+
+                _unitOfWork.Films.Add(filmToAdd);
                 _unitOfWork.Complete();
 
                 return RedirectToAction("Index");
             }
 
-            ViewBag.FilmCertificateID = new SelectList(_unitOfWork.Certificates.GetAll(), "CertificateID", "Certificate", tblFilm.FilmCertificateID);
-            ViewBag.FilmCountryID = new SelectList(_unitOfWork.Countries.GetAll(), "CountryID", "CountryName", tblFilm.FilmCountryID);
-            ViewBag.FilmDirectorID = new SelectList(_unitOfWork.Directors.GetAll(), "DirectorID", "DirectorName", tblFilm.FilmDirectorID);
-            ViewBag.FilmLanguageID = new SelectList(_unitOfWork.Languages.GetAll(), "LanguageID", "Language", tblFilm.FilmLanguageID);
-            ViewBag.FilmStudioID = new SelectList(_unitOfWork.Studios.GetAll(), "StudioID", "StudioName", tblFilm.FilmStudioID);
-            return View(tblFilm);
+
+            return View(filmVM);
         }
 
         // GET: Films/Edit/5
@@ -97,37 +98,34 @@ namespace MBDBapp.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.FilmCertificateID = new SelectList(_unitOfWork.Certificates.GetAll(), "CertificateID", "Certificate", filmFromDb.FilmCertificateID);
-            ViewBag.FilmCountryID = new SelectList(_unitOfWork.Countries.GetAll(), "CountryID", "CountryName", filmFromDb.FilmCountryID);
-            ViewBag.FilmDirectorID = new SelectList(_unitOfWork.Directors.GetAll(), "DirectorID", "DirectorName", filmFromDb.FilmDirectorID);
-            ViewBag.FilmLanguageID = new SelectList(_unitOfWork.Languages.GetAll(), "LanguageID", "Language", filmFromDb.FilmLanguageID);
-            ViewBag.FilmStudioID = new SelectList(_unitOfWork.Studios.GetAll(), "StudioID", "StudioName", filmFromDb.FilmStudioID);
+            var viewModel = Mapper.Map<Film, CreateAndEditFilmViewModel>(filmFromDb);
 
-            return View(filmFromDb);
+            viewModel.Certificates = _unitOfWork.Certificates.GetAll();
+            viewModel.Countries = _unitOfWork.Countries.GetAll();
+            viewModel.Directors = _unitOfWork.Directors.GetAll();
+            viewModel.Languages = _unitOfWork.Languages.GetAll();
+            viewModel.Studios = _unitOfWork.Studios.GetAll();
+
+            return View(viewModel);
         }
 
         // POST: Films/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = RoleNames.CanManageDatabase)]
-        public ActionResult Edit([Bind(Include = "FilmID,FilmName,FilmReleaseDate,FilmDirectorID,FilmLanguageID,FilmCountryID,FilmStudioID,FilmSynopsis,FilmRunTimeMinutes,FilmCertificateID,FilmBudgetDollars,FilmBoxOfficeDollars,FilmOscarNominations,FilmOscarWins")] Film tblFilm)
+        public ActionResult Edit( CreateAndEditFilmViewModel filmVM)
         {
             if (ModelState.IsValid)
             {
-                _unitOfWork.Films.Update(tblFilm);
+                var updateFilm = Mapper.Map<CreateAndEditFilmViewModel, Film>(filmVM);
+
+                _unitOfWork.Films.Update(updateFilm);
                 _unitOfWork.Complete();
 
                 return RedirectToAction("Index");
             }
 
-            ViewBag.FilmCertificateID = new SelectList(_unitOfWork.Certificates.GetAll(), "CertificateID", "Certificate", tblFilm.FilmCertificateID);
-            ViewBag.FilmCountryID = new SelectList(_unitOfWork.Countries.GetAll(), "CountryID", "CountryName", tblFilm.FilmCountryID);
-            ViewBag.FilmDirectorID = new SelectList(_unitOfWork.Directors.GetAll(), "DirectorID", "DirectorName", tblFilm.FilmDirectorID);
-            ViewBag.FilmLanguageID = new SelectList(_unitOfWork.Languages.GetAll(), "LanguageID", "Language", tblFilm.FilmLanguageID);
-            ViewBag.FilmStudioID = new SelectList(_unitOfWork.Studios.GetAll(), "StudioID", "StudioName", tblFilm.FilmStudioID);
-            return View(tblFilm);
+            return View(filmVM);
         }
 
         // GET: Films/Delete/5
