@@ -1,0 +1,20 @@
+﻿
+@{
+    ViewBag.Title = "CreateNewRole";
+}
+
+<h2>CreateNewRole</h2>
+
+@using (Html.BeginForm("CreateNewRole", "ManageUsers", FormMethod.Post))
+{
+
+
+    @Html.AntiForgeryToken()
+
+    @Html.TextBox("roleName")
+    <button>Create role</button>
+}
+
+<div class="text-danger">
+    @ViewBag.errorMessage
+</div>

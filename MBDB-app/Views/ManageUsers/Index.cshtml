@@ -1,0 +1,80 @@
+﻿@model MBDBapp.Models.EditUsersViewModel
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+@Html.ActionLink("Create New Role", "CreateNewRole")
+
+<table id="usersTable" class="table-bordered table">
+    <tr>
+        <th>User Id</th>
+        <th>User Name</th>
+        <th>User Roles</th>
+    </tr>
+    @foreach (var user in Model.Users)
+    {
+        <tr>
+            <td>@user.Id</td>
+            <td><a href="" class="username" data-toggle="modal" data-target="#modalForm" data-userId=@user.Id data-userName=@user.UserName>@user.UserName</a></td>
+            <td>
+                @foreach (var role in user.UserRoles)
+                {
+                    @role.Name
+                }
+
+            </td>
+        </tr>
+
+    }
+</table>
+
+
+<div class="modal fade" id="modalForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header text-center">
+                <h4 class="modal-title w-100 font-weight-bold">Edit <span id="userName"></span> 's roles</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body mx-3">
+
+
+                <div class="md-form mb-4">
+                    <h4>Roles:</h4>
+                    <ul id="userRoles">
+                    </ul>
+                </div>
+
+            </div>
+            <div class="modal-footer ">
+                <div class="form-group form-inline row justify-content-bw">
+                    @Html.DropDownListFor(m => m.AllRoles, new SelectList(Model.AllRoles, "Id", "Name"), htmlAttributes: new { @class = "form-control" })
+                    <button data-userid="" id="addRoleBtn" class="btn btn-primary">Add role</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section scripts{
+
+    @Scripts.Render("~/bundles/ManageRoles");
+    <script>
+        initialize();
+        $(document).ready(function () {
+
+            $("#usersTable").on("click", ".username", fillDialog)
+            let userRoles = $('#userRoles');
+        });
+
+
+
+    </script>
+
+}

@@ -49,6 +49,10 @@ namespace MBDBapp.App_Start
             Mapper.CreateMap<Comment, CommentDto>();
             Mapper.CreateMap<CommentDto, Comment>();
 
+            //Role
+            Mapper.CreateMap<AspNetRole, RoleDto>();
+            Mapper.CreateMap<RoleDto, AspNetRole>();
+
         }
 
         

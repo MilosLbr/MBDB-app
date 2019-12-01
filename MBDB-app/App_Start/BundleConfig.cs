@@ -33,6 +33,13 @@ namespace MBDBapp
                     "~/Scripts/FilmDetails/filmDetails.js"
                 ));
 
+            bundles.Add(new ScriptBundle("~/bundles/ManageRoles").Include(
+                "~/Scripts/ManageRoles/functions/FillListOfRolesInModal.js",
+                "~/Scripts/ManageRoles/functions/FillDialog.js",
+                "~/Scripts/ManageRoles/functions/AddRoleToUser.js",
+                "~/Scripts/ManageRoles/manageRoles.js"
+                ));
+
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
                       "~/Scripts/bootstrap.js",
                       "~/Scripts/bootbox.js"));

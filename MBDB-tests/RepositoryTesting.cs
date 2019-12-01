@@ -1,5 +1,4 @@
 ﻿using MBDB_datalib;
-using MBDB_repositories.Interfaces;
 using Moq;
 using System.Data.Entity;
 using NUnit.Framework;
@@ -9,7 +8,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using MBDB_repositories.Implementation;
-using Xunit.Sdk;
 
 namespace MBDB_tests
 {

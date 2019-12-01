@@ -212,19 +212,23 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\Api\FilmsController.cs" />
+    <Compile Include="Controllers\Api\ManageUsersController.cs" />
     <Compile Include="Controllers\Api\WatchListController.cs" />
     <Compile Include="Controllers\FilmsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\ManageUsersController.cs" />
     <Compile Include="Controllers\WatchListController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\CreateAndEditFilmViewModel.cs" />
+    <Compile Include="Models\EditUsersViewModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\RoleNames.cs" />
+    <Compile Include="Models\UserViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -510,6 +514,10 @@
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\ManageRoles\functions\AddRoleToUser.js" />
+    <Content Include="Scripts\ManageRoles\functions\FillDialog.js" />
+    <Content Include="Scripts\ManageRoles\functions\FillListOfRolesInModal.js" />
+    <Content Include="Scripts\ManageRoles\manageRoles.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
     <Content Include="Scripts\moment-with-locales.js" />
     <Content Include="Scripts\moment-with-locales.min.js" />
@@ -558,6 +566,8 @@
     <Content Include="Views\Films\ReadOnlyList.cshtml" />
     <Content Include="Views\Films\List.cshtml" />
     <Content Include="Views\WatchList\WatchList.cshtml" />
+    <Content Include="Views\ManageUsers\Index.cshtml" />
+    <Content Include="Views\ManageUsers\CreateNewRole.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -74,6 +74,7 @@
     <Compile Include="Implementation\StudioRepository.cs" />
     <Compile Include="Implementation\UnitOfWork.cs" />
     <Compile Include="Implementation\UserRepository.cs" />
+    <Compile Include="Implementation\UserRolesRepository.cs" />
     <Compile Include="Interfaces\ICertificateRepository.cs" />
     <Compile Include="Interfaces\ICommentRepository.cs" />
     <Compile Include="Interfaces\ICountryRepository.cs" />
@@ -84,6 +85,7 @@
     <Compile Include="Interfaces\IUnitOfWork.cs" />
     <Compile Include="Interfaces\IRepository.cs" />
     <Compile Include="Interfaces\IUserRepository.cs" />
+    <Compile Include="Interfaces\IUserRolesRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

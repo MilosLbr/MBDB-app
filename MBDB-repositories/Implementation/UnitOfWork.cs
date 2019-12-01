@@ -19,6 +19,7 @@ namespace MBDB_repositories.Implementation
         public IStudioRepository Studios { get; set; }
         public IUserRepository Users { get; set; }
         public ICommentRepository Comments { get; set; }
+        public IUserRolesRepository Roles { get; set; }
 
         public UnitOfWork(MoviesContext context)
         {
@@ -31,6 +32,7 @@ namespace MBDB_repositories.Implementation
             Studios = new StudioRepository(_context);
             Users = new UserRepository(_context);
             Comments = new CommentRepository(_context);
+            Roles = new UserRolesRepository(_context);
         }
 
         public int Complete()

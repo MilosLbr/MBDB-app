@@ -172,6 +172,13 @@ namespace MBDB_repositories.Implementation
 
         }
 
+        public IEnumerable<AspNetUser> GetUsersAndRoles()
+        {
+            var usersAndRoles = Dbcontext.AspNetUsers.Include(u => u.AspNetRoles).ToList();
+
+            return usersAndRoles;
+        }
+
         public MoviesContext Dbcontext
         {
             get { return Context as MoviesContext; }

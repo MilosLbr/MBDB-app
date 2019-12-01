@@ -16,6 +16,7 @@ namespace MBDB_repositories.Interfaces
         IStudioRepository Studios { get; }
         IUserRepository Users { get; }
         ICommentRepository Comments { get; }
+        IUserRolesRepository Roles { get; }
         int Complete();
     }
 }

@@ -14,5 +14,6 @@ namespace MBDB_repositories.Interfaces
         LikeDislikeDto DislikeAFilm(int Id);
         UserDto GetUsersWatchlist();
         bool AddFilmToWatchList(int Id);
+        IEnumerable<AspNetUser> GetUsersAndRoles();
     }
 }

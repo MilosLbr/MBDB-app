@@ -89,3 +89,7 @@ select {
     font-size: 1.15em;
     padding: 5px 5px 5px 0px;
 }
+
+a.username{
+    cursor:pointer;
+}

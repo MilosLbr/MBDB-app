@@ -23,6 +23,12 @@
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Films List", "Index", "Films")</li>
                     <li>@Html.ActionLink("About", "About", "Home")</li>
+                    @if (this.User.IsInRole("CanManageDatabase"))
+                    {
+                        <li>
+                            @Html.ActionLink("Manage Users", "Index", "ManageUsers")
+                        </li>
+                    }
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>

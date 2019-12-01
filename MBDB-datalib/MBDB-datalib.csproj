@@ -90,7 +90,9 @@
     <Compile Include="Dto\DirectorDto.cs" />
     <Compile Include="Dto\FilmDto.cs" />
     <Compile Include="Dto\LikeDislikeDto.cs" />
+    <Compile Include="Dto\RoleDto.cs" />
     <Compile Include="Dto\StudioDto.cs" />
+    <Compile Include="Dto\UserAndRoleJsonModel.cs" />
     <Compile Include="Dto\UserDto.cs" />
     <Compile Include="Film.cs">
       <DependentUpon>MoviesDbModel.tt</DependentUpon>
