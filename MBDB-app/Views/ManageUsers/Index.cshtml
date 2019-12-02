@@ -18,12 +18,14 @@
         <tr>
             <td>@user.Id</td>
             <td><a href="" class="username" data-toggle="modal" data-target="#modalForm" data-userId=@user.Id data-userName=@user.UserName>@user.UserName</a></td>
-            <td>
-                @foreach (var role in user.UserRoles)
-                {
-                    @role.Name
-                }
+            <td class="userRoles" data-userId=@user.Id>
+                <ul>
+                    @foreach (var role in user.UserRoles)
+                    {
+                        <li>@role.Name</li>
 
+                    }
+                </ul>
             </td>
         </tr>
 
@@ -46,14 +48,14 @@
 
                 <div class="md-form mb-4">
                     <h4>Roles:</h4>
-                    <ul id="userRoles">
-                    </ul>
+                    <div id="userRoles">
+                    </div>
                 </div>
 
             </div>
             <div class="modal-footer ">
                 <div class="form-group form-inline row justify-content-bw">
-                    @Html.DropDownListFor(m => m.AllRoles, new SelectList(Model.AllRoles, "Id", "Name"), htmlAttributes: new { @class = "form-control" })
+                    @Html.DropDownListFor(m => m.AllRoles, new SelectList(Model.AllRoles, "Name", "Name"), htmlAttributes: new { @class = "form-control" })
                     <button data-userid="" id="addRoleBtn" class="btn btn-primary">Add role</button>
                 </div>
             </div>
@@ -67,11 +69,6 @@
     @Scripts.Render("~/bundles/ManageRoles");
     <script>
         initialize();
-        $(document).ready(function () {
-
-            $("#usersTable").on("click", ".username", fillDialog)
-            let userRoles = $('#userRoles');
-        });
 
 
 

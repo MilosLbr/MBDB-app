@@ -1,10 +1,10 @@
 ﻿function addRoleToUser() {
 
-    let roleId = rolesDropdown.val();
-    let userId = $(this).data('userid');
-
+    let roleName = rolesDropdown.val();
+    let userId = $(this).attr('data-userid');
+    console.log(userId, ' sending t0 this id')
     let data = {
-        roleId,
+        roleName,
         userId
     }
 
@@ -15,11 +15,16 @@
     })
         .done((data) => {
             toastr.success("Successfully added a role to this user!");
-            fillListOfRolesInModal(data, userId)
+            
+            $(userRoles).html("");
+            let unorderedList = createListOfRoles(data, userId);
+
+            $(userRoles).append(unorderedList);
+
+            updateRolesInTheTable(userId);
         })
         .fail((data) => {
             toastr.error(data.responseJSON.message )
         })
 
-    console.log(roleId, userId, ' role and user');
 }

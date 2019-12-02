@@ -9,6 +9,6 @@ namespace MBDB_datalib.Dto
     public class UserAndRoleJsonModel
     {
         public string userId { get; set; }
-        public string roleId { get; set; }
+        public string roleName { get; set; }
     }
 }

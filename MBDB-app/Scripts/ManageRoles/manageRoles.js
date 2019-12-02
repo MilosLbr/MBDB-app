@@ -15,5 +15,6 @@ function initialize() {
 
         rolesDropdown = $("#AllRoles");
 
+        $(document).on("click", "button.js-deleteRole", removeRoleFromUser);
     });
 }

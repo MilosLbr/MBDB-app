@@ -34,7 +34,9 @@ namespace MBDBapp
                 ));
 
             bundles.Add(new ScriptBundle("~/bundles/ManageRoles").Include(
-                "~/Scripts/ManageRoles/functions/FillListOfRolesInModal.js",
+                "~/Scripts/ManageRoles/functions/CreateListOfRoles.js",
+                "~/Scripts/ManageRoles/functions/RemoveRoleFromUser.js",
+                "~/Scripts/ManageRoles/functions/UpdateRolesInTheTable.js",
                 "~/Scripts/ManageRoles/functions/FillDialog.js",
                 "~/Scripts/ManageRoles/functions/AddRoleToUser.js",
                 "~/Scripts/ManageRoles/manageRoles.js"

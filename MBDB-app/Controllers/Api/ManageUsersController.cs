@@ -37,7 +37,7 @@ namespace MBDBapp.Controllers.Api
         public IHttpActionResult AddRoleToTheUser(UserAndRoleJsonModel postData)
         {
             var user = _unitOfWork.Users.SingleOrDefault(u => u.Id.Equals(postData.userId));
-            var role = _unitOfWork.Roles.SingleOrDefault(r => r.Id.Equals(postData.roleId));
+            var role = _unitOfWork.Roles.SingleOrDefault(r => r.Name.Equals(postData.roleName));
 
             if (user.AspNetRoles.Contains(role))
             {
@@ -48,9 +48,33 @@ namespace MBDBapp.Controllers.Api
 
             _unitOfWork.Complete();
 
-            var usersRoles = user.AspNetRoles.Select(r => Mapper.Map<AspNetRole, RoleDto>(r));
+            var usersRoles = user.AspNetRoles.Select(r => new RoleDto
+            {
+                Id = r.Id,
+                Name = r.Name
+            });
 
             return Ok(usersRoles);
+        }
+
+        [HttpDelete]
+        public IHttpActionResult RemoveRoleFromUser(UserAndRoleJsonModel deleteData)
+        {
+            var role = _unitOfWork.Roles.SingleOrDefault(r => r.Name.Equals(deleteData.roleName));
+            var user = _unitOfWork.Users.SingleOrDefault(u => u.Id.Equals(deleteData.userId));
+
+            user.AspNetRoles.Remove(role);
+            _unitOfWork.Complete();
+
+            var usersRoles = user.AspNetRoles.Select(r => new RoleDto
+            {
+                Id = r.Id,
+                Name = r.Name
+            });
+
+            return Ok(usersRoles);
+
+
         }
     }
 }
