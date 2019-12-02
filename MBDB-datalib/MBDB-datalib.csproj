@@ -103,7 +103,6 @@
     <Compile Include="Genre.cs">
       <DependentUpon>MoviesDbModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="ModelMetadata.cs" />
     <Compile Include="MoviesDbModel.Context.cs">
       <DependentUpon>MoviesDbModel.Context.tt</DependentUpon>
       <AutoGen>True</AutoGen>

@@ -6,7 +6,5 @@ using System.ComponentModel.DataAnnotations;
 
 namespace MBDB_datalib
 {
-    [MetadataType(typeof(FilmMetaData))]
-    public partial class Film
-    { }
+    
 }

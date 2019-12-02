@@ -84,6 +84,12 @@ namespace MBDBapp.Controllers
                 return RedirectToAction("Index");
             }
 
+            filmVM.Certificates = _unitOfWork.Certificates.GetAll();
+            filmVM.Countries = _unitOfWork.Countries.GetAll();
+            filmVM.Directors = _unitOfWork.Directors.GetAll();
+            filmVM.Languages = _unitOfWork.Languages.GetAll();
+            filmVM.Studios = _unitOfWork.Studios.GetAll();
+
 
             return View(filmVM);
         }
