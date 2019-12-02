@@ -28,7 +28,11 @@ namespace MBDBapp.Controllers.Api
         {
             var user = _unitOfWork.Users.SingleOrDefault(u => u.Id.Equals(userId));
 
-            var roles = user.AspNetRoles.Select(r => Mapper.Map<AspNetRole, RoleDto>(r));
+            var roles = user.AspNetRoles.Select(r => new RoleDto
+            {
+                Id = r.Id,
+                Name = r.Name
+            });
 
             return Ok(roles);
         }
