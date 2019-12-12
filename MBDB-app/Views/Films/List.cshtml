@@ -18,12 +18,14 @@
             <th>Director</th>
             <th>Synopsis</th>
             <th>Runtime (min)</th>
+            <th>Genre</th>
             <th>Oscar Nominations</th>
             <th>Oscar Wins</th>
             <th>Actions</th>
         </tr>
     </thead>
 </table>
+
 
 @section scripts
 {
@@ -37,41 +39,53 @@
                         dataSrc: ''
                     },
                     columns: [
-                    {
-                        data: "filmName",
-                        render: (data, type, film) => {
-                            return "<a href = '/films/edit/" + film.filmID + "'>" + data + "</a>";
-                        }
-                    },
-                    {
-                        data: "filmReleaseDate",
-                        render: (data, type, film) => {
-                            return data.slice(0, 4);
-                        }
-                    },
-                    {
-                        data: "director.directorName"
-                    },
+                        {
+                            data: "filmName",
+                            render: (data, type, film) => {
+                                return "<a href = '/films/edit/" + film.filmID + "'>" + data + "</a>";
+                            }
+                        },
+                        {
+                            data: "filmReleaseDate",
+                            render: (data, type, film) => {
+                                return data.slice(0, 4);
+                            }
+                        },
+                        {
+                            data: "director.directorName"
+                        },
 
-                    {
-                        data: "filmSynopsis"
-                    },
-                    {
-                        data: "filmRunTimeMinutes"
-                    },
-                    {
-                        data: "filmOscarNominations"
-                    },
-                    {
-                        data: "filmOscarWins"
-                    },
-                    {
-                        data: "filmID",
-                        render: (data, type, film) => {
-                            return "<a href='/films/delete/" +data +"' class = 'btn-link js-delete' data-attribute-id=" + data + ">Delete</a>";
+                        {
+                            data: "filmSynopsis"
+                        },
+                        {
+                            data: "filmRunTimeMinutes"
+                        },
+                        {
+                            data: "genres",
+                            render: (data, type, film) => {
+                                let listOfGenres = "";
+
+                                data.forEach(el => {
+                                    listOfGenres += el.genreName;
+                                    listOfGenres += "<br/>"
+                                });
+                                return listOfGenres;
+                            }
+                        },
+                        {
+                            data: "filmOscarNominations"
+                        },
+                        {
+                            data: "filmOscarWins"
+                        },
+                        {
+                            data: "filmID",
+                            render: (data, type, film) => {
+                                return "<a href='/films/delete/" + data + "' class = 'btn-link js-delete' data-attribute-id=" + data + ">Delete</a>";
+                            }
                         }
-                    }
-                ]
+                    ]
                 }
             );
 
@@ -80,9 +94,8 @@
 
     </script>
 
-
-
 }
+
 
 
 

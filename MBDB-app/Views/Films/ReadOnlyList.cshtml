@@ -18,6 +18,7 @@
             <th>Actors</th>
             <th>Synopsis</th>
             <th>Runtime (min)</th>
+            <th>Genres</th>
             <th>Oscar Nominations</th>
             <th>Oscar Wins</th>
             <th>Add to WatchList</th>
@@ -79,6 +80,18 @@
                     },
                     {
                         data: "filmRunTimeMinutes"
+                    },
+                    {
+                        data: "genres",
+                        render: (data, type, film) => {
+                            let listOfGenres = "";
+
+                            data.forEach(el => {
+                                listOfGenres += el.genreName;
+                                listOfGenres += "<br/>"
+                            });
+                            return listOfGenres;
+                        }
                     },
                     {
                         data: "filmOscarNominations"

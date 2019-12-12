@@ -69,6 +69,7 @@
     <Compile Include="Implementation\CountryRepository.cs" />
     <Compile Include="Implementation\DirectorRepository.cs" />
     <Compile Include="Implementation\FilmRepository.cs" />
+    <Compile Include="Implementation\GenreRepository.cs" />
     <Compile Include="Implementation\LanguageRepository.cs" />
     <Compile Include="Implementation\Repository.cs" />
     <Compile Include="Implementation\StudioRepository.cs" />
@@ -80,6 +81,7 @@
     <Compile Include="Interfaces\ICountryRepository.cs" />
     <Compile Include="Interfaces\IDirectorRepository.cs" />
     <Compile Include="Interfaces\IFilmRepository.cs" />
+    <Compile Include="Interfaces\IGenreRepository.cs" />
     <Compile Include="Interfaces\ILanguagesRepository.cs" />
     <Compile Include="Interfaces\IStudioRepository.cs" />
     <Compile Include="Interfaces\IUnitOfWork.cs" />

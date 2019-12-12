@@ -37,6 +37,7 @@
         <EntityTypeShape EntityType="MoviesModel.FilmLikesAndDislikes" Width="1.5" PointX="5.375" PointY="4.5" />
         <AssociationConnector Association="MoviesModel.FK_FilmLikesAndDislikes_AspNetUsers" />
         <AssociationConnector Association="MoviesModel.FK_FilmLikesAndDislikes_tblFilm" />
+        <AssociationConnector Association="MoviesModel.FilmGenres" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

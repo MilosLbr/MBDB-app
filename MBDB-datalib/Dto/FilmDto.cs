@@ -42,6 +42,7 @@ namespace MBDB_datalib.Dto
         public DirectorDto Director { get; set; }
 
         public ICollection <CastDto> CastMembers { get; set; }
+        public ICollection <GenreDto> Genres { get; set; }
 
         public StudioDto Studio { get; set; }
     }

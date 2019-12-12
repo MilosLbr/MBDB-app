@@ -76,6 +76,14 @@
           <Property Name="CommentUserID" Type="nvarchar" MaxLength="128" Nullable="false" />
           <Property Name="DateAdded" Type="date" Nullable="false" />
         </EntityType>
+        <EntityType Name="FilmGenres">
+          <Key>
+            <PropertyRef Name="FilmId" />
+            <PropertyRef Name="GenreId" />
+          </Key>
+          <Property Name="FilmId" Type="int" Nullable="false" />
+          <Property Name="GenreId" Type="bigint" Nullable="false" />
+        </EntityType>
         <EntityType Name="FilmLikesAndDislikes">
           <Key>
             <PropertyRef Name="FilmID" />
@@ -155,8 +163,8 @@
           <Property Name="FilmBoxOfficeDollars" Type="int" />
           <Property Name="FilmOscarNominations" Type="int" />
           <Property Name="FilmOscarWins" Type="int" />
-          <Property Name="FilmLikes" Type="int" StoreGeneratedPattern="None" />
-          <Property Name="FilmDislikes" Type="int" StoreGeneratedPattern="None" />
+          <Property Name="FilmLikes" Type="int" />
+          <Property Name="FilmDislikes" Type="int" />
         </EntityType>
         <EntityType Name="tblGenre">
           <Key>
@@ -268,6 +276,34 @@
             </Principal>
             <Dependent Role="AspNetUserRoles">
               <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FilmGenres_tblFilm">
+          <End Role="tblFilm" Type="Self.tblFilm" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="FilmGenres" Type="Self.FilmGenres" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblFilm">
+              <PropertyRef Name="FilmID" />
+            </Principal>
+            <Dependent Role="FilmGenres">
+              <PropertyRef Name="FilmId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FilmGenres_tblGenre">
+          <End Role="tblGenre" Type="Self.tblGenre" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="FilmGenres" Type="Self.FilmGenres" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblGenre">
+              <PropertyRef Name="GenreId" />
+            </Principal>
+            <Dependent Role="FilmGenres">
+              <PropertyRef Name="GenreId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -421,6 +457,7 @@
           <EntitySet Name="AspNetUserRoles" EntityType="Self.AspNetUserRoles" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUsers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Comments" EntityType="Self.Comments" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="FilmGenres" EntityType="Self.FilmGenres" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="FilmLikesAndDislikes" EntityType="Self.FilmLikesAndDislikes" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblActor" EntityType="Self.tblActor" Schema="dbo" store:Type="Tables" />
@@ -456,6 +493,14 @@
           <AssociationSet Name="FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="AspNetUserRoles" EntitySet="AspNetUserRoles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FilmGenres_tblFilm" Association="Self.FK_FilmGenres_tblFilm">
+            <End Role="tblFilm" EntitySet="tblFilm" />
+            <End Role="FilmGenres" EntitySet="FilmGenres" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FilmGenres_tblGenre" Association="Self.FK_FilmGenres_tblGenre">
+            <End Role="tblGenre" EntitySet="tblGenre" />
+            <End Role="FilmGenres" EntitySet="FilmGenres" />
           </AssociationSet>
           <AssociationSet Name="FK_FilmLikesAndDislikes_AspNetUsers" Association="Self.FK_FilmLikesAndDislikes_AspNetUsers">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
@@ -644,6 +689,7 @@
           <NavigationProperty Name="FilmLikesAndDislikes" Relationship="MoviesModel.FK_FilmLikesAndDislikes_tblFilm" FromRole="Film" ToRole="FilmLikesAndDislikes" />
           <Property Name="FilmLikes" Type="Int32" annotation:StoreGeneratedPattern="None" DefaultValue="0" />
           <Property Name="FilmDislikes" Type="Int32" annotation:StoreGeneratedPattern="None" DefaultValue="0" />
+          <NavigationProperty Name="tblGenres" Relationship="MoviesModel.FilmGenres" FromRole="Film" ToRole="Genre" />
         </EntityType>
         <EntityType Name="Genre">
           <Key>
@@ -651,6 +697,7 @@
           </Key>
           <Property Name="GenreId" Type="Int64" Nullable="false" />
           <Property Name="GenreName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="tblFilms" Relationship="MoviesModel.FilmGenres" FromRole="Genre" ToRole="Film" />
         </EntityType>
         <EntityType Name="tblLanguage">
           <Key>
@@ -838,6 +885,10 @@
             <End Role="Film" EntitySet="Films" />
             <End Role="FilmLikesAndDislikes" EntitySet="FilmLikesAndDislikes1" />
           </AssociationSet>
+          <AssociationSet Name="FilmGenres" Association="MoviesModel.FilmGenres">
+            <End Role="Film" EntitySet="Films" />
+            <End Role="Genre" EntitySet="Genres" />
+          </AssociationSet>
         </EntityContainer>
         <Association Name="FK_tblCast_tblActor">
           <End Type="MoviesModel.Actor" Role="Actor" Multiplicity="0..1">
@@ -960,6 +1011,10 @@
               <PropertyRef Name="FilmID" />
             </Dependent>
           </ReferentialConstraint>
+        </Association>
+        <Association Name="FilmGenres">
+          <End Type="MoviesModel.Film" Role="Film" Multiplicity="*" />
+          <End Type="MoviesModel.Genre" Role="Genre" Multiplicity="*" />
         </Association>
       </Schema>
     </edmx:ConceptualModels>
@@ -1162,6 +1217,14 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <AssociationSetMapping Name="FilmGenres" TypeName="MoviesModel.FilmGenres" StoreEntitySet="FilmGenres">
+            <EndProperty Name="Genre">
+              <ScalarProperty Name="GenreId" ColumnName="GenreId" />
+            </EndProperty>
+            <EndProperty Name="Film">
+              <ScalarProperty Name="FilmID" ColumnName="FilmId" />
+            </EndProperty>
+          </AssociationSetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

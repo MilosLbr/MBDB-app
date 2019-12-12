@@ -23,6 +23,7 @@ namespace MBDB_datalib
             this.AspNetUsers = new HashSet<AspNetUser>();
             this.Comments = new HashSet<Comment>();
             this.FilmLikesAndDislikes = new HashSet<FilmLikesAndDislikes>();
+            this.tblGenres = new HashSet<Genre>();
         }
     
         public int FilmID { get; set; }
@@ -55,5 +56,7 @@ namespace MBDB_datalib
         public virtual ICollection<Comment> Comments { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<FilmLikesAndDislikes> FilmLikesAndDislikes { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Genre> tblGenres { get; set; }
     }
 }

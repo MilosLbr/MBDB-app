@@ -14,7 +14,16 @@ namespace MBDB_datalib
     
     public partial class Genre
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Genre()
+        {
+            this.tblFilms = new HashSet<Film>();
+        }
+    
         public long GenreId { get; set; }
         public string GenreName { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Film> tblFilms { get; set; }
     }
 }

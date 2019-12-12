@@ -17,7 +17,19 @@
         </div>
 
         <div class="col-md-6 flex-column justify-content-bw">
-            <h4 class="text-center" id="genres" style="font-weight :bolder "></h4>
+            <h4 class="text-center" id="genres" style="font-weight :bolder ">
+                @{
+                    var allGenres = "";
+                }
+                @foreach (var genre in Model.Genres)
+                {
+                    allGenres += genre.GenreName + ", ";
+                }
+                @{
+                    allGenres = string.Join("", allGenres.Take(allGenres.Length - 2));
+                  }
+                @allGenres
+            </h4>
             <p>
                 @Model.FilmSynopsis
             </p>

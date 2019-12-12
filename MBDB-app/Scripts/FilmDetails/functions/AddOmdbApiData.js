@@ -5,7 +5,7 @@ function addOmdbData() {
         url: omdbapi + movieName,
     }).then(data => {
 
-        $("#genres").html(data.Genre)
+        // $("#genres").html(data.Genre)
 
         $("#mainInfo img").attr('src', data.Poster);
 
