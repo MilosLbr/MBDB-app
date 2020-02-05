@@ -119,13 +119,14 @@ namespace MBDBapp.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = RoleNames.CanManageDatabase)]
-        public ActionResult Edit( CreateAndEditFilmViewModel filmVM)
+        public ActionResult Edit(int id, CreateAndEditFilmViewModel filmVM)
         {
             if (ModelState.IsValid)
             {
-                var updateFilm = Mapper.Map<CreateAndEditFilmViewModel, Film>(filmVM);
+                var filmToUpdate = _unitOfWork.Films.Get(id);
 
-                _unitOfWork.Films.Update(updateFilm);
+                Mapper.Map(filmVM, filmToUpdate);
+
                 _unitOfWork.Complete();
 
                 return RedirectToAction("Index");
