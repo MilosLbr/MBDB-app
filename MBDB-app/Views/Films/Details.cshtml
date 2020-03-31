@@ -11,72 +11,75 @@
 <hr />
 
 <div>
-    <div id="mainInfo" class="mainInfo row  justify-content-around " style="margin-bottom : 30px">
-        <div class="col-md-5">
-            <img class="img-responsive" src="" alt="Poster" />
-        </div>
-
-        <div class="col-md-6 flex-column justify-content-bw">
-            <h4 class="text-center" id="genres" style="font-weight :bolder ">
-                @{
-                    var allGenres = "";
-                }
-                @foreach (var genre in Model.Genres)
-                {
-                    allGenres += genre.GenreName + ", ";
-                }
-                @{
-                    allGenres = string.Join("", allGenres.Take(allGenres.Length - 2));
-                  }
-                @allGenres
-            </h4>
-            <p>
-                @Model.FilmSynopsis
-            </p>
-
-            <p>
-                <strong>Runtime: &nbsp;</strong>@Model.FilmRunTimeMinutes min
-            </p>
-
-            <div id="ratings" class="raiting row">
-                <strong class="col-md-4">IMDB: </strong>
-                <strong class="col-md-4">Rotten Tomatoes: </strong>
-                <strong class="col-md-4">Metacritic: </strong>
+    <div class="container">
+        <div id="mainInfo" class="mainInfo row  justify-content-around " style="margin-bottom : 30px">
+            <div class="col-xs-12 col-md-5">
+                <img class="img-responsive" style="margin:auto;" src="" alt="Poster" />
             </div>
 
-            <p>
-                <strong>Director:</strong> @Model.Director.DirectorName
-            </p>
-
-
-
-            <p>
-                @if (Model.CastMembers.Count != 0)
-                {
-                    var actors = Model.CastMembers.Select(c => c.Actor.ActorName);
-
-                    var allActors = "";
-                    foreach (var actor in actors)
+            <div class="col-xs-12 col-md-6 flex-column justify-content-bw">
+                <h4 class="text-center" id="genres" style="font-weight :bolder ">
+                    @{
+                        var allGenres = "";
+                    }
+                    @foreach (var genre in Model.Genres)
                     {
-                        allActors += actor + ", ";
+                        allGenres += genre.GenreName + ", ";
+                    }
+                    @{
+                        allGenres = string.Join("", allGenres.Take(allGenres.Length - 2));
+                    }
+                    @allGenres
+                </h4>
+                <p>
+                    @Model.FilmSynopsis
+                </p>
+
+                <p>
+                    <strong>Runtime: &nbsp;</strong>@Model.FilmRunTimeMinutes min
+                </p>
+
+                <div id="ratings" class="raiting row">
+                    <strong class="col-xs-12 col-md-4">IMDB: </strong>
+                    <strong class="col-xs-12 col-md-4">Rotten Tomatoes: </strong>
+                    <strong class="col-xs-12 col-md-4">Metacritic: </strong>
+                </div>
+
+                <p>
+                    <strong>Director:</strong> @Model.Director.DirectorName
+                </p>
+
+
+
+                <p>
+                    @if (Model.CastMembers.Count != 0)
+                    {
+                        var actors = Model.CastMembers.Select(c => c.Actor.ActorName);
+
+                        var allActors = "";
+                        foreach (var actor in actors)
+                        {
+                            allActors += actor + ", ";
+                        }
+
+                        allActors = string.Join("", allActors.Take(allActors.Length - 2));
+
+                        <strong>Actors:</strong><span>&nbsp;@allActors</span>
+
                     }
 
-                    allActors = string.Join("", allActors.Take(allActors.Length - 2));
-
-                    <strong>Actors:</strong><span>&nbsp;@allActors</span>
-
-                }
-
-            </p>
+                </p>
 
 
-            <ul>
-                <li><strong>Budget: </strong>@String.Format("{0:n0}", Model.FilmBudgetDollars) $</li>
-                <li><strong>Box office: </strong>@String.Format("{0:n0}", Model.FilmBoxOfficeDollars) $, Gains: @String.Format("{0:n0}", Model.FilmBoxOfficeDollars - Model.FilmBudgetDollars) $</li>
-                <li><strong>Oscar Nominations: </strong>@Model.FilmOscarNominations</li>
-                <li><strong>Oscar Wins: </strong>@Model.FilmOscarWins</li>
+                <ul>
+                    <li><strong>Budget: </strong>@String.Format("{0:n0}", Model.FilmBudgetDollars) $</li>
+                    <li><strong>Box office: </strong>@String.Format("{0:n0}", Model.FilmBoxOfficeDollars) $, Gains: @String.Format("{0:n0}", Model.FilmBoxOfficeDollars - Model.FilmBudgetDollars) $</li>
+                    <li><strong>Oscar Nominations: </strong>@Model.FilmOscarNominations</li>
+                    <li><strong>Oscar Wins: </strong>@Model.FilmOscarWins</li>
 
-            </ul>
+                </ul>
+            </div>
+
         </div>
 
     </div>
@@ -86,7 +89,7 @@
     <button id="addToWatchListBtn" class="btn btn-primary">+ Add to WatchList</button>
 </div>
 
-<div style="margin-bottom: 20px;" class="text-center row justify-content-around">
+<div style="margin-bottom: 20px;" class="text-center d-flex justify-content-around">
     <div class="col-xs-3">
         <button id="likeButton" class="btn btn-success"><i class="fa fa-thumbs-up fa-2x"></i></button>
         <span id="numOfLikes">@Model.FilmLikes</span>

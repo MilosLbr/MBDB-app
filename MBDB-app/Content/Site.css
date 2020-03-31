@@ -30,7 +30,7 @@ select {
     max-height:350px;
 }
 
-.row{
+.d-flex{
     display:flex;
 }
 
