@@ -11,7 +11,7 @@
         deleteBtn.attr("data-userid", userId);
 
         let listItem = $("<li>");
-        listItem.addClass("row justify-content-bw fl-align-center")
+        listItem.addClass("d-flex justify-content-bw fl-align-center")
         listItem.append(span);
         listItem.append(deleteBtn);
 

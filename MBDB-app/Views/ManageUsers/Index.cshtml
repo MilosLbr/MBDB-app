@@ -54,7 +54,7 @@
 
             </div>
             <div class="modal-footer ">
-                <div class="form-group form-inline row justify-content-bw">
+                <div class="form-group form-inline d-flex justify-content-bw">
                     @Html.DropDownListFor(m => m.AllRoles, new SelectList(Model.AllRoles, "Name", "Name"), htmlAttributes: new { @class = "form-control" })
                     <button data-userid="" id="addRoleBtn" class="btn btn-primary">Add role</button>
                 </div>
