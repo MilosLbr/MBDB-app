@@ -11,7 +11,9 @@ namespace MBDBapp
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
                         "~/Scripts/jquery-{version}.js",
                         "~/Scripts/DataTables/jquery.dataTables.js",
+                        "~/Scripts/DataTables/dataTables.responsive.min.js",
                         "~/Scripts/DataTables/dataTables.bootstrap.js",
+                        "~/Scripts/DataTables/responsive.bootstrap.min.js",
                         "~/Scripts/toastr.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
@@ -49,6 +51,7 @@ namespace MBDBapp
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
                       "~/Content/datatables/css/datatables.bootstrap.css",
+                      "~/Content/datatables/css/responsive.dataTables.css",
                       "~/Content/toastr.css",
                       "~/Content/font-awesome.css",
                       "~/Content/site.css"));

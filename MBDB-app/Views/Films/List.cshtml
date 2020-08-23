@@ -13,7 +13,7 @@
 <table id="filmsTable" class="table table-bordered table-hover table-striped">
     <thead>
         <tr>
-            <th>Film</th>
+            <th data-priority="1">Film</th>
             <th>Year</th>
             <th>Director</th>
             <th>Synopsis</th>
@@ -21,7 +21,7 @@
             <th>Genre</th>
             <th>Oscar Nominations</th>
             <th>Oscar Wins</th>
-            <th>Actions</th>
+            <th data-priority="2">Actions</th>
         </tr>
     </thead>
 </table>
@@ -34,6 +34,7 @@
 
             let table = $("#filmsTable").DataTable(
                 {
+                    responsive :true,
                     ajax: {
                         url: '/api/films',
                         dataSrc: ''

@@ -9,17 +9,17 @@
 
 <hr />
 
-<table id="filmsTable" class="table table-bordered table-hover table-striped">
+<table id="filmsTable" class="display table table-bordered table-hover table-striped">
     <thead>
         <tr>
-            <th>Film</th>
-            <th>Year</th>
+            <th data-priority="1">Film</th>
+            <th data-priority="2">Year</th>
             <th>Director</th>
-            <th>Actors</th>
+            <th >Actors</th>
             <th>Synopsis</th>
             <th>Runtime (min)</th>
-            <th>Genres</th>
-            <th>Oscar Nominations</th>
+            <th data-priority="3">Genres</th>
+            <th data-priority="4">Oscar Nominations</th>
             <th>Oscar Wins</th>
             <th>Add to WatchList</th>
         </tr>
@@ -33,14 +33,14 @@
             
             let table = $("#filmsTable").DataTable(
                 {
+                    responsive: true,
                     ajax: {
                         url: '/api/films',
                         dataSrc: ''
                     },
                     columnDefs: [
-                        { "width": "100px", targets: 3 },
-                        { "className" : "text-center vAlignMiddle", targets: 8},
-                        { "verticalAlign" : "middle", targets: 8},
+                        { "className" : "text-center vAlignMiddle", targets: [8,9]},
+                        { "verticalAlign" : "middle", targets: [8,9]},
                     ],
                     columns: [
                         {

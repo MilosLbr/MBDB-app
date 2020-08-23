@@ -8,10 +8,10 @@
 <table id="myWatchList" class="table table-bordered table-hover table-striped">
     <thead>
         <tr>
-            <th>Film name</th>
-            <th>Film Synopsis</th>
+            <th data-priority="1">Film name</th>
+            <th data-priority="2">Film Synopsis</th>
             <th>Director</th>
-            <th>Genres</th>
+            <th data-priority="3">Genres</th>
             <th>Actors</th>
             <th>Delete</th>
         </tr>
@@ -25,12 +25,13 @@
         $(document).ready(() => {
 
             let table = $("#myWatchList").DataTable({
+                responsive: true,
                 ajax: {
                     url: "/api/watchlist",
                     dataSrc: "films"
                 },
                 columnDefs: [
-                    {"width" : "100px", targets: 4}
+                    //{"width" : "100px", targets: 4}
                 ],
                 columns: [
                     {
